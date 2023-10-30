@@ -1,0 +1,26 @@
+USUARIO_COMUM:
+    
+    FUNCIONALIDADES:
+        - Cadastrar-se
+        - Logar
+        - Visualizar todos os animais
+        - Visualizar animal
+        - Cadastro de animal
+        - Visualizar todos os animais de um determinado sexo
+        - Realizar busca por nome
+        - Realizar busca por raça
+        - Realizar busca por idade
+        - Realizar a transferencia de um animal para outro usuario
+        - Deixar um animal publico ou privado (Inicalmente será privado)
+        - Colocar um animal para venda
+        - Visualizar animais que estão a venda
+    CASOS_DE_USO:
+    - Um animal só poderá ser editado ou deletado pelo seu dono
+    - Um animal só poderá ser excluido em até 48 horas após o cadastro
+
+ANIMAIS:
+    - Incialmente serão cadastrados somente Bovinos
+
+
+
+

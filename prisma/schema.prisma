@@ -1,0 +1,116 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum TypeAnimal {
+  OX
+  COW
+}
+
+model User {
+  id                 String               @id @default(uuid())
+  email              String               @unique
+  name               String
+  password           String
+  createdAt          DateTime             @default(now())
+  updatedAt          DateTime             @updatedAt
+  Animals            Animals[]
+  MarketItem         MarketItem[]
+  CommentsMarketIten commentsMarketIten[]
+  Phones             phones[]
+}
+
+model phones {
+  id        String   @id @default(uuid())
+  phone     String
+  userId    String?
+  User      User?    @relation(fields: [userId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Animals {
+  id                String              @id @default(uuid())
+  surname           String
+  isPublic          Boolean             @default(false)
+  type              TypeAnimal
+  dateOfBirth       DateTime
+  breed             BreedAnimals?       @relation(fields: [breedAnimalsId], references: [id])
+  breedAnimalsId    String?
+  childrensFather   Animals[]           @relation("father")
+  father            Animals?            @relation("father", fields: [fatherId], references: [id])
+  fatherId          String?             @unique @map("father")
+  Mother            Animals?            @relation("mother", fields: [motherId], references: [id])
+  motherId          String?             @unique @map("mother")
+  ChildrensMother   Animals[]           @relation("mother")
+  userId            String?
+  createdAt         DateTime            @default(now())
+  updatedAt         DateTime            @updatedAt
+  Vaccination       Vaccination[]
+  DailyAmountOfMilk DailyAmountOfMilk[]
+  User              User?               @relation(fields: [userId], references: [id])
+  MarketItem        MarketItem[]
+  WeightHistory     WeightHistory[]
+}
+
+model WeightHistory {
+  id        String   @id @default(uuid())
+  date      DateTime
+  weight    Float
+  Animals   Animals? @relation(fields: [animalsId], references: [id])
+  animalsId String?
+}
+
+model DailyAmountOfMilk {
+  id        String   @id @default(uuid())
+  date      DateTime
+  amount    Float
+  Animals   Animals? @relation(fields: [animalsId], references: [id])
+  animalsId String?
+}
+
+model Vaccination {
+  id        String   @id @default(uuid())
+  name      String
+  date      DateTime
+  Animals   Animals? @relation(fields: [animalsId], references: [id])
+  animalsId String?
+}
+
+model BreedAnimals {
+  id         String     @id @default(uuid())
+  typeAnimal TypeAnimal
+  breed      String
+  Animals    Animals[]
+}
+
+model MarketItem {
+  id                 String               @id @default(uuid())
+  title              String
+  Author             User?                @relation(fields: [authorId], references: [id])
+  authorId           String?
+  dateOfPost         DateTime             @default(now())
+  description        String
+  price              Float
+  Animals            Animals?             @relation(fields: [animalsId], references: [id])
+  animalsId          String?
+  commentsMarketIten commentsMarketIten[]
+}
+
+model commentsMarketIten {
+  id           String      @id @default(uuid())
+  text         String
+  dateOfPost   DateTime    @default(now())
+  MarketItem   MarketItem? @relation(fields: [marketItemId], references: [id])
+  marketItemId String?
+  User         User?       @relation(fields: [userId], references: [id])
+  userId       String?
+}
