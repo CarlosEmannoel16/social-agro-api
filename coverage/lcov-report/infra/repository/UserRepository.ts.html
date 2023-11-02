@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">86.2% </span>
+                <span class="strong">73.01% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>50/58</span>
+                <span class='fraction'>46/63</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">66.66% </span>
+                <span class="strong">50% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>2/3</span>
+                <span class='fraction'>1/2</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">86.2% </span>
+                <span class="strong">73.01% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>50/58</span>
+                <span class='fraction'>46/63</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line high'></div>
+    <div class='status-line medium'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -121,12 +121,33 @@
 <a name='L56'></a><a href='#L56'>56</a>
 <a name='L57'></a><a href='#L57'>57</a>
 <a name='L58'></a><a href='#L58'>58</a>
-<a name='L59'></a><a href='#L59'>59</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L59'></a><a href='#L59'>59</a>
+<a name='L60'></a><a href='#L60'>60</a>
+<a name='L61'></a><a href='#L61'>61</a>
+<a name='L62'></a><a href='#L62'>62</a>
+<a name='L63'></a><a href='#L63'>63</a>
+<a name='L64'></a><a href='#L64'>64</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
@@ -154,22 +175,11 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
@@ -199,10 +209,10 @@ export default class UserRepository implements UserRepositoryInterface {
         Phones: {
           createMany: {
             data: item.phones.map((phone) =&gt; ({
-              phone: phone.number,
-              createdAt: phone.dateOfCreation,
-              updatedAt: phone.dateOfLastUpdated,
-            })),
+<span class="cstat-no" title="statement not covered" >              phone: phone.number,</span>
+<span class="cstat-no" title="statement not covered" >              createdAt: phone.dateOfCreation,</span>
+<span class="cstat-no" title="statement not covered" >              updatedAt: phone.dateOfLastUpdated,</span>
+<span class="cstat-no" title="statement not covered" >            })),</span>
           },
         },
       },
@@ -222,13 +232,18 @@ export default class UserRepository implements UserRepositoryInterface {
 &nbsp;
     const phones = data.Phones<span class="branch-0 cbranch-no" title="branch not covered" >?.map(</span>
       (phone) =&gt; new Phone(phone.phone, phone.createdAt, phone.updatedAt)
-    ) 
+    );
     user.addPhone(phones);
 &nbsp;
     return user;
   }
-<span class="fstat-no" title="function not covered" >  update(item: User): Promise&lt;void&gt; {</span>
-<span class="cstat-no" title="statement not covered" >    throw new Error("Method not implemented.");</span>
+<span class="fstat-no" title="function not covered" >  async update(item: User): Promise&lt;void&gt; {</span>
+<span class="cstat-no" title="statement not covered" >    await prisma.user.update({</span>
+<span class="cstat-no" title="statement not covered" >      data: item,</span>
+<span class="cstat-no" title="statement not covered" >      where: {</span>
+<span class="cstat-no" title="statement not covered" >        id: item.id,</span>
+<span class="cstat-no" title="statement not covered" >      },</span>
+<span class="cstat-no" title="statement not covered" >    });</span>
 <span class="cstat-no" title="statement not covered" >  }</span>
 <span class="fstat-no" title="function not covered" >  find(id: string): Promise&lt;User&gt; {</span>
 <span class="cstat-no" title="statement not covered" >    throw new Error("Method not implemented.");</span>
@@ -244,7 +259,7 @@ export default class UserRepository implements UserRepositoryInterface {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-10-27T16:53:09.590Z
+                at 2023-11-02T00:06:04.378Z
             </div>
         <script src="../../prettify.js"></script>
         <script>
