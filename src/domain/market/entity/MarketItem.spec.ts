@@ -30,7 +30,7 @@ describe("MarketItem unit tests", () => {
   it("should throw error when description muster have more than 100 characters ", () => {
     const mkItem = new MarketItem("id1", "title", new Date(), 1, '01');
     let description = "teste".padEnd(102, "a");
-    console.log('-=-=-=-==-=-=-',description.length);
+ 
     expect(() => {
       mkItem.changeDescription(description);
     }).toThrowError("Description must be up to 100 characters");

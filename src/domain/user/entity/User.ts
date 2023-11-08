@@ -74,7 +74,7 @@ export class User {
   }
 
   addPhone(phones: Phone[]) {
-    phones.forEach((phone) => {
+    phones?.forEach((phone) => {
       this.phones.push(phone);
     });
   }

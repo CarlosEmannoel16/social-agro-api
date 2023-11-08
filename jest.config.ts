@@ -9,7 +9,7 @@ const config: Config = {
   transform: {
     "^.+\.(t|j)sx?$": "@swc/jest",
   }, 
-  setupFilesAfterEnv: ['<rootDir>/src/infra/db/prisma/config/SingletonPrismaTest.ts'], 
+  setupFilesAfterEnv: ['<rootDir>/src/infra/@shared/db/prisma/config/SingletonPrismaTest.ts'], 
   // All imported modules in your tests should be mocked automatically
   // automock: false,
 
