@@ -13,6 +13,7 @@
     "@prisma/client": "^5.5.2",
     "@types/uuid": "^9.0.7",
     "express": "^4.18.2",
+    "nodemailer": "^6.9.7",
     "prisma": "^5.4.2",
     "typescript": "^5.2.2",
     "uuid": "^9.0.1"
