@@ -16,6 +16,9 @@ export class UpdateUserUseCase implements UpdateUserProtocolUseCase {
     });
 
     await this.userRepository.update(userFromUpdate);
-    return userFromUpdate
+    return {
+      email: userFromUpdate.email, id: userFromUpdate.id, name: userFromUpdate.name
+
+    }
   }
 }

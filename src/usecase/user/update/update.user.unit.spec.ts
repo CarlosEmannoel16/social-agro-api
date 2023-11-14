@@ -1,7 +1,7 @@
 import { User } from "../../../domain/user/entity/User";
 import { UserRepositoryInterface } from "../../../domain/user/repository/UserRepositoryInterface";
 import { UpdateUserUseCase } from "./UpdateUseCase";
-import { InputUpdateUserDTO } from "./UpdateUserDTO";
+import { InputUpdateUserDTO, OutputUpdateUserDTO } from "./UpdateUserDTO";
 
 const user = new User(
   "any_id",
@@ -20,23 +20,31 @@ const makeMockRepository = (): UserRepositoryInterface => ({
   update: jest.fn(),
 });
 
-
 const makeSut = () => {
+  const mockRepository = makeMockRepository();
 
-    const mockRepository = makeMockRepository();
+  const sut = new UpdateUserUseCase(mockRepository);
 
-    const sut = new UpdateUserUseCase(mockRepository);
-
-    return {sut, mockRepository}
-}
+  return { sut, mockRepository };
+};
 
 describe("Update User Unit Use Case", () => {
-  it("should update user", () => {
+  const { mockRepository, sut } = makeSut();
+  it("should update user", async () => {
     const input: InputUpdateUserDTO = {
-      email: "any_email",
       id: "any_id",
-      name: "any_name",
+      email: "any_email",
+      name: "any_name_updated",
       password: "any_password",
     };
+
+    mockRepository.find = jest.fn().mockResolvedValueOnce(user);
+
+    const result = await sut.execute(input)
+     expect(result).toEqual({
+       email: "any_email",
+       id: expect.any(String),
+       name: "any_name_updated",
+     });
   });
 });

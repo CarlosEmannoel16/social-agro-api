@@ -2,11 +2,11 @@ import { UserFactory } from "./UserFactory";
 
 describe("User Factory Unit Tests", () => {
   it("Should create a user with valid data", () => {
-    const user = UserFactory.createNewUser(
-      "emannoel",
-      "emannoel@email.com",
-      "123456"
-    );
+    const user = UserFactory.createNewUser({
+      email: "emannoel@email.com",
+      name: "emannoel",
+      password: "123456",
+    });
 
     expect(user).toHaveProperty("id");
     expect(user).toHaveProperty("name");

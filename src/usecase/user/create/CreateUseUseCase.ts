@@ -6,9 +6,11 @@ export default class CreateUserUseCase {
   constructor(private readonly userRepository: UserRepositoryInterface) {}
   async execute(data: InputCreateUserDTO): Promise<OutputCreateUserDTO> {
     const user = UserFactory.createNewUser(
-      data.name,
-      data.email,
-      data.password
+     {
+      email: data.email,
+      name: data.name,
+      password: data.password,
+     }
     );
 
     const userWithEmail = await this.userRepository.findByEmail(user.email);
