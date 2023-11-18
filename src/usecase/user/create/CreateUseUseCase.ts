@@ -1,17 +1,16 @@
 import { UserFactory } from "../../../domain/user/factory/UserFactory";
 import { UserRepositoryInterface } from "../../../domain/user/repository/UserRepositoryInterface";
+import { CreateUserUseCaseProtocol } from "../../../protocols/usecases/user/CreateUserUseCaseProtocol";
 import { InputCreateUserDTO, OutputCreateUserDTO } from "./CreateUserDTO";
 
-export default class CreateUserUseCase {
+export default class CreateUserUseCase implements CreateUserUseCaseProtocol {
   constructor(private readonly userRepository: UserRepositoryInterface) {}
   async execute(data: InputCreateUserDTO): Promise<OutputCreateUserDTO> {
-    const user = UserFactory.createNewUser(
-     {
+    const user = UserFactory.createNewUser({
       email: data.email,
       name: data.name,
       password: data.password,
-     }
-    );
+    });
 
     const userWithEmail = await this.userRepository.findByEmail(user.email);
     if (userWithEmail) throw new Error("Email informado não está disponível");

@@ -3,5 +3,5 @@ import request from 'supertest'
 
 describe('Test E2E User', ()=>{
 
-    beforeEach(()=>{})
+    beforeEach(async ()=>{})
 })
