@@ -2,9 +2,20 @@ import { Phone } from "../../../domain/user/entity/Phone";
 import { User } from "../../../domain/user/entity/User";
 import PrismaClient from "../../@shared/db/prisma/config/PrismaClient";
 import { UserRepositoryInterface } from "../../../domain/user/repository/UserRepositoryInterface";
+import { UserFactory } from "../../../domain/user/factory/UserFactory";
 export default class UserRepository implements UserRepositoryInterface {
-  findByEmail(email: string): Promise<User | undefined> {
-    throw new Error("Method not implemented.");
+  async findByEmail(email: string): Promise<User | undefined> {
+    const result = await PrismaClient.user.findUnique({ where: { email } });
+
+    if (!result) return undefined;
+
+    const user = UserFactory.createNewUser({
+      email: result?.email,
+      name: result?.name,
+      password: result?.password,
+    });
+
+    return user;
   }
   async create(item: User): Promise<User> {
     const data = await PrismaClient.user.create({
@@ -83,7 +94,7 @@ export default class UserRepository implements UserRepositoryInterface {
 
       return user;
     } catch (error) {
-      throw new Error('User not found');
+      throw new Error("User not found");
     }
   }
   findAll(): Promise<User[]> {

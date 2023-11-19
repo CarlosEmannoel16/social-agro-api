@@ -17,6 +17,7 @@ export class CreateUserController implements ControllerProtocol {
       });
       return response.status(201).json(result);
     } catch (error) {
+      console.log(error);
       return response.status(500).json({ message: "Internal Error" });
     }
   }
