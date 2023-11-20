@@ -6,7 +6,6 @@ export interface InputCreateAnimalDTO {
   isPublic: boolean;
   type: TypeAnimal;
   weight: number;
-  age: number;
   dateOfBirth: Date;
   motherId: string;
   image: string;
