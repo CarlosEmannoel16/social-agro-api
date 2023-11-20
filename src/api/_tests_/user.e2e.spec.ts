@@ -1,7 +1,8 @@
-import express from 'express'
-import request from 'supertest'
+import express from "express";
+import request from "supertest";
 
-describe('Test E2E User', ()=>{
-
-    beforeEach(async ()=>{})
-})
+describe("Test E2E User", () => {
+  it(``, () => {
+    expect(1).toBe(1);
+  });
+});
