@@ -1,7 +1,7 @@
 import { Animal } from "../../domain/animal/entity/Animal";
 import { AnimalRepositoryInterface } from "../../domain/animal/repository/AnimaProtocolRepository";
 import PrismaClient from "../../infra/@shared/db/prisma/config/PrismaClient";
-export class animalRepository implements AnimalRepositoryInterface {
+export class AnimalRepository implements AnimalRepositoryInterface {
   async create(item: Animal): Promise<Animal> {
     const result = await PrismaClient.animals.create({
       data: {
