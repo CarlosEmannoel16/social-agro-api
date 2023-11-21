@@ -32,7 +32,7 @@ export class Animal {
   validate() {
     if (!this._id) throw new Error("Id is required");
     if (!this._dateOfBirth) throw new Error("Date of birth is required");
-    if(!this._ownerId) throw new Error("Owner is required");
+    if (!this._ownerId) throw new Error("Owner is required");
   }
 
   set surname(name: string) {
@@ -94,5 +94,13 @@ export class Animal {
 
   makeItPublic() {
     this._isPublic = true;
+  }
+
+  getAgeAnimal(): string {
+    const dateCurrent = new Date();
+    this._dateOfBirth;
+    const months = dateCurrent.getMonth() - this._dateOfBirth.getMonth();
+    const age = dateCurrent.getFullYear() - this._dateOfBirth.getFullYear();
+    return `${age} anos e ${months} meses`;
   }
 }
