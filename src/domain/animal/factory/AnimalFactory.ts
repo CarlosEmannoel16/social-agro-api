@@ -3,7 +3,7 @@ import { Animal, TypeAnimal } from "../entity/Animal";
 
 interface InputCreateNewAnimalDTO {
   dateOfBirth: Date;
-  fatherId: string;
+  fatherId?: string;
   surname?: string;
   type: TypeAnimal;
   breed?: string;

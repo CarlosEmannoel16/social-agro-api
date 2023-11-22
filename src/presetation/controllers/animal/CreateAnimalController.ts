@@ -29,6 +29,7 @@ export class CreateAnimalController implements ControllerProtocol {
 
       return response.status(201).json(result);
     } catch (error) {
+      console.log(error);
       return response
         .status(500)
         .json({ error: "Erro ao tentar cadastrar animal" });

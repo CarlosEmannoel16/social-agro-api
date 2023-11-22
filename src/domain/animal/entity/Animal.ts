@@ -1,3 +1,5 @@
+import { weightAnimal } from "./WeightAnimal";
+
 export enum TypeAnimal {
   OX = "OX",
   COW = "COW",
@@ -16,6 +18,7 @@ export class Animal {
   private _image!: string;
   private _dateOfCreation!: Date;
   private _dateOfUpdate!: Date;
+  private _weight!: weightAnimal;
 
   constructor(
     id: string,

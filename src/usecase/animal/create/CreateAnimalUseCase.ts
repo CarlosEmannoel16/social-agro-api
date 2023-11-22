@@ -14,7 +14,7 @@ export class CreateAnimalUseCase implements CreateAnimalUseCaseProtocol {
     if (!user) throw new Error("Usuário não encontrado");
 
     const animal = AnimalFactory.createNewAnimal({
-      dateOfBirth: data.dateOfBirth,
+      dateOfBirth: new Date(data.dateOfBirth),
       fatherId: data.fatherId,
       ownerId: data.ownerId,
       type: data.type,
