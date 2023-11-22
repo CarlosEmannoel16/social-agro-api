@@ -13,6 +13,9 @@ export class Animal {
   private _type!: TypeAnimal;
   private _breed!: string;
   private _ownerId!: string;
+  private _image!: string;
+  private _dateOfCreation!: Date;
+  private _dateOfUpdate!: Date;
 
   constructor(
     id: string,
@@ -92,6 +95,14 @@ export class Animal {
     return this._motherId;
   }
 
+  get createdAt(): Date {
+    return this._dateOfCreation;
+  }
+
+  get updatedAt(): Date {
+    return this._dateOfUpdate;
+  }
+
   makeItPublic() {
     this._isPublic = true;
   }
@@ -102,5 +113,13 @@ export class Animal {
     const months = dateCurrent.getMonth() - this._dateOfBirth.getMonth();
     const age = dateCurrent.getFullYear() - this._dateOfBirth.getFullYear();
     return `${age} anos e ${months} meses`;
+  }
+
+  set addImageUrl(image: string) {
+    this._image = image;
+  }
+
+  get image(): string {
+    return this._image;
   }
 }
