@@ -1,5 +1,5 @@
 import { AnimalRepository } from "../../../../infra/animal/AnimalRepository";
-import { FindAllAnimalsController } from "../../../../presetation/controllers/animal/FindAllAnimalsCOntroller";
+import { FindAllAnimalsController } from "../../../../presetation/controllers/animal/FindAllAnimalsController";
 import { FindAllAnimalsUseCase } from "../../../../usecase/animal/findAll/FindAllAnimalsUseCase";
 
 export const makeFindAllAnimalController = () => {

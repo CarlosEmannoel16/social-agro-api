@@ -112,10 +112,16 @@ export class Animal {
 
   getAgeAnimal(): string {
     const dateCurrent = new Date();
-    this._dateOfBirth;
-    const months = dateCurrent.getMonth() - this._dateOfBirth.getMonth();
-    const age = dateCurrent.getFullYear() - this._dateOfBirth.getFullYear();
-    return `${age} anos e ${months} meses`;
+    const dateOfBirth = new Date(this._dateOfBirth);
+    const ms = dateCurrent.getTime() - new Date(this._dateOfBirth).getTime();
+    const age = Math.floor(ms / (365.25 * 24 * 60 * 60 * 1000));
+    var diferencaMeses =
+      (dateCurrent.getFullYear() - dateOfBirth.getFullYear()) * 12 +
+      (dateCurrent.getMonth() - dateOfBirth.getMonth());
+    var yarns = Math.floor(diferencaMeses / 12);
+    var months = diferencaMeses % 12;
+
+    return `${yarns} Anos e  ${months} meses`;
   }
 
   set addImageUrl(image: string) {

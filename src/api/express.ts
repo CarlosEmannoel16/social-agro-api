@@ -4,6 +4,7 @@ import cors from "cors";
 export const app: Express = express()
 app.use(cors())
 app.use(express.json())
+app.use(express.static("public"))
 app.use(express.urlencoded({ extended: true }))
 
 

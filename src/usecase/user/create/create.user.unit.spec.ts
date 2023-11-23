@@ -1,6 +1,7 @@
 import { User } from "../../../domain/user/entity/User";
 import { UserRepositoryInterface } from "../../../domain/user/repository/UserRepositoryInterface";
 import CreateUserUseCase from "./CreateUseUseCase";
+import { InputCreateUserDTO } from "./CreateUserDTO";
 
 const makeSut = () => {
   const makeUserRepository = (): UserRepositoryInterface => ({
@@ -33,10 +34,12 @@ describe("Test Create User Use Case Unit", () => {
     );
     userRepository.create = jest.fn().mockResolvedValueOnce(userInstance);
 
-    const input = {
+    const input: InputCreateUserDTO = {
       name: "any_name",
       email: "any_email",
       password: "any_password",
+      passwordConfirmation: "any_password",
+      imageUrl: "any_image_url",
     };
 
     const output = await sut.execute(input);

@@ -2,6 +2,8 @@ export interface InputCreateUserDTO {
     name: string;
     email: string;
     password: string;
+    passwordConfirmation: string;
+    imageUrl?: string;
 }
 
 export interface OutputCreateUserDTO {

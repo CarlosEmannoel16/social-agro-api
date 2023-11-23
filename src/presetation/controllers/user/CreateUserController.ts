@@ -14,6 +14,8 @@ export class CreateUserController implements ControllerProtocol {
         email: request.body.email,
         password: request.body.password,
         name: request.body.name,
+        passwordConfirmation: request.body.passwordConfirmation,
+        imageUrl: request.body.imageUrl,
       });
       return response.status(201).json(result);
     } catch (error) {

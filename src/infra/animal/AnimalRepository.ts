@@ -3,6 +3,42 @@ import { AnimalFactory } from "../../domain/animal/factory/AnimalFactory";
 import { AnimalRepositoryInterface } from "../../domain/animal/repository/AnimaProtocolRepository";
 import PrismaClient from "../../infra/@shared/db/prisma/config/PrismaClient";
 export class AnimalRepository implements AnimalRepositoryInterface {
+  async findAnimalFromUser(
+    userId: string,
+    animalId: string
+  ): Promise<Animal | undefined> {
+    const animal = await PrismaClient.animals.findFirst({
+      where: {
+        userId: userId,
+        id: animalId,
+      },
+    });
+
+    if (!animal) return;
+    
+    return AnimalFactory.createNewAnimal({
+      dateOfBirth: animal.dateOfBirth,
+      ownerId: animal.userId as string,
+      type: animal.type as TypeAnimal,
+      breed: animal.breedAnimalsId || undefined,
+      image: "",
+      fatherId: animal.fatherId || undefined,
+      motherId: animal.motherId || undefined,
+      surname: animal.surname,
+    });
+  }
+  async addImage(animalId: string, imageUrl: string): Promise<void> {
+    await PrismaClient.animals.update({
+      where: { id: animalId },
+      data: {
+        ImagesAnimal: {
+          create: {
+            url: imageUrl,
+          },
+        },
+      },
+    });
+  }
   async create(item: Animal): Promise<Animal> {
     const result = await PrismaClient.animals.create({
       data: {
@@ -13,11 +49,12 @@ export class AnimalRepository implements AnimalRepositoryInterface {
         isPublic: item.isPublic,
         ImagesAnimal: {
           createMany: {
-            data: item.image?.map((image) => {
-              return {
-                url: image,
-              };
-            }) || [],
+            data:
+              item.image?.map((image) => {
+                return {
+                  url: image,
+                };
+              }) || [],
           },
         },
         id: item.id,
@@ -25,7 +62,7 @@ export class AnimalRepository implements AnimalRepositoryInterface {
         createdAt: new Date(),
         updatedAt: new Date(),
       },
-    })
+    });
 
     if (!result) throw new Error("Error to create animal");
     return item;
