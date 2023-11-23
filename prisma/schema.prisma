@@ -59,6 +59,14 @@ model Animals {
   User              User?               @relation(fields: [userId], references: [id])
   MarketItem        MarketItem[]
   WeightHistory     WeightHistory[]
+  ImagesAnimal      ImagesAnimal[]
+}
+
+model ImagesAnimal {
+  id       String   @id @default(uuid())
+  url      String
+  animalId String?
+  Animals  Animals? @relation(fields: [animalId], references: [id])
 }
 
 model WeightHistory {

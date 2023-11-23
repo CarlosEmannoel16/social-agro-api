@@ -11,12 +11,21 @@ export class AnimalRepository implements AnimalRepositoryInterface {
         surname: item.surname,
         type: item.type,
         isPublic: item.isPublic,
+        ImagesAnimal: {
+          createMany: {
+            data: item.image?.map((image) => {
+              return {
+                url: image,
+              };
+            }) || [],
+          },
+        },
         id: item.id,
         userId: item.ownerId,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
-    });
+    })
 
     if (!result) throw new Error("Error to create animal");
     return item;

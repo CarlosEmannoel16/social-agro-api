@@ -3,7 +3,7 @@ export interface OutputFindAllAnimalDTO {
   name: string;
   age: string;
   breed: string;
-  image: string;
+  image: string[];
   ownerId: string;
   createdAt: Date;
   updatedAt: Date;
