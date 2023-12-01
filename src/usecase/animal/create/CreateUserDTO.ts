@@ -8,7 +8,7 @@ export interface InputCreateAnimalDTO {
   weight: number;
   dateOfBirth: Date;
   motherId: string;
-  image: string;
+  images: string[];
   ownerId: string;
   fatherId: string;
   breed: string;

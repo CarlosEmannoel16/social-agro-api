@@ -3,7 +3,7 @@ import { ParamsDictionary } from "express-serve-static-core";
 import { ParsedQs } from "qs";
 import { ControllerProtocol } from "../@shared/ControlerProtocol";
 import { CreateAnimalUseCaseProtocol } from "../../../protocols/usecases/animal/CreateAnimalUseCaseProtocol";
-
+import os from "os";
 export class CreateAnimalController implements ControllerProtocol {
   constructor(
     private readonly createAnimalUseCase: CreateAnimalUseCaseProtocol
@@ -14,11 +14,18 @@ export class CreateAnimalController implements ControllerProtocol {
     response: Response<any, Record<string, any>>
   ): Promise<Response<any, Record<string, any>>> {
     try {
+
+      const files = request.files as Express.Multer.File[]
+    
+      const images = files.map((file) => {
+        return  `${file.path }`
+      })
+
       const result = await this.createAnimalUseCase.execute({
         breed: request.body.breed,
         dateOfBirth: request.body.dateOfBirth,
         fatherId: request.body.fatherId,
-        image: request.body.image,
+        images: request.body.image,
         isPublic: request.body.isPublic,
         motherId: request.body.motherId,
         ownerId: request.body.ownerId,

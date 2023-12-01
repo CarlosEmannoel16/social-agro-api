@@ -11,5 +11,7 @@ export class AddImageAnimalUseCase implements AddImageAnimalUseCaseProtocol {
       data.ownerId
     );
     if (!animal) throw new Error("Animal not exists");
+
+   await this.animalRepository.addImage(data.animalId, data.imageUrl);
   }
 }

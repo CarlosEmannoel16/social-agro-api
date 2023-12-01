@@ -12,7 +12,6 @@ export class FindUserController implements ControllerProtocol {
   ): Promise<Response<any, Record<string, any>>> {
     try {
       const result = await this.findUserUseCase.execute({ id: request.params.id });
-      console.log(result);
       return response.status(200).json(result);
     } catch (error) {
         console.log(error);
