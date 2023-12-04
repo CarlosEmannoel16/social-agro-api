@@ -21,7 +21,7 @@ export class CreateAnimalUseCase implements CreateAnimalUseCaseProtocol {
       surname: data.surname,
       breed: data.breed,
       motherId: data.motherId,
-      image: "",
+      images: data.images,
     });
 
     const result = await this.animalRepository.create(animal);
@@ -31,7 +31,7 @@ export class CreateAnimalUseCase implements CreateAnimalUseCaseProtocol {
       id: result.id,
       surname: result.surname,
       isPublic: result.isPublic,
-      image: "",
+      images: result.image,
     };
   }
 }

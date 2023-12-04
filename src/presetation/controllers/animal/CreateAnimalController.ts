@@ -14,18 +14,16 @@ export class CreateAnimalController implements ControllerProtocol {
     response: Response<any, Record<string, any>>
   ): Promise<Response<any, Record<string, any>>> {
     try {
+      const file = request?.file as Express.Multer.File;
+      console.log(file)
 
-      const files = request.files as Express.Multer.File[]
-    
-      const images = files.map((file) => {
-        return  `${file.path }`
-      })
+      const image = `${file?.path}`;
 
       const result = await this.createAnimalUseCase.execute({
         breed: request.body.breed,
         dateOfBirth: request.body.dateOfBirth,
         fatherId: request.body.fatherId,
-        images: request.body.image,
+        images: [image],
         isPublic: request.body.isPublic,
         motherId: request.body.motherId,
         ownerId: request.body.ownerId,
@@ -34,7 +32,9 @@ export class CreateAnimalController implements ControllerProtocol {
         weight: request.body.weight,
       });
 
-      return response.status(201).json(result);
+      return response.status(201).format({
+        json: () => response.json(result),
+      });
     } catch (error) {
       console.log(error);
       return response

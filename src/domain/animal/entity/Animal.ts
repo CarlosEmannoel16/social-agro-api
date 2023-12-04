@@ -15,7 +15,7 @@ export class Animal {
   private _type!: TypeAnimal;
   private _breed!: string;
   private _ownerId!: string;
-  private _images!: string[];
+  private _images: string[] = [];
   private _dateOfCreation!: Date;
   private _dateOfUpdate!: Date;
   private _weight!: weightAnimal;
@@ -124,8 +124,8 @@ export class Animal {
     return `${yarns} Anos e  ${months} meses`;
   }
 
-  set addImageUrl(image: string) {
-    this._images.push(image);
+  addImageUrl(image: string[]) {
+    if (this._images) this._images = [...this._images, ...image];
   }
 
   get image(): string[] {

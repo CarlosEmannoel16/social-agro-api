@@ -12,16 +12,19 @@ export class AnimalRepository implements AnimalRepositoryInterface {
         userId: userId,
         id: animalId,
       },
+      include: {
+        ImagesAnimal: true,
+      },
     });
 
     if (!animal) return;
-    
+
     return AnimalFactory.createNewAnimal({
       dateOfBirth: animal.dateOfBirth,
       ownerId: animal.userId as string,
       type: animal.type as TypeAnimal,
       breed: animal.breedAnimalsId || undefined,
-      image: "",
+      images: animal.ImagesAnimal.map((img) => img.url),
       fatherId: animal.fatherId || undefined,
       motherId: animal.motherId || undefined,
       surname: animal.surname,
@@ -74,7 +77,11 @@ export class AnimalRepository implements AnimalRepositoryInterface {
     throw new Error("Method not implemented.");
   }
   async findAll(): Promise<Animal[]> {
-    const result = await PrismaClient.animals.findMany();
+    const result = await PrismaClient.animals.findMany({
+      include: {
+        ImagesAnimal: true,
+      },
+    });
 
     if (!result) throw new Error("Error to find animals");
     return result.map((animal) => {
@@ -84,7 +91,7 @@ export class AnimalRepository implements AnimalRepositoryInterface {
         ownerId: animal.userId as string,
         type: animal.type as TypeAnimal,
         breed: animal.breedAnimalsId || undefined,
-        image: "",
+        images: animal.ImagesAnimal.map((img) => img.url),
         motherId: animal.motherId || undefined,
         surname: animal.surname,
       });

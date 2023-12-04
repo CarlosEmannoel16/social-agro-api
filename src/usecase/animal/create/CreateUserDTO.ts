@@ -17,5 +17,5 @@ export interface OutputCreateAnimalDTO {
   id: string;
   surname: string;
   isPublic: boolean;
-  image: string;
+  images: string[];
 }

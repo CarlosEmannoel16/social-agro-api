@@ -9,7 +9,7 @@ interface InputCreateNewAnimalDTO {
   breed?: string;
   ownerId: string;
   motherId?: string;
-  image?: string;
+  images?: string[]
 }
 
 export class AnimalFactory {
@@ -21,7 +21,7 @@ export class AnimalFactory {
     ownerId,
     type,
     motherId,
-    image
+    images
   }: InputCreateNewAnimalDTO) {
     const id = v4();
     const animal = new Animal(id, dateOfBirth, type, breed, ownerId);
@@ -30,6 +30,7 @@ export class AnimalFactory {
     if (fatherId) animal.idFather = fatherId;
     if (motherId) animal.IdMother = motherId;
     if (breed) animal.breed = breed;
+    if(images) animal.addImageUrl(images)
 
     return animal;
   }

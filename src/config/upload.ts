@@ -19,4 +19,6 @@ class UploadConfig {
   }
 }
 
-export default multer({ storage: new UploadConfig().getStorage() });
+export default multer({ storage: new UploadConfig().getStorage(), limits:{
+  fieldSize: 25 * 1024 * 1024
+} });
