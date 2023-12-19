@@ -4,7 +4,7 @@ import { ParsedQs } from "qs";
 import { ControllerProtocol } from "../@shared/ControlerProtocol";
 import { AuthenticationUseCaseProtocol } from "../../../protocols/usecases/auth/AutheticationUseCase";
 
-export class AthenticationController implements ControllerProtocol {
+export class AuthenticationController implements ControllerProtocol {
   constructor(
     private readonly authenticationUseCase: AuthenticationUseCaseProtocol
   ) {}
@@ -14,6 +14,7 @@ export class AthenticationController implements ControllerProtocol {
   ): Promise<Response<any, Record<string, any>>> {
     try {
       const { email, password } = request.body;
+      console.log(email, password);
       if (email.length > 100)
         return response
           .status(400)

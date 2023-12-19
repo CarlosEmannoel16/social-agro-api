@@ -8,7 +8,6 @@ export class CreateUserController implements ControllerProtocol {
 
   async handle(request: Request, response: Response): Promise<Response> {
     try {
-
       const result = await this.createUserUseCase.execute({
         email: request.body.email,
         password: request.body.password,
