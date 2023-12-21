@@ -18,7 +18,7 @@ export class Animal {
   private _images: string[] = [];
   private _dateOfCreation!: Date;
   private _dateOfUpdate!: Date;
-  private _weight!: weightAnimal;
+  private _weight!: weightAnimal[];
 
   constructor(
     id: string,

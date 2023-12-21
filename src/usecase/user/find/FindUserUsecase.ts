@@ -12,6 +12,8 @@ export default class FindUserUseCase implements FindUserUseCaseProtocol {
   async execute(input: InputFindUserDTO): Promise<OutputFindUserDTO> {
     const user = await this.userRepository.find(input.id);
 
+    if (!user) throw new Error("User not found");
+
     return {
       id: user.id,
       email: user.email,

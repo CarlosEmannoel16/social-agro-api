@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { ParamsDictionary } from "express-serve-static-core";
 import { ParsedQs } from "qs";
-import { ControllerProtocol } from "../@shared/ControlerProtocol";
+import { ControllerProtocol } from "../@shared/ControllerProtocol";
 import { FindAllAnimalsUseCaseProtocol } from "../../../protocols/usecases/animal/FindAllAnimalsUseCaseProtocol";
 
 export class FindAllAnimalsController implements ControllerProtocol {
@@ -13,7 +13,8 @@ export class FindAllAnimalsController implements ControllerProtocol {
     response: Response<any, Record<string, any>>
   ): Promise<Response<any, Record<string, any>>> {
     try {
-      const result = await this.findAllAnimalsUseCase.execute();
+      console.log(request.params.idUser);
+      const result = await this.findAllAnimalsUseCase.execute(request.params.idUser);
       return response.status(200).json(result);
     } catch (error) {
       console.log(error);

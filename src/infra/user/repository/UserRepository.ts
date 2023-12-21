@@ -13,6 +13,7 @@ export default class UserRepository implements UserRepositoryInterface {
       email: result?.email,
       name: result?.name,
       password: result?.password,
+      id: result?.id,
     });
 
     return user;

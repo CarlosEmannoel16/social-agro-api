@@ -6,7 +6,7 @@ export class FindAnimalUseCase implements FindAnimalUseCaseProtocol {
   constructor(private readonly animalRepository: AnimalRepositoryInterface) {}
 
   async execute(input: InputFindAnimalDTO): Promise<OutputFindAnimalDTO> {
-    const animalResult = await this.animalRepository.find(input.id);
+    const animalResult = await this.animalRepository.find(input.id, input.userId);
     if (!animalResult) throw new Error("Animal not found with this id");
 
     return {

@@ -22,8 +22,8 @@ class AnimalMapper implements MapperProtocol<Animal, OutputFindAllAnimalDTO> {
 export class FindAllAnimalsUseCase implements FindAllAnimalsUseCaseProtocol {
   constructor(private readonly animalRepository: AnimalRepositoryInterface) {}
 
-  async execute(): Promise<OutputFindAllAnimalDTO[]> {
-    const animals = await this.animalRepository.findAll();
+  async execute(idUser: string): Promise<OutputFindAllAnimalDTO[]> {
+    const animals = await this.animalRepository.findAll(idUser);
 
     const animalMapper = new AnimalMapper();
 

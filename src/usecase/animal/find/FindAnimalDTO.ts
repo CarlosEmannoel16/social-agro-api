@@ -1,5 +1,6 @@
 export interface InputFindAnimalDTO {
   id: string;
+  userId: string;
 }
 
 export interface OutputFindAnimalDTO  {

@@ -8,7 +8,7 @@ export class AuthUseCase implements AuthenticationUseCaseProtocol {
   constructor(private readonly userRepository: UserRepositoryInterface) {}
   async execute(input: InputAuthUseCase): Promise<OutputAuthUseCase> {
     const privateKey = "eee88@09955%$#/";
-
+ 
     const user = await this.userRepository.findByEmail(input.email);
     console.log(user);
     if (!user) throw new Error("Email ou senha incorretos");

@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { ParamsDictionary } from "express-serve-static-core";
 import { ParsedQs } from "qs";
-import { ControllerProtocol } from "../@shared/ControlerProtocol";
+import { ControllerProtocol } from "../@shared/ControllerProtocol";
 import { CreateUserUseCaseProtocol } from "../../../protocols/usecases/user/CreateUserUseCaseProtocol";
 export class CreateUserController implements ControllerProtocol {
   constructor(private readonly createUserUseCase: CreateUserUseCaseProtocol) {}

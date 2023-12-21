@@ -8,8 +8,9 @@ import upload from "../../config/upload";
 const animalRouter = express.Router();
 
 animalRouter.post("/", upload.single('file'), routeAdapter(makeCreateAnimalController()));
+animalRouter.get("/all/:idUser", routeAdapter(makeFindAllAnimalController()));
 animalRouter.put("/:id/add-image", routeAdapter(makeCreateAnimalController()));
 animalRouter.get("/:id", routeAdapter(makeFindAnimalController()));
-animalRouter.get("/", routeAdapter(makeFindAllAnimalController()));
+animalRouter.patch("/add-weight", routeAdapter(makeCreateAnimalController()));
 
 export { animalRouter };

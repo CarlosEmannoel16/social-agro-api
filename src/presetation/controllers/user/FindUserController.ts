@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { ParamsDictionary } from "express-serve-static-core";
 import { ParsedQs } from "qs";
-import { ControllerProtocol } from "../@shared/ControlerProtocol";
+import { ControllerProtocol } from "../@shared/ControllerProtocol";
 import { FindUserUseCaseProtocol } from "../../../protocols/usecases/user/FindUserUseCaseProtocol";
 
 export class FindUserController implements ControllerProtocol {

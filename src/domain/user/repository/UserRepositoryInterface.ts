@@ -3,4 +3,7 @@ import { RepositoryInterface } from "../../@shared/repository/RepositoryInsterfa
 
 export interface UserRepositoryInterface extends RepositoryInterface<User> {
   findByEmail(email: string): Promise<User | undefined>;
+  find(id: string): Promise<User | undefined>;
+
+  
 }
