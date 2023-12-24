@@ -15,10 +15,11 @@ export class CreateAnimalController implements ControllerProtocol {
   ): Promise<Response<any, Record<string, any>>> {
     try {
       const file = request?.file as Express.Multer.File;
-      console.log(file)
+      
 
-      const image = `${file?.path}`;
+      const image = `${file.filename}`;
 
+      console.log(request.body);
       const result = await this.createAnimalUseCase.execute({
         breed: request.body.breed,
         dateOfBirth: request.body.dateOfBirth,

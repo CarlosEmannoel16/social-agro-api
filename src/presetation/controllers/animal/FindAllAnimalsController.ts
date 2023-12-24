@@ -13,7 +13,8 @@ export class FindAllAnimalsController implements ControllerProtocol {
     response: Response<any, Record<string, any>>
   ): Promise<Response<any, Record<string, any>>> {
     try {
-      console.log(request.params.idUser);
+     if(!request.params.idUser) throw new Error("Id do usuário não informado");
+     console.log(request.params.idUser);
       const result = await this.findAllAnimalsUseCase.execute(request.params.idUser);
       return response.status(200).json(result);
     } catch (error) {
@@ -22,5 +23,5 @@ export class FindAllAnimalsController implements ControllerProtocol {
         .status(500)
         .json({ error: "Erro ao tentar buscar todos os animal" });
     }
-  }
+  } 
 }

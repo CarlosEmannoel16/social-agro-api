@@ -1,13 +1,12 @@
 import multer from "multer";
 import os from "os";
 const interfaces = os.networkInterfaces();
-const ip = interfaces.en0![1].address;
 
 class UploadConfig {
   getStorage() {
     return multer.diskStorage({
       destination: function (req, file, cb) {
-        cb(null, ip + "uploads/");
+        cb(null, __dirname + "/../uploads");
       },
 
       filename: function (req, file, cb) {

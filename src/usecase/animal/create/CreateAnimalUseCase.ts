@@ -22,6 +22,7 @@ export class CreateAnimalUseCase implements CreateAnimalUseCaseProtocol {
       breed: data.breed,
       motherId: data.motherId,
       images: data.images,
+
     });
 
     const result = await this.animalRepository.create(animal);

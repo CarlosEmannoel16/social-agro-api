@@ -8,7 +8,8 @@ const makeAnimalRepository = (): AnimalRepositoryInterface => {
     findAll: jest.fn(),
     update: jest.fn(),
     addImage: jest.fn(),
-    findAnimalFromUser: jest.fn(),
+    findWithParams: jest.fn(),
+
   };
 };
 
@@ -19,6 +20,6 @@ describe("Find all Animal Use Case Unit Test", () => {
 
     animalRepositoryStub.findAll = jest.fn().mockReturnValueOnce(null);
 
-    expect(sut.execute()).resolves.toEqual([]);
+    expect(sut.execute).resolves.toEqual([]);
   });
 });

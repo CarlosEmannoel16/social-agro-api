@@ -14,9 +14,17 @@ USUARIO_COMUM:
         - Deixar um animal publico ou privado (Inicalmente será privado)
         - Colocar um animal para venda
         - Visualizar animais que estão a venda
+        - Visualizar animais que estão a venda de um determinado sexo
+        - Visualizar animais que estão a venda de uma determinada raça
+        - Visualizar animais que estão a venda de uma determinada idade
+        - Visualizar relatorio de vendas (Somente o dono do animal)
+        - Visualizar relatorio de compras (Somente o dono do animal)
+        - Visualizar animais que estão em possivel periodo de reprodução
     CASOS_DE_USO:
     - Um animal só poderá ser editado ou deletado pelo seu dono
     - Um animal só poderá ser excluido em até 48 horas após o cadastro
+    - um animal pode ser transferido para outro usuario
+    - Um animal pode ter sido comprado ou nascido no sistema
 
 ANIMAIS:
     - Incialmente serão cadastrados somente Bovinos

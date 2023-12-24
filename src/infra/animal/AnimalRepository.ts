@@ -1,6 +1,10 @@
 import { Animal, TypeAnimal } from "../../domain/animal/entity/Animal";
 import { AnimalFactory } from "../../domain/animal/factory/AnimalFactory";
-import { AnimalRepositoryInterface } from "../../domain/animal/repository/AnimaProtocolRepository";
+import {
+  AnimalRepositoryInterface,
+  addDailyMilkProductionParams,
+  addWeightParams,
+} from "../../domain/animal/repository/AnimaProtocolRepository";
 import PrismaClient from "../../infra/@shared/db/prisma/config/PrismaClient";
 export class AnimalRepository implements AnimalRepositoryInterface {
   async findWithParams(
@@ -13,10 +17,14 @@ export class AnimalRepository implements AnimalRepositoryInterface {
         OR: [
           {
             surname: {
-              contains: params,
+              startsWith: `%${params}%`,
+              mode: "insensitive",
             },
           },
         ],
+      },
+      include: {
+        ImagesAnimal: true,
       },
       take: 10,
     });
@@ -29,7 +37,7 @@ export class AnimalRepository implements AnimalRepositoryInterface {
         ownerId: animal.userId as string,
         type: animal.type as TypeAnimal,
         breed: animal.breedAnimalsId || undefined,
-        images: [""],
+        images: animal.ImagesAnimal.map((img) => img.url),
         fatherId: animal.fatherId || undefined,
         motherId: animal.motherId || undefined,
         surname: animal.surname,
@@ -54,6 +62,7 @@ export class AnimalRepository implements AnimalRepositoryInterface {
     });
   }
   async create(item: Animal): Promise<Animal> {
+    console.log(item.image);
     const result = await PrismaClient.animals.create({
       data: {
         dateOfBirth: item.dateOfBirth,
@@ -81,7 +90,7 @@ export class AnimalRepository implements AnimalRepositoryInterface {
     if (!result) throw new Error("Error to create animal");
     return item;
   }
-  update(item: Animal): Promise<void> {
+  async update(item: Animal): Promise<void> {
     throw new Error("Method not implemented.");
   }
   async find(userId: string, animalId: string): Promise<Animal | undefined> {
@@ -132,4 +141,61 @@ export class AnimalRepository implements AnimalRepositoryInterface {
       });
     });
   }
+
+  async addWeight(data: addWeightParams) {
+    const result = await PrismaClient.weightHistory.create({
+      data: {
+        date: data.date,
+        weight: data.weight,
+        animalsId: data.idAnimal,
+      },
+    });
+
+    return result;
+  }
+
+  async addDailyMilkProduction(data: addDailyMilkProductionParams) {
+    const result = await PrismaClient.dailyAmountOfMilk.create({
+      data: {
+        amount: data.dailyMilkProduction,
+        date: data.date,
+        animalsId: data.idAnimal,
+      },
+    });
+
+    return result;
+  }
+
+  async findWeightHistory(idAnimal: string) {
+    const result = await PrismaClient.weightHistory.findMany({
+      where: {
+        animalsId: idAnimal,
+      },
+    });
+
+    return result;
+  }
+
+  async findDailyMilkProduction(idAnimal: string) {
+    const result = await PrismaClient.dailyAmountOfMilk.findMany({
+      where: {
+        animalsId: idAnimal,
+      },
+    });
+
+    return result;
+  }
+
+  async findHistoryVaccines(idAnimal: string) {
+    const result = await PrismaClient.vaccination.findMany({
+      where: {
+        animalsId: idAnimal,
+      },
+    });
+
+    return result;
+  }
+
+  
+
 }
