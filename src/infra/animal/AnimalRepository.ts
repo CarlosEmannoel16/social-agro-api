@@ -124,12 +124,14 @@ export class AnimalRepository implements AnimalRepositoryInterface {
       },
       include: {
         ImagesAnimal: true,
+        WeightHistory: true,
       },
     });
 
     if (!result) throw new Error("Error to find animals");
     return result.map((animal) => {
       return AnimalFactory.createNewAnimal({
+        id: animal.id,
         dateOfBirth: animal.dateOfBirth,
         fatherId: animal.fatherId || undefined,
         ownerId: animal.userId as string,
@@ -138,6 +140,12 @@ export class AnimalRepository implements AnimalRepositoryInterface {
         images: animal.ImagesAnimal.map((img) => img.url),
         motherId: animal.motherId || undefined,
         surname: animal.surname,
+        weightHistory: animal?.WeightHistory?.map((weight) => {
+          return {
+            weight: weight.weight,
+            dateOfRegister: weight.date,
+          };
+        }),
       });
     });
   }
@@ -195,7 +203,4 @@ export class AnimalRepository implements AnimalRepositoryInterface {
 
     return result;
   }
-
-  
-
 }

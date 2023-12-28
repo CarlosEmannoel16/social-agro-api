@@ -131,4 +131,19 @@ export class Animal {
   get image(): string[] {
     return this._images;
   }
+
+  addWeight(weight: weightAnimal) {
+    if (!this._weight) this._weight = [];
+    this._weight.push(weight);
+  }
+
+  getWeight(): any {
+    return this._weight?.map((weight) => {
+      return {
+        weight: weight.weight,
+        dateOfRegister: weight.getDateOfRegisterPTBR(),
+      };
+    }) || [];
+  }
+
 }

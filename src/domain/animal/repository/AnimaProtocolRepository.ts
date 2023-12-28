@@ -21,3 +21,4 @@ export interface AnimalRepositoryInterface extends RepositoryInterface<Animal> {
   addWeight(data: addWeightParams): Promise<any>;
   addDailyMilkProduction(data: addDailyMilkProductionParams): Promise<any>;
 }
+  

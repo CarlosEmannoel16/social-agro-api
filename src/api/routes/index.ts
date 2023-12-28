@@ -9,6 +9,7 @@ import { makeCreateAnimalController } from "../../main/factories/controller/anim
 import { makeFindAnimalController } from "../../main/factories/controller/animal/FindAnimalControllerFactory";
 import { makeAuthenticationControllerController } from "../../main/factories/controller/auth/AuthControllerFactory";
 import { makeSearchAnimalController } from "../../main/factories/controller/animal/SerachAnimalControllerFactory";
+import { makeAddWeightAnimalController } from "../../main/factories/controller/animal/AddWeightAnimalControllerFactory";
 
 export const routes = (app: Express) => {
   const router = express.Router();
@@ -38,7 +39,7 @@ export const routes = (app: Express) => {
   );
   router.get("/animal/:id", routeAdapter(makeFindAnimalController()));
   router.get("/animal/search/:params/:idUser", routeAdapter(makeSearchAnimalController()));
-  //router.patch("/add-weight", routeAdapter(makeCreateAnimalController()));
+  router.patch("/animal/add-weight", routeAdapter(makeAddWeightAnimalController()));
   //router.put("/:id/add-image", routeAdapter(makeCreateAnimalController()));
 
   app.use(router);

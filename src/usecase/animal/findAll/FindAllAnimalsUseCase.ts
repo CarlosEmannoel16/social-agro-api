@@ -15,6 +15,7 @@ class AnimalMapper implements MapperProtocol<Animal, OutputFindAllAnimalDTO> {
       name: animal.surname,
       ownerId: animal.ownerId,
       updatedAt: animal.updatedAt,
+      weightHistory: animal.getWeight()
     }));
   }
 }

@@ -17,4 +17,14 @@ export class weightAnimal {
   get weight() {
     return this._weight;
   }
+  get dateOfRegister() {
+    return this._dateOfRegister;
+  }
+
+  getDateOfRegisterPTBR() {
+    const day = this._dateOfRegister.getDate();
+    const month = this._dateOfRegister.getMonth() + 1;
+    const year = this._dateOfRegister.getFullYear();
+    return `${day}/${month}/${year}`;
+  }
 }

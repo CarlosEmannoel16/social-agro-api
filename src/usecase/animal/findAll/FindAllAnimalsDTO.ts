@@ -7,4 +7,9 @@ export interface OutputFindAllAnimalDTO {
   ownerId: string;
   createdAt: Date;
   updatedAt: Date;
-}[]
+  weightHistory: {
+    weight: number;
+    dateOfRegister: string;
+  };
+}
+[];
