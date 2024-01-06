@@ -50,4 +50,8 @@ export class AnimalFactory {
 
     return animal;
   }
+
+  static createMap(data: InputCreateNewAnimalDTO[]): Animal[] {
+    return data.map((item) => this.createNewAnimal(item));
+  }
 }

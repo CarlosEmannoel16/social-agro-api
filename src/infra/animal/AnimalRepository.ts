@@ -1,3 +1,4 @@
+import { Note } from "@/domain/expenses/valueObjects/Note";
 import { Animal, TypeAnimal } from "../../domain/animal/entity/Animal";
 import { AnimalFactory } from "../../domain/animal/factory/AnimalFactory";
 import {
@@ -5,8 +6,22 @@ import {
   addDailyMilkProductionParams,
   addWeightParams,
 } from "../../domain/animal/repository/AnimaProtocolRepository";
-import PrismaClient from "../../infra/@shared/db/prisma/config/PrismaClient";
+import PrismaClient from "@/infra/@shared/db/prisma/config/PrismaClient";
 export class AnimalRepository implements AnimalRepositoryInterface {
+  async addNote(data: Note): Promise<Note> {
+    await PrismaClient.notes.create({
+      data: {
+        color: data.color,
+        text: data.text,
+        title: data.title,
+        animalId: data.animalId,
+        createdAt: new Date(),
+        id: data.id,
+      },
+    });
+
+    return data;
+  }
   async findWithParams(
     params: string,
     userId: string
@@ -129,25 +144,24 @@ export class AnimalRepository implements AnimalRepositoryInterface {
     });
 
     if (!result) throw new Error("Error to find animals");
-    return result.map((animal) => {
-      return AnimalFactory.createNewAnimal({
-        id: animal.id,
+
+    return AnimalFactory.createMap(
+      result.map((animal) => ({
         dateOfBirth: animal.dateOfBirth,
-        fatherId: animal.fatherId || undefined,
         ownerId: animal.userId as string,
         type: animal.type as TypeAnimal,
         breed: animal.breedAnimalsId || undefined,
         images: animal.ImagesAnimal.map((img) => img.url),
+        fatherId: animal.fatherId || undefined,
         motherId: animal.motherId || undefined,
         surname: animal.surname,
-        weightHistory: animal?.WeightHistory?.map((weight) => {
-          return {
-            weight: weight.weight,
-            dateOfRegister: weight.date,
-          };
-        }),
-      });
-    });
+        id: animal.id,
+        weightHistory: animal.WeightHistory.map((weight) => ({
+          dateOfRegister: weight.date,
+          weight: weight.weight,
+        })),
+      }))
+    );
   }
 
   async addWeight(data: addWeightParams) {

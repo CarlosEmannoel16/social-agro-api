@@ -1,3 +1,4 @@
+import { Note } from "@/domain/expenses/valueObjects/Note";
 import { RepositoryInterface } from "../../@shared/repository/RepositoryInsterface";
 import { Animal } from "../entity/Animal";
 
@@ -14,11 +15,12 @@ export type addDailyMilkProductionParams = {
   dailyMilkProduction: number;
   date: Date;
 };
+
 export interface AnimalRepositoryInterface extends RepositoryInterface<Animal> {
   addImage(animalId: string, imageUrl: string, userId: string): Promise<void>;
   findWithParams(params: string, userId: string): Promise<Animal[] | undefined>;
   find(id: string, animalId: string): Promise<Animal | undefined>;
   addWeight(data: addWeightParams): Promise<any>;
   addDailyMilkProduction(data: addDailyMilkProductionParams): Promise<any>;
+  addNote(data: Note): Promise<Note>;
 }
-  
