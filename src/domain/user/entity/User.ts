@@ -1,4 +1,4 @@
-import { Address } from "./Address";
+import { Address } from "../value-object/Address";
 import { Phone } from "./Phone";
 
 export class User {
