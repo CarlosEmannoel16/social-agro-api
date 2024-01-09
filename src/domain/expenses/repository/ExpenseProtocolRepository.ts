@@ -2,4 +2,6 @@ import { RepositoryInterface } from "@/domain/@shared/repository/RepositoryInste
 import { Expense } from "../entity/Expense";
 
 export interface ExpenseRepositoryInterface
-  extends RepositoryInterface<Expense> {}
+  extends RepositoryInterface<Expense> {
+    delete(id: string): Promise<void>;
+  }

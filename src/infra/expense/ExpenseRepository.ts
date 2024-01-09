@@ -4,6 +4,13 @@ import { ExpenseRepositoryInterface } from "@/domain/expenses/repository/Expense
 import PrismaClient from "@/infra/@shared/db/prisma/config/PrismaClient";
 
 export class ExpenseRepository implements ExpenseRepositoryInterface {
+  async delete(id: string): Promise<void> {
+    await PrismaClient.animalExpenses.delete({
+      where: {
+        id: id,
+      },
+    });
+  }
   async create(item: Expense): Promise<Expense> {
     await PrismaClient.animalExpenses.create({
       data: {
