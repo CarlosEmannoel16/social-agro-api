@@ -8,6 +8,30 @@ import {
 } from "../../domain/animal/repository/AnimaProtocolRepository";
 import PrismaClient from "@/infra/@shared/db/prisma/config/PrismaClient";
 export class AnimalRepository implements AnimalRepositoryInterface {
+  async editNote(data: Note): Promise<Note | undefined> {
+    await PrismaClient.notes.update({
+      data: {
+        color: data.color,
+        text: data.text,
+        title: data.title,
+        animalId: data.animalId,
+      },
+      where: {
+        id: data.id,
+        animalId: data.animalId,
+      },
+    });
+
+    return data;
+  }
+  async deleteNote(animalId: string, noteId: string): Promise<any> {
+    await PrismaClient.notes.delete({
+      where: {
+        id: noteId,
+        animalId: animalId,
+      },
+    });
+  }
   async addNote(data: Note): Promise<Note> {
     await PrismaClient.notes.create({
       data: {
