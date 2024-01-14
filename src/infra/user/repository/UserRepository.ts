@@ -102,9 +102,10 @@ export default class UserRepository implements UserRepositoryInterface {
     throw new Error("Method not implemented.");
   }
 
-findByName(name:string):Promise<User[]>{
-const result = await PrismaClient.user.find({where:{name}})
+  findByName(name:string):Promise<User[]>{
+    const result = await PrismaClient.user.find({where:{name}})
 
+    result.map(()=> new User())
 
-}
+   }
 }
