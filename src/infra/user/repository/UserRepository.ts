@@ -102,10 +102,20 @@ export default class UserRepository implements UserRepositoryInterface {
     throw new Error("Method not implemented.");
   }
 
-  findByName(name:string):Promise<User[]>{
-    const result = await PrismaClient.user.find({where:{name}})
+  async findByName(name: string): Promise<User[]> {
+    const result = await PrismaClient.user.findMany({
+      where: {
+        name: name,
+      },
+    });
 
-    result.map(()=> new User())
-
-   }
+    return result.map((resultItem) =>
+      UserFactory.createNewUser({
+        email: resultItem?.email,
+        name: resultItem.name,
+        password: resultItem.password,
+        id: resultItem.id,
+      })
+    );
+  }
 }
