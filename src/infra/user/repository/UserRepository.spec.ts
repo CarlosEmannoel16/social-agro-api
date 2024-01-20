@@ -23,6 +23,7 @@ describe("User Repository Unit Tests", () => {
       name: user.name,
       password: user.password,
       updatedAt: user.updatedAt,
+      profileUrl: null,
     });
 
     const result = await userRepository.create(user);
@@ -40,7 +41,6 @@ describe("User Repository Unit Tests", () => {
       new Date()
     );
 
-  
     const userRepository = new UserRepository();
 
     const result = await userRepository.find(user.id);

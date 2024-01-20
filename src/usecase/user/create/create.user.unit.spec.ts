@@ -10,6 +10,8 @@ const makeSut = () => {
     find: jest.fn(),
     findAll: jest.fn(),
     update: jest.fn(),
+    addImage: jest.fn(),
+    findByName: jest.fn(),
   });
   const userRepository = makeUserRepository();
 

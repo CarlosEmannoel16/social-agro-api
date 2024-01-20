@@ -1,5 +1,5 @@
 import { Note } from "@/domain/expenses/valueObjects/Note";
-import { RepositoryInterface } from "../../@shared/repository/RepositoryInsterface";
+import { RepositoryInterface } from "../../_@shared/repository/RepositoryInsterface";
 import { Animal } from "../entity/Animal";
 
 export type addWeightParams = {

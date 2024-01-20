@@ -1,5 +1,5 @@
 import { User } from "../entity/User";
-import { RepositoryInterface } from "../../@shared/repository/RepositoryInsterface";
+import { RepositoryInterface } from "../../_@shared/repository/RepositoryInsterface";
 
 export interface UserRepositoryInterface extends RepositoryInterface<User> {
   findByEmail(email: string): Promise<User | undefined>;

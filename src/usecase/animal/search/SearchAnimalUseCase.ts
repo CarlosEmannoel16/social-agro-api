@@ -1,4 +1,4 @@
-import { Animal } from "../../../@shared/decorators/Test";
+import { Animal } from "../../../_@shared/decorators/Test";
 import { AnimalRepositoryInterface } from "../../../domain/animal/repository/AnimaProtocolRepository";
 import { SearchAnimalUseCaseProtocol } from "../../../protocols/usecases/animal/SearchAnimelUseCaseProtocol";
 import {

@@ -18,6 +18,8 @@ const makeMockRepository = (): UserRepositoryInterface => ({
   find: jest.fn().mockResolvedValueOnce(user),
   findAll: jest.fn(),
   update: jest.fn(),
+  addImage: jest.fn(),
+  findByName: jest.fn(),
 });
 
 const makeSut = () => {

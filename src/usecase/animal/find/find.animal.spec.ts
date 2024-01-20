@@ -8,7 +8,12 @@ const makeAnimalRepository = (): AnimalRepositoryInterface => {
     findAll: jest.fn(),
     update: jest.fn(),
     addImage: jest.fn(),
-    findAnimalFromUser: jest.fn(),
+    addDailyMilkProduction: jest.fn(),
+    addNote: jest.fn(),
+    addWeight: jest.fn(),
+    deleteNote: jest.fn(),
+    editNote: jest.fn(),
+    findWithParams: jest.fn(),
   };
 };
 describe("Find Animal Use Case Unit Test", () => {
@@ -18,7 +23,7 @@ describe("Find Animal Use Case Unit Test", () => {
 
     animalRepositoryStub.find = jest.fn().mockReturnValueOnce(null);
 
-    expect(sut.execute({ id: "1" })).rejects.toThrow(
+    expect(sut.execute({ id: "1", userId: "" })).rejects.toThrow(
       "Animal not found with this id"
     );
   });

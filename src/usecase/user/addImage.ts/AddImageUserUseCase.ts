@@ -1,4 +1,4 @@
-import { ServerError } from "@/@shared/errors/Errors";
+import { ServerError } from "@/_@shared/errors/Errors";
 import { UserRepositoryInterface } from "@/domain/user/repository/UserRepositoryInterface";
 import { AddImageUserUseCaseProtocol } from "@/protocols/usecases/user/AddImageUserUseCaseProtocol";
 

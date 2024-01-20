@@ -13,6 +13,8 @@ const MockRepository = (): UserRepositoryInterface => {
     findAll: jest.fn(),
     findByEmail: jest.fn(),
     update: jest.fn(),
+    addImage: jest.fn(),
+    findByName: jest.fn(),
   };
 };
 describe("Find Customer Unit Tests", () => {

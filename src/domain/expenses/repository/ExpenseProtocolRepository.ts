@@ -1,4 +1,4 @@
-import { RepositoryInterface } from "@/domain/@shared/repository/RepositoryInsterface";
+import { RepositoryInterface } from "@/domain/_@shared/repository/RepositoryInsterface";
 import { Expense } from "../entity/Expense";
 
 export interface ExpenseRepositoryInterface

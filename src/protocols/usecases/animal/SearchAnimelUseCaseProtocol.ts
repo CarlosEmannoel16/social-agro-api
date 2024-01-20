@@ -1,4 +1,4 @@
-import { Animal } from "../../../@shared/decorators/Test";
+import { Animal } from "../../../_@shared/decorators/Test";
 import { InputSearchAnimalUseCase, OutputSearchAnimalUseCase } from "../../../usecase/animal/search/SearchAnimalDTO";
 
 export interface SearchAnimalUseCaseProtocol {

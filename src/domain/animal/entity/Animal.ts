@@ -1,4 +1,4 @@
-import { ValidationError } from "@/@shared/errors/Errors";
+import { ValidationError } from "@/shared/errors/Errors";
 import { weightAnimal } from "./WeightAnimal";
 
 export enum TypeAnimal {
