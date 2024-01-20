@@ -4,6 +4,16 @@ import PrismaClient from "../../@shared/db/prisma/config/PrismaClient";
 import { UserRepositoryInterface } from "../../../domain/user/repository/UserRepositoryInterface";
 import { UserFactory } from "../../../domain/user/factory/UserFactory";
 export default class UserRepository implements UserRepositoryInterface {
+  async addImage(imageUrl: string, userId: string): Promise<void> {
+    await PrismaClient.user.update({
+      data: {
+        profileUrl: imageUrl,
+      },
+      where: {
+        id: userId,
+      },
+    });
+  }
   async findByEmail(email: string): Promise<User | undefined> {
     const result = await PrismaClient.user.findUnique({ where: { email } });
 

@@ -1,3 +1,4 @@
+import { ValidationError } from "@/@shared/errors/Errors";
 import { weightAnimal } from "./WeightAnimal";
 
 export enum TypeAnimal {
@@ -36,9 +37,12 @@ export class Animal {
   }
 
   validate() {
-    if (!this._id) throw new Error("Id is required");
-    if (!this._dateOfBirth) throw new Error("Date of birth is required");
-    if (!this._ownerId) throw new Error("Owner is required");
+    const errors = [];
+    if (!this._id) errors.push("Id is required");
+    if (!this._dateOfBirth) errors.push("Date of birth is required");
+    if (!this._ownerId) errors.push("Owner is required");
+
+    if (errors.length > 0) throw new ValidationError(errors.join(", "));
   }
 
   set surname(name: string) {
@@ -138,12 +142,13 @@ export class Animal {
   }
 
   getWeight(): any {
-    return this._weight?.map((weight) => {
-      return {
-        weight: weight.weight,
-        dateOfRegister: weight.getDateOfRegisterPTBR(),
-      };
-    }) || [];
+    return (
+      this._weight?.map((weight) => {
+        return {
+          weight: weight.weight,
+          dateOfRegister: weight.getDateOfRegisterPTBR(),
+        };
+      }) || []
+    );
   }
-
 }
