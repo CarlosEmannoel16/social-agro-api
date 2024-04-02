@@ -1,7 +1,7 @@
 import { Expense } from "@/domain/expenses/entity/Expense";
 import { ExpenseFactory } from "@/domain/expenses/factories/expenseFactory";
 import { ExpenseRepositoryInterface } from "@/domain/expenses/repository/ExpenseProtocolRepository";
-import PrismaClient from "@/infra/@shared/db/prisma/config/PrismaClient";
+import PrismaClient from "@/infra/shared/db/prisma/config/prismaClient";
 
 export class ExpenseRepository implements ExpenseRepositoryInterface {
   async delete(id: string): Promise<void> {

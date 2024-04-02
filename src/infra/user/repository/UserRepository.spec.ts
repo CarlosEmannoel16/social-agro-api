@@ -1,5 +1,5 @@
-import { prismaMock } from "../../@shared/db/prisma/config/SingletonPrismaTest";
-import prisma from "../../@shared/db/prisma/config/PrismaClient";
+import { prismaMock } from "../../shared/db/prisma/config/SingletonPrismaTest";
+import prisma from "../../shared/db/prisma/config/prismaClient";
 import UserRepository from "./UserRepository";
 import { User } from "../../../domain/user/entity/User";
 import { Phone } from "../../../domain/user/entity/Phone";

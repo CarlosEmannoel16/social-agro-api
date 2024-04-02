@@ -1,0 +1,19 @@
+@startuml
+left to right direction
+actor Usuario as u
+
+package App {
+  usecase "Realizar login" as UC1
+  usecase "Cadastrar animal externo" as UC2
+  usecase "Cadastrar produção \n de leite diária" as UC3
+  usecase "Cadastrar vacina aplicada" as UC4
+  usecase "Cadastrar nascimento de bezerro" as UC5
+  usecase "Visualizar histórico \n de produção leiteira" as UC6
+}
+u --> UC1
+u --> UC2
+u --> UC3
+u --> UC4
+u --> UC5
+u --> UC6
+@enduml

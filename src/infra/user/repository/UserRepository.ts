@@ -1,6 +1,6 @@
 import { Phone } from "../../../domain/user/entity/Phone";
 import { User } from "../../../domain/user/entity/User";
-import PrismaClient from "../../@shared/db/prisma/config/PrismaClient";
+import PrismaClient from "../../shared/db/prisma/config/prismaClient";
 import { UserRepositoryInterface } from "../../../domain/user/repository/UserRepositoryInterface";
 import { UserFactory } from "../../../domain/user/factory/UserFactory";
 export default class UserRepository implements UserRepositoryInterface {

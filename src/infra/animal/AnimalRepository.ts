@@ -1,3 +1,5 @@
+import PrismaClient from "../../infra/shared/db/prisma/config/prismaClient";
+
 import { Note } from "@/domain/expenses/valueObjects/Note";
 import { Animal, TypeAnimal } from "../../domain/animal/entity/Animal";
 import { AnimalFactory } from "../../domain/animal/factory/AnimalFactory";
@@ -6,7 +8,6 @@ import {
   addDailyMilkProductionParams,
   addWeightParams,
 } from "../../domain/animal/repository/AnimaProtocolRepository";
-import PrismaClient from "@/infra/@shared/db/prisma/config/PrismaClient";
 export class AnimalRepository implements AnimalRepositoryInterface {
   async editNote(data: Note): Promise<Note | undefined> {
     await PrismaClient.notes.update({

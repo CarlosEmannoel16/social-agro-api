@@ -1,5 +1,5 @@
 import { User } from "../entity/User";
-import EventInterface from "../../_@shared/event/event.interface";
+import EventInterface from "../../_shared/event/event.interface";
 
 export default class UserCreatedEvent implements EventInterface {
     dateTimeOccurred: Date;

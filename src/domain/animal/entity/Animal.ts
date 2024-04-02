@@ -1,4 +1,3 @@
-import { ValidationError } from "@/shared/errors/Errors";
 import { weightAnimal } from "./WeightAnimal";
 
 export enum TypeAnimal {
@@ -42,7 +41,7 @@ export class Animal {
     if (!this._dateOfBirth) errors.push("Date of birth is required");
     if (!this._ownerId) errors.push("Owner is required");
 
-    if (errors.length > 0) throw new ValidationError(errors.join(", "));
+    if (errors.length > 0) throw new Error(errors.join(", "));
   }
 
   set surname(name: string) {
