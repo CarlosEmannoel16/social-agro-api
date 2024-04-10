@@ -14,5 +14,7 @@ export class AddMilkProductionAnimalController implements ControllerProtocol {
       ownerId: request.body.ownerId,
       quantityOfMilk: request.body.quantityOfMilk,
     });
+
+    return response.status(201).send();
   }
 }
