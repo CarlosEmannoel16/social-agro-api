@@ -1,6 +1,8 @@
 @startuml
+!theme reddress-lightred
 left to right direction
-actor Usuario as u
+actor Fazendeiro as u
+actor Administrador as adm
 
 package App {
   usecase "Realizar login" as UC1
@@ -9,11 +11,60 @@ package App {
   usecase "Cadastrar vacina aplicada" as UC4
   usecase "Cadastrar nascimento de bezerro" as UC5
   usecase "Visualizar histórico \n de produção leiteira" as UC6
+  usecase "Visualizar histórico \n de vacinação" as UC7
+  usecase "Adicionar anotação em animal" as UC8
+  usecase "Visualizar anotações \n de animal" as UC9
+  usecase "Apagar anotação de animal" as UC10
+  usecase "Verificar se animal está cadastrado" as UC11
+  usecase "Verificar se mãe do bezerro existe" as UC12
+  usecase "Verificar se pai do bezerro existe" as UC13
+  usecase "Adicionar um gasto ao animal" as UC14
+  usecase "Cadastrar Valor do Litro de leite" as UC15
+  usecase "Selecionar o valor do leite" as UC16
+  usecase "Adicionar valor de compra do animal" as UC17
+  usecase "Marcar Animal como vendido" as UC18
+  usecase "Adicionar Valor de venda do animal" as UC19
+  usecase "Verificar se animal tem valor de compra" as UC20
+  
+  UC5 ..> UC12
+  UC5 <.. UC13 : Extends
+
+  UC2 <.. UC17 : Extends
+
+  UC3  ..> UC11
+  UC3  ..> UC16
+
+  UC4  ..> UC11
+  UC6  ..> UC11
+  UC8  ..> UC11
+  UC9  ..> UC11
+  UC7  ..> UC11
+  UC10 ..> UC11
+  UC14 ..> UC11
+
+  UC18 ..> UC20
+  UC20 <.. UC19 : Extends
 }
+
+package Administrador {
+   usecase "Cadastrar uma nova fazenda" as UCADM_13
+
+}
+
+
+adm --> UCADM_13
+
 u --> UC1
 u --> UC2
 u --> UC3
 u --> UC4
 u --> UC5
 u --> UC6
+u --> UC7
+u --> UC8
+u --> UC9
+u --> UC10
+u --> UC14
+u --> UC15
+u --> UC18
 @enduml
