@@ -10,6 +10,7 @@ export class CreateAnimalUseCase implements CreateAnimalUseCaseProtocol {
     private readonly userRepository: UserRepositoryInterface
   ) {}
   async execute(data: InputCreateAnimalDTO): Promise<OutputCreateAnimalDTO> {
+
     const user = await this.userRepository.find(data.ownerId);
     if (!user) throw new Error("Usuário não encontrado");
 

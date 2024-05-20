@@ -1,8 +1,5 @@
-import { Phone } from "../../../domain/user/entity/Phone";
 import { User } from "../../../domain/user/entity/User";
 import { UserRepositoryInterface } from "../../../domain/user/repository/UserRepositoryInterface";
-import { prismaMock } from "../../../infra/shared/db/prisma/config/SingletonPrismaTest";
-import UserRepository from "../../../infra/user/repository/UserRepository";
 import { InputFindUserDTO, OutputFindUserDTO } from "./FindUseDTO";
 import FindUserUseCase from "./FindUserUsecase";
 

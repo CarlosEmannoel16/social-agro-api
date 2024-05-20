@@ -1,4 +1,4 @@
-import PrismaClient from "../../infra/shared/db/prisma/config/prismaClient";
+import PrismaClient from "@/infra/shared/db/prisma/config/prismaClient";
 
 import { Note } from "@/domain/expenses/valueObjects/Note";
 import { Animal, TypeAnimal } from "../../domain/animal/entity/Animal";

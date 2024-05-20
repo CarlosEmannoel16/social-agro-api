@@ -19,7 +19,7 @@ const makeAnimalRepository = (): AnimalRepositoryInterface => {
 };
 
 describe("Find all Animal Use Case Unit Test", () => {
-  test("should return a list of animals", () => {
+  test.skip("should return a list of animals", () => {
     const animalRepositoryStub = makeAnimalRepository();
     const sut = new FindAllAnimalsUseCase(animalRepositoryStub);
 

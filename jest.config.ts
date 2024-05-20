@@ -9,7 +9,6 @@ const config: Config = {
   transform: {
     "^.+\.(t|j)sx?$": "@swc/jest",
   }, 
-  setupFilesAfterEnv: ['<rootDir>/src/infra/@shared/db/prisma/config/SingletonPrismaTest.ts'], 
 
 
   clearMocks: true,
