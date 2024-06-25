@@ -1,4 +1,4 @@
-import { AnimalRepository } from "@/infra/animal/AnimalRepository";
+import { AnimalRepository } from "@/infra/repository/animal/AnimalRepository";
 import { AddMilkProductionUseCase } from "@/usecase/animal/addMilkProduction/AddMilkProductionUseCase";
 
 export const makeAddMilkProductionController = () => {

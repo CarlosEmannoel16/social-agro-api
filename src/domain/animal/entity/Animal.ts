@@ -37,9 +37,9 @@ export class Animal {
 
   validate() {
     const errors = [];
-    if (!this._id) errors.push("Id is required");
-    if (!this._dateOfBirth) errors.push("Date of birth is required");
-    if (!this._ownerId) errors.push("Owner is required");
+    if (!this._id) errors.push("[Animal] Id is required");
+    if (!this._ownerId) errors.push("[Animal] Owner is required");
+    if (!this._dateOfBirth) errors.push("[Animal] Date of birth is required");
 
     if (errors.length > 0) throw new Error(errors.join(", "));
   }
@@ -109,6 +109,10 @@ export class Animal {
     return this._dateOfUpdate;
   }
 
+  get image(): string[] {
+    return this._images;
+  }
+
   makeItPublic() {
     this._isPublic = true;
   }
@@ -129,10 +133,6 @@ export class Animal {
 
   addImageUrl(image: string[]) {
     if (this._images) this._images = [...this._images, ...image];
-  }
-
-  get image(): string[] {
-    return this._images;
   }
 
   addWeight(weight: weightAnimal) {

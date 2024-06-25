@@ -1,16 +1,15 @@
-import PrismaClient from "@/infra/shared/db/prisma/config/prismaClient";
+import { dataBase } from "../../shared/db/prisma/config/prismaClient";
 
 import { Note } from "@/domain/expenses/valueObjects/Note";
-import { Animal, TypeAnimal } from "../../domain/animal/entity/Animal";
-import { AnimalFactory } from "../../domain/animal/factory/AnimalFactory";
+import { Animal, TypeAnimal } from "../../../domain/animal/entity/Animal";
+import { AnimalFactory } from "../../../domain/animal/factory/AnimalFactory";
 import {
   AnimalRepositoryInterface,
-  addDailyMilkProductionParams,
   addWeightParams,
-} from "../../domain/animal/repository/AnimaProtocolRepository";
+} from "../../../domain/animal/repository/AnimaProtocolRepository";
 export class AnimalRepository implements AnimalRepositoryInterface {
   async editNote(data: Note): Promise<Note | undefined> {
-    await PrismaClient.notes.update({
+    await dataBase.notes.update({
       data: {
         color: data.color,
         text: data.text,
@@ -26,7 +25,7 @@ export class AnimalRepository implements AnimalRepositoryInterface {
     return data;
   }
   async deleteNote(animalId: string, noteId: string): Promise<any> {
-    await PrismaClient.notes.delete({
+    await dataBase.notes.delete({
       where: {
         id: noteId,
         animalId: animalId,
@@ -34,7 +33,7 @@ export class AnimalRepository implements AnimalRepositoryInterface {
     });
   }
   async addNote(data: Note): Promise<Note> {
-    await PrismaClient.notes.create({
+    await dataBase.notes.create({
       data: {
         color: data.color,
         text: data.text,
@@ -51,7 +50,7 @@ export class AnimalRepository implements AnimalRepositoryInterface {
     params: string,
     userId: string
   ): Promise<Animal[] | undefined> {
-    const result = await PrismaClient.animals.findMany({
+    const result = await dataBase.animals.findMany({
       where: {
         userId: userId,
         OR: [
@@ -90,7 +89,7 @@ export class AnimalRepository implements AnimalRepositoryInterface {
     imageUrl: string,
     userId: string
   ): Promise<void> {
-    await PrismaClient.animals.update({
+    await dataBase.animals.update({
       where: { id: animalId, userId: userId },
       data: {
         ImagesAnimal: {
@@ -102,8 +101,8 @@ export class AnimalRepository implements AnimalRepositoryInterface {
     });
   }
   async create(item: Animal): Promise<Animal> {
-    console.log(item.image);
-    const result = await PrismaClient.animals.create({
+
+    const result = await dataBase.animals.create({
       data: {
         dateOfBirth: item.dateOfBirth,
         fatherId: item.fatherId,
@@ -134,7 +133,7 @@ export class AnimalRepository implements AnimalRepositoryInterface {
     throw new Error("Method not implemented.");
   }
   async find(userId: string, animalId: string): Promise<Animal | undefined> {
-    const animal = await PrismaClient.animals.findFirst({
+    const animal = await dataBase.animals.findFirst({
       where: {
         userId: userId,
         id: animalId,
@@ -158,7 +157,7 @@ export class AnimalRepository implements AnimalRepositoryInterface {
     });
   }
   async findAll(userId: string): Promise<Animal[]> {
-    const result = await PrismaClient.animals.findMany({
+    const result = await dataBase.animals.findMany({
       where: {
         userId,
       },
@@ -190,7 +189,7 @@ export class AnimalRepository implements AnimalRepositoryInterface {
   }
 
   async addWeight(data: addWeightParams) {
-    const result = await PrismaClient.weightHistory.create({
+    const result = await dataBase.weightHistory.create({
       data: {
         date: data.date,
         weight: data.weight,
@@ -201,12 +200,11 @@ export class AnimalRepository implements AnimalRepositoryInterface {
     return result;
   }
 
-  async addDailyMilkProduction(data: addDailyMilkProductionParams) {
-    const result = await PrismaClient.dailyAmountOfMilk.create({
-      data: {
-        amount: data.dailyMilkProduction,
-        date: data.date,
-        animalsId: data.idAnimal,
+
+  async findHistoryVaccines(idAnimal: string) {
+    const result = await dataBase.vaccination.findMany({
+      where: {
+        animalsId: idAnimal,
       },
     });
 
@@ -214,27 +212,7 @@ export class AnimalRepository implements AnimalRepositoryInterface {
   }
 
   async findWeightHistory(idAnimal: string) {
-    const result = await PrismaClient.weightHistory.findMany({
-      where: {
-        animalsId: idAnimal,
-      },
-    });
-
-    return result;
-  }
-
-  async findDailyMilkProduction(idAnimal: string) {
-    const result = await PrismaClient.dailyAmountOfMilk.findMany({
-      where: {
-        animalsId: idAnimal,
-      },
-    });
-
-    return result;
-  }
-
-  async findHistoryVaccines(idAnimal: string) {
-    const result = await PrismaClient.vaccination.findMany({
+    const result = await dataBase.weightHistory.findMany({
       where: {
         animalsId: idAnimal,
       },

@@ -1,18 +1,18 @@
 import { Expense } from "@/domain/expenses/entity/Expense";
 import { ExpenseFactory } from "@/domain/expenses/factories/expenseFactory";
 import { ExpenseRepositoryInterface } from "@/domain/expenses/repository/ExpenseProtocolRepository";
-import PrismaClient from "@/infra/shared/db/prisma/config/prismaClient";
+import { dataBase } from "../../infra/shared/db/prisma/config/prismaClient";
 
 export class ExpenseRepository implements ExpenseRepositoryInterface {
   async delete(id: string): Promise<void> {
-    await PrismaClient.animalExpenses.delete({
+    await dataBase.animalExpenses.delete({
       where: {
         id: id,
       },
     });
   }
   async create(item: Expense): Promise<Expense> {
-    await PrismaClient.animalExpenses.create({
+    await dataBase.animalExpenses.create({
       data: {
         amount: item.amount,
         animalId: item.animalId,
@@ -26,7 +26,7 @@ export class ExpenseRepository implements ExpenseRepositoryInterface {
     return item;
   }
   async update(item: Expense): Promise<void> {
-    await PrismaClient.animalExpenses.update({
+    await dataBase.animalExpenses.update({
       where: { id: item.id },
       data: {
         amount: item.amount,
@@ -39,7 +39,7 @@ export class ExpenseRepository implements ExpenseRepositoryInterface {
     });
   }
   async findAll(userId: string): Promise<Expense[]> {
-    const result = await PrismaClient.animalExpenses.findMany({
+    const result = await dataBase.animalExpenses.findMany({
       include: {
         Category: true,
       },
