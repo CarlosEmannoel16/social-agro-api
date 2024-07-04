@@ -60,6 +60,7 @@ describe("Domain Events Test", () => {
       "carlosemannoel2019@gmail.com",
       "123456",
       new Date(),
+      new Date(),
       new Date()
     );
 

@@ -23,7 +23,6 @@ export class SearchAnimalUseCase implements SearchAnimalUseCaseProtocol {
       createdAt: animal.createdAt,
       image: animal.image,
       name: animal.surname,
-      ownerId: animal.ownerId,
       updatedAt: animal.updatedAt,
     }));
   }
