@@ -7,8 +7,10 @@ export class User {
   private _email: string;
   private _password: string;
   public _address!: Address;
+  private _dateOfBirth!: Date;
   private _createdAt: Date;
   private _updatedAt: Date;
+  private _profileUrl!: string;
   private _phones: Phone[] | [] = [];
 
   constructor(
@@ -16,6 +18,7 @@ export class User {
     name: string,
     email: string,
     password: string,
+    dateOfBirth: Date,
     createdAt: Date,
     updatedAt: Date
   ) {
@@ -23,6 +26,7 @@ export class User {
     this._name = name;
     this._email = email;
     this._password = password;
+    this._dateOfBirth = dateOfBirth;
     this._createdAt = createdAt;
     this._updatedAt = updatedAt;
     this._phones = [];
@@ -56,6 +60,14 @@ export class User {
     return this._phones;
   }
 
+  get dateOfBirth(): Date {
+    return this._dateOfBirth;
+  }
+
+  get profileUrl(): string {
+    return this._profileUrl || "";
+  }
+
   validate() {
     if (!this._id) throw new Error("id is required");
     if (!this._name) throw new Error("Name is required");
@@ -77,5 +89,9 @@ export class User {
     phones?.forEach((phone) => {
       this.phones.push(phone);
     });
+  }
+
+  changeProfileUrl(profileUrl: string) {
+    this._profileUrl = profileUrl;
   }
 }

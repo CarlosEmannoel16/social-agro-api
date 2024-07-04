@@ -1,16 +1,27 @@
+import { User } from "@/domain/user/entity/User";
+import { UserFactory } from "@/domain/user/factory/UserFactory";
 import { UserRepositoryInterface } from "@/domain/user/repository/UserRepositoryInterface";
 import { UserEntity } from "@/infra/ORM/UserEntity";
 import { DatabaseInitializer } from "@/loaders/database";
 export default class UserRepository implements UserRepositoryInterface {
   async addImage(imageUrl: string, userId: string): Promise<void> {
-    await DatabaseInitializer.db().getRepository(UserEntity).update({
-      id: userId,
-    }, {
-      profileUrl: imageUrl,
-    });
+    await DatabaseInitializer.db().getRepository(UserEntity).update(
+      {
+        id: userId,
+      },
+      {
+        profileUrl: imageUrl,
+      }
+    );
   }
   async findByEmail(email: string): Promise<User | undefined> {
-    const result = await dataBase.user.findUnique({ where: { email } });
+    const result = await DatabaseInitializer.db()
+      .getRepository(UserEntity)
+      .findOne({
+        where: {
+          email,
+        },
+      });
 
     if (!result) return undefined;
 
@@ -24,27 +35,14 @@ export default class UserRepository implements UserRepositoryInterface {
     return user;
   }
   async create(item: User): Promise<User> {
-    const data = await dataBase.user.create({
-      data: {
-        email: item.email,
-        name: item.name,
-        password: item.password,
-        id: item.id,
-        createdAt: item.createdAt,
-        updatedAt: item.updatedAt,
-        Phones: {
-          createMany: {
-            data: item.phones.map((phone) => ({
-              phone: phone.number,
-              createdAt: phone.dateOfCreation,
-              updatedAt: phone.dateOfLastUpdated,
-            })),
-          },
-        },
-      },
-      include: {
-        Phones: true,
-      },
+    const data = await DatabaseInitializer.db().getRepository(UserEntity).save({
+      email: item.email,
+      name: item.name,
+      password: item.password,
+      id: item.id,
+      createdAt: item.createdAt,
+      updatedAt: item.updatedAt,
+      dateOfBirth: item.dateOfBirth,
     });
 
     const user = new User(
@@ -52,51 +50,38 @@ export default class UserRepository implements UserRepositoryInterface {
       data.name,
       data.email,
       data.password,
+      data.dateOfBirth,
       data.createdAt,
       data.updatedAt
     );
 
-    const phones = data.Phones?.map(
-      (phone) => new Phone(phone.phone, phone.createdAt, phone.updatedAt)
-    );
-    user.addPhone(phones);
-
     return user;
   }
   async update(item: User): Promise<void> {
-    await dataBase.user.update({
-      data: item,
-      where: {
-        id: item.id,
-      },
+    await DatabaseInitializer.db().getRepository(UserEntity).update(item.id, {
+      email: item.email,
+      password: item.password,
+      profileUrl: item.profileUrl,
     });
   }
   async find(id: string): Promise<User> {
     try {
-      const data = await dataBase.user.findUnique({
-        where: {
-          id,
-        },
-        include: {
-          Phones: true,
-        },
-      });
+      const data = await DatabaseInitializer.db()
+        .getRepository(UserEntity)
+        .findOne({
+          where: {
+            id,
+          },
+        });
 
       if (!data) throw new Error("User not found");
 
-      const user = new User(
-        data.id,
-        data.name,
-        data.email,
-        data.password,
-        data.createdAt,
-        data.updatedAt
-      );
-
-      const phones = data.Phones?.map(
-        (phone) => new Phone(phone.phone, phone.createdAt, phone.updatedAt)
-      );
-      user.addPhone(phones);
+      const user = UserFactory.createNewUser({
+        email: data.email,
+        name: data.name,
+        password: data.password,
+        id: data.id,
+      });
 
       return user;
     } catch (error) {
@@ -108,11 +93,13 @@ export default class UserRepository implements UserRepositoryInterface {
   }
 
   async findByName(name: string): Promise<User[]> {
-    const result = await dataBase.user.findMany({
-      where: {
-        name: name,
-      },
-    });
+    const result = await DatabaseInitializer.db()
+      .getRepository(UserEntity)
+      .find({
+        where: {
+          name,
+        },
+      });
 
     return result.map((resultItem) =>
       UserFactory.createNewUser({
