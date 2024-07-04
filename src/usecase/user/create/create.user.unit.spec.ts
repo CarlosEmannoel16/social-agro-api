@@ -32,6 +32,7 @@ describe("Test Create User Use Case Unit", () => {
       "any_email",
       "any_password",
       new Date(),
+      new Date(),
       new Date()
     );
     userRepository.create = jest.fn().mockResolvedValueOnce(userInstance);

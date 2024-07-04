@@ -23,6 +23,7 @@ describe("Find Customer Unit Tests", () => {
       "emanoel@email.com",
       "2345",
       new Date(),
+      new Date(),
       new Date()
     );
 

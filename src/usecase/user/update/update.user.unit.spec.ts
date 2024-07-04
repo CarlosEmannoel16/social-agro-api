@@ -9,6 +9,7 @@ const user = new User(
   "any_email",
   "any_password",
   new Date(),
+  new Date(),
   new Date()
 );
 

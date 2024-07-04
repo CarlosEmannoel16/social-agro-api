@@ -17,7 +17,6 @@ export class CreateAnimalUseCase implements CreateAnimalUseCaseProtocol {
     const animal = AnimalFactory.createNewAnimal({
       dateOfBirth: new Date(data.dateOfBirth),
       fatherId: data.fatherId,
-      ownerId: data.ownerId,
       type: data.type,
       surname: data.surname,
       breed: data.breed,

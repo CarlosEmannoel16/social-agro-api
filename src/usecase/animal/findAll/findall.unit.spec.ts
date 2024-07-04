@@ -9,7 +9,6 @@ const makeAnimalRepository = (): AnimalRepositoryInterface => {
     update: jest.fn(),
     addImage: jest.fn(),
     findWithParams: jest.fn(),
-    addDailyMilkProduction: jest.fn(),
     addNote: jest.fn(),
     addWeight: jest.fn(),
     deleteNote: jest.fn(),

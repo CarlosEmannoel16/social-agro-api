@@ -8,6 +8,14 @@ export class UserFactory {
     password,
     id = v4(),
   }: InputCreateUserFactory) {
-    return new User(id, name, email, password, new Date(), new Date());
+    return new User(
+      id,
+      name,
+      email,
+      password,
+      new Date(),
+      new Date(),
+      new Date()
+    );
   }
 }

@@ -1,12 +1,4 @@
-import { Vaccination } from "@prisma/client";
-import {
-  Entity,
-  Column,
-  PrimaryGeneratedColumn,
-  OneToMany,
-  ManyToOne,
-  OneToOne,
-} from "typeorm";
+import { Entity, Column, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
 export class UserEntity {
@@ -21,7 +13,7 @@ export class UserEntity {
   dateOfBirth!: Date;
 
   @Column()
-  createdAt!: Date;
+  email!: string;
 
   @Column()
   password!: string;
@@ -31,4 +23,7 @@ export class UserEntity {
 
   @Column()
   updatedAt!: Date;
+
+  @Column()
+  createdAt!: Date;
 }

@@ -9,7 +9,6 @@ describe("User Factory  Test Unit", () => {
         fatherId: "123",
         surname: "surname",
         type: TypeAnimal.COW,
-        ownerId: "123",
       })
     ).toBeDefined();
   });
@@ -19,7 +18,6 @@ describe("User Factory  Test Unit", () => {
       dateOfBirth: new Date(),
       fatherId: "123",
       type: TypeAnimal.COW,
-      ownerId: "123",
     });
     expect(animal.surname).toBeUndefined();
   });
@@ -30,7 +28,6 @@ describe("User Factory  Test Unit", () => {
       fatherId: "123",
       surname: "surname",
       type: TypeAnimal.COW,
-      ownerId: "123",
     });
     expect(animal.surname).toBe("surname");
   });

@@ -1,4 +1,4 @@
-import UserRepository from "../../../../infra/user/repository/UserRepository";
+import UserRepository from "@/infra/repository/user/repository/UserRepository";
 import { AuthenticationController } from "../../../../presetation/controllers/authentication/AuthenticationController";
 import { AuthUseCase } from "../../../../usecase/auth/auth";
 
