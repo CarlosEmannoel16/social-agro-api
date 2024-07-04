@@ -1,4 +1,4 @@
-import UserRepository from "../../../../infra/user/repository/UserRepository";
+import UserRepository from "@/infra/repository/user/repository/UserRepository";
 import { FindUserController } from "../../../../presetation/controllers/user/FindUserController";
 import FindUserUseCase from "../../../../usecase/user/find/FindUserUsecase";
 
