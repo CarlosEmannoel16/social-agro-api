@@ -19,6 +19,9 @@ export class AnimalExpensesEntity {
   @Column()
   animalId!: string;
 
+  @Column()
+  date!: Date;
+
   @ManyToOne(() => AnimalEntity, (animal) => animal.expenses)
   animal!: AnimalEntity;
 

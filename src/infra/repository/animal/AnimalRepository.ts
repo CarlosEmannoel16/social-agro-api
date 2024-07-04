@@ -1,5 +1,3 @@
-import { dataBase } from "../../shared/db/prisma/config/prismaClient";
-
 import { Note } from "@/domain/expenses/valueObjects/Note";
 import { Animal, TypeAnimal } from "../../../domain/animal/entity/Animal";
 import { AnimalFactory } from "../../../domain/animal/factory/AnimalFactory";
@@ -7,41 +5,40 @@ import {
   AnimalRepositoryInterface,
   addWeightParams,
 } from "../../../domain/animal/repository/AnimaProtocolRepository";
+import { AnimalNotesEntity } from "@/infra/ORM/AnimalNotesEntity";
+import { DatabaseInitializer } from "@/loaders/database";
+import { AnimalEntity } from "@/infra/ORM/AnimalEntity";
+import { ILike } from "typeorm";
+import { ImagesAnimalEntity } from "@/infra/ORM/ImagesAnimalEntity";
+import { WeightHistoryEntity } from "@/infra/ORM/WeightHistoryEntity";
+import { VaccinationEntity } from "@/infra/ORM/VaccinationEntity";
 export class AnimalRepository implements AnimalRepositoryInterface {
   async editNote(data: Note): Promise<Note | undefined> {
-    await dataBase.notes.update({
-      data: {
-        color: data.color,
-        text: data.text,
-        title: data.title,
-        animalId: data.animalId,
-      },
-      where: {
-        id: data.id,
-        animalId: data.animalId,
-      },
-    });
+    const note = new AnimalNotesEntity();
+    note.color = data.color;
+    note.description = data.text;
+    note.title = data.title;
+    note.animalId = data.animalId;
+    note.id = data.id;
+
+    await DatabaseInitializer.db().getRepository(AnimalNotesEntity).save(note);
 
     return data;
   }
   async deleteNote(animalId: string, noteId: string): Promise<any> {
-    await dataBase.notes.delete({
-      where: {
-        id: noteId,
-        animalId: animalId,
-      },
-    });
+    const repository =
+      DatabaseInitializer.db().getRepository(AnimalNotesEntity);
+    await repository.delete({ id: noteId, animalId: animalId });
   }
   async addNote(data: Note): Promise<Note> {
-    await dataBase.notes.create({
-      data: {
-        color: data.color,
-        text: data.text,
-        title: data.title,
-        animalId: data.animalId,
-        createdAt: new Date(),
-        id: data.id,
-      },
+    const repository =
+      DatabaseInitializer.db().getRepository(AnimalNotesEntity);
+
+    await repository.save({
+      animalId: data.animalId,
+      color: data.color,
+      description: data.text,
+      title: data.title,
     });
 
     return data;
@@ -50,22 +47,14 @@ export class AnimalRepository implements AnimalRepositoryInterface {
     params: string,
     userId: string
   ): Promise<Animal[] | undefined> {
-    const result = await dataBase.animals.findMany({
+    const repository = DatabaseInitializer.db().getRepository(AnimalEntity);
+
+    const result = await repository.find({
       where: {
-        userId: userId,
-        OR: [
-          {
-            surname: {
-              startsWith: `%${params}%`,
-              mode: "insensitive",
-            },
-          },
-        ],
+        id: userId,
+        surname: ILike(`%${params}%`),
       },
-      include: {
-        ImagesAnimal: true,
-      },
-      take: 10,
+      relations: ["images", "breed"],
     });
 
     if (!result) return;
@@ -73,57 +62,37 @@ export class AnimalRepository implements AnimalRepositoryInterface {
     return result.map((animal) => {
       return AnimalFactory.createNewAnimal({
         dateOfBirth: animal.dateOfBirth,
-        ownerId: animal.userId as string,
         type: animal.type as TypeAnimal,
-        breed: animal.breedAnimalsId || undefined,
-        images: animal.ImagesAnimal.map((img) => img.url),
+        breed: animal.breed ? animal.breed.name : undefined,
+        images: animal.images.map((img) => img.url),
         fatherId: animal.fatherId || undefined,
         motherId: animal.motherId || undefined,
         surname: animal.surname,
       });
     });
   }
-
   async addImage(
     animalId: string,
     imageUrl: string,
     userId: string
   ): Promise<void> {
-    await dataBase.animals.update({
-      where: { id: animalId, userId: userId },
-      data: {
-        ImagesAnimal: {
-          create: {
-            url: imageUrl,
-          },
-        },
-      },
+    const repository =
+      DatabaseInitializer.db().getRepository(ImagesAnimalEntity);
+
+    await repository.save({
+      url: imageUrl,
+      animalId: animalId,
     });
   }
   async create(item: Animal): Promise<Animal> {
+    const repository = DatabaseInitializer.db().getRepository(AnimalEntity);
 
-    const result = await dataBase.animals.create({
-      data: {
-        dateOfBirth: item.dateOfBirth,
-        fatherId: item.fatherId,
-        surname: item.surname,
-        type: item.type,
-        isPublic: item.isPublic,
-        ImagesAnimal: {
-          createMany: {
-            data:
-              item.image?.map((image) => {
-                return {
-                  url: image,
-                };
-              }) || [],
-          },
-        },
-        id: item.id,
-        userId: item.ownerId,
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      },
+    const result = await repository.save({
+      fatherId: item.fatherId,
+      dateOfBirth: item.dateOfBirth,
+      surname: item.surname,
+      type: item.type,
+      motherId: item.motherId,
     });
 
     if (!result) throw new Error("Error to create animal");
@@ -132,14 +101,12 @@ export class AnimalRepository implements AnimalRepositoryInterface {
   async update(item: Animal): Promise<void> {
     throw new Error("Method not implemented.");
   }
-  async find(userId: string, animalId: string): Promise<Animal | undefined> {
-    const animal = await dataBase.animals.findFirst({
+  async find(animalId: string): Promise<Animal | undefined> {
+    const repository = DatabaseInitializer.db().getRepository(AnimalEntity);
+
+    const animal = await repository.findOne({
       where: {
-        userId: userId,
         id: animalId,
-      },
-      include: {
-        ImagesAnimal: true,
       },
     });
 
@@ -147,74 +114,68 @@ export class AnimalRepository implements AnimalRepositoryInterface {
 
     return AnimalFactory.createNewAnimal({
       dateOfBirth: animal.dateOfBirth,
-      ownerId: animal.userId as string,
       type: animal.type as TypeAnimal,
-      breed: animal.breedAnimalsId || undefined,
-      images: animal.ImagesAnimal.map((img) => img.url),
+      breed: animal.breed.name || undefined,
+      images: animal.images.map((img) => img.url),
       fatherId: animal.fatherId || undefined,
       motherId: animal.motherId || undefined,
       surname: animal.surname,
     });
   }
-  async findAll(userId: string): Promise<Animal[]> {
-    const result = await dataBase.animals.findMany({
-      where: {
-        userId,
-      },
-      include: {
-        ImagesAnimal: true,
-        WeightHistory: true,
-      },
-    });
+  async findAll(): Promise<Animal[]> {
+    const repository = DatabaseInitializer.db().getRepository(AnimalEntity);
 
-    if (!result) throw new Error("Error to find animals");
+    const animal = await repository.find();
+
+    if (!animal) throw new Error("Error to find animals");
 
     return AnimalFactory.createMap(
-      result.map((animal) => ({
+      animal.map((animal) => ({
         dateOfBirth: animal.dateOfBirth,
-        ownerId: animal.userId as string,
         type: animal.type as TypeAnimal,
-        breed: animal.breedAnimalsId || undefined,
-        images: animal.ImagesAnimal.map((img) => img.url),
+        breed: animal.breed.name || undefined,
+        images: animal.images.map((img) => img.url),
         fatherId: animal.fatherId || undefined,
         motherId: animal.motherId || undefined,
         surname: animal.surname,
         id: animal.id,
-        weightHistory: animal.WeightHistory.map((weight) => ({
-          dateOfRegister: weight.date,
+        weightHistory: animal.weightHistory.map((weight) => ({
+          dateOfRegister: weight.createdAt,
           weight: weight.weight,
         })),
       }))
     );
   }
-
   async addWeight(data: addWeightParams) {
-    const result = await dataBase.weightHistory.create({
-      data: {
-        date: data.date,
-        weight: data.weight,
-        animalsId: data.idAnimal,
-      },
+    const repository =
+      DatabaseInitializer.db().getRepository(WeightHistoryEntity);
+
+    await repository.save({
+      animalId: data.idAnimal,
+      date: data.date,
+      weight: data.weight,
     });
-
-    return result;
   }
-
-
   async findHistoryVaccines(idAnimal: string) {
-    const result = await dataBase.vaccination.findMany({
+    const repository = DatabaseInitializer.db().getRepository(
+      VaccinationEntity
+    );
+
+    const result = await repository.find({
       where: {
-        animalsId: idAnimal,
+        animalId: idAnimal,
       },
     });
 
     return result;
   }
-
   async findWeightHistory(idAnimal: string) {
-    const result = await dataBase.weightHistory.findMany({
+    const repository =
+      DatabaseInitializer.db().getRepository(WeightHistoryEntity);
+
+    const result = await repository.find({
       where: {
-        animalsId: idAnimal,
+        animalId: idAnimal,
       },
     });
 

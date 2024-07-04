@@ -2,7 +2,7 @@ import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "t
 import { AnimalEntity } from "./AnimalEntity";
 
 @Entity()
-export class VaccinationEntityEntity {
+export class VaccinationEntity {
   @Column()
   @PrimaryGeneratedColumn()
   id!: string;

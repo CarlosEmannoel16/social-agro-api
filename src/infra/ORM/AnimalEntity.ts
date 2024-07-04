@@ -5,8 +5,9 @@ import {
   PrimaryGeneratedColumn,
   OneToMany,
   ManyToOne,
+  OneToOne,
 } from "typeorm";
-import { VaccinationEntityEntity } from "./VaccinationEntity";
+import { VaccinationEntity } from "./VaccinationEntity";
 import { WeightHistoryEntity } from "./WeightHistoryEntity";
 import { ImagesAnimalEntity } from "./ImagesAnimalEntity";
 import { DailyAmountOfMilkEntity } from "./DailyAmountOfMilk";
@@ -40,29 +41,41 @@ export class AnimalEntity {
   @Column()
   updatedAt!: Date;
 
-  @OneToMany(() => VaccinationEntityEntity, (vaccination) => vaccination.animal)
-  vaccination!: Vaccination;
+  @Column()
+  fatherId!: string;
+
+  @Column()
+  motherId!: string;
+
+  @OneToOne(() => AnimalEntity, (animal) => animal.fatherId)
+  father!: AnimalEntity;
+
+  @OneToOne(() => AnimalEntity, (animal) => animal.motherId)
+  mother!: AnimalEntity;
+
+  @OneToMany(() => VaccinationEntity, (vaccination) => vaccination.animal)
+  vaccination!: Vaccination[];
 
   @OneToMany(() => WeightHistoryEntity, (weight) => weight.animal)
-  weightHistory!: WeightHistoryEntity;
+  weightHistory!: WeightHistoryEntity[];
 
   @OneToMany(() => ImagesAnimalEntity, (image) => image.animal)
-  images!: ImagesAnimalEntity;
+  images!: ImagesAnimalEntity[];
 
   @OneToMany(
     () => DailyAmountOfMilkEntity,
     (dailyAmountOfMilk) => dailyAmountOfMilk.animal
   )
-  dailyAmountOfMilk!: DailyAmountOfMilkEntity;
+  dailyAmountOfMilk!: DailyAmountOfMilkEntity[];
 
   @OneToMany(
     () => AnimalExpensesEntity,
     (animalExpense) => animalExpense.animal
   )
-  expenses!: AnimalExpensesEntity;
+  expenses!: AnimalExpensesEntity[];
 
   @OneToMany(() => AnimalNotesEntity, (animalNote) => animalNote.animal)
-  notes!: AnimalExpensesEntity;
+  notes!: AnimalExpensesEntity[];
 
   @ManyToOne(() => BreedAnimalEntity, (breed) => breed.animal)
   breed!: BreedAnimalEntity;

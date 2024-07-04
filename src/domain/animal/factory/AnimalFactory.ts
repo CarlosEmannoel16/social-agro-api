@@ -9,7 +9,6 @@ interface InputCreateNewAnimalDTO {
   surname?: string;
   type: TypeAnimal;
   breed?: string;
-  ownerId: string;
   motherId?: string;
   images?: string[];
   weightHistory?: {
@@ -24,14 +23,13 @@ export class AnimalFactory {
     fatherId,
     surname,
     breed = "Generic",
-    ownerId,
     type,
     motherId,
     images,
     weightHistory,
     id = v4(),
   }: InputCreateNewAnimalDTO) {
-    const animal = new Animal(id, dateOfBirth, type, breed, ownerId);
+    const animal = new Animal(id, dateOfBirth, type, breed);
 
     if (surname) animal.surname = surname;
     if (fatherId) animal.idFather = fatherId;

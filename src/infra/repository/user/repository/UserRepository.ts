@@ -1,17 +1,12 @@
-import { Phone } from "../../../domain/user/entity/Phone";
-import { User } from "../../../domain/user/entity/User";
-import { dataBase } from "../../shared/db/prisma/config/prismaClient";
-import { UserRepositoryInterface } from "../../../domain/user/repository/UserRepositoryInterface";
-import { UserFactory } from "../../../domain/user/factory/UserFactory";
+import { UserRepositoryInterface } from "@/domain/user/repository/UserRepositoryInterface";
+import { UserEntity } from "@/infra/ORM/UserEntity";
+import { DatabaseInitializer } from "@/loaders/database";
 export default class UserRepository implements UserRepositoryInterface {
   async addImage(imageUrl: string, userId: string): Promise<void> {
-    await dataBase.user.update({
-      data: {
-        profileUrl: imageUrl,
-      },
-      where: {
-        id: userId,
-      },
+    await DatabaseInitializer.db().getRepository(UserEntity).update({
+      id: userId,
+    }, {
+      profileUrl: imageUrl,
     });
   }
   async findByEmail(email: string): Promise<User | undefined> {
