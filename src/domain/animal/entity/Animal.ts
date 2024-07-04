@@ -24,22 +24,19 @@ export class Animal {
     id: string,
     dateOfBirth: Date,
     type: TypeAnimal,
-    breed: string,
-    ownerId: string
+    breed: string
   ) {
     this._id = id;
     this._dateOfBirth = dateOfBirth;
     this._type = type;
     this._breed = breed;
-    this._ownerId = ownerId;
     this.validate();
   }
 
   validate() {
     const errors = [];
-    if (!this._id) errors.push("Id is required");
-    if (!this._dateOfBirth) errors.push("Date of birth is required");
-    if (!this._ownerId) errors.push("Owner is required");
+    if (!this._id) errors.push("[Animal] Id is required");
+    if (!this._dateOfBirth) errors.push("[Animal] Date of birth is required");
 
     if (errors.length > 0) throw new Error(errors.join(", "));
   }
@@ -82,9 +79,7 @@ export class Animal {
     return this._id;
   }
 
-  get ownerId(): string {
-    return this._ownerId;
-  }
+ 
 
   get breed(): string {
     return this._breed;
@@ -109,6 +104,10 @@ export class Animal {
     return this._dateOfUpdate;
   }
 
+  get image(): string[] {
+    return this._images;
+  }
+
   makeItPublic() {
     this._isPublic = true;
   }
@@ -129,10 +128,6 @@ export class Animal {
 
   addImageUrl(image: string[]) {
     if (this._images) this._images = [...this._images, ...image];
-  }
-
-  get image(): string[] {
-    return this._images;
   }
 
   addWeight(weight: weightAnimal) {

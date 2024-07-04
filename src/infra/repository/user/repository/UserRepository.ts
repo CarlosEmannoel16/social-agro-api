@@ -1,21 +1,16 @@
-import { Phone } from "../../../domain/user/entity/Phone";
-import { User } from "../../../domain/user/entity/User";
-import PrismaClient from "../../shared/db/prisma/config/prismaClient";
-import { UserRepositoryInterface } from "../../../domain/user/repository/UserRepositoryInterface";
-import { UserFactory } from "../../../domain/user/factory/UserFactory";
+import { UserRepositoryInterface } from "@/domain/user/repository/UserRepositoryInterface";
+import { UserEntity } from "@/infra/ORM/UserEntity";
+import { DatabaseInitializer } from "@/loaders/database";
 export default class UserRepository implements UserRepositoryInterface {
   async addImage(imageUrl: string, userId: string): Promise<void> {
-    await PrismaClient.user.update({
-      data: {
-        profileUrl: imageUrl,
-      },
-      where: {
-        id: userId,
-      },
+    await DatabaseInitializer.db().getRepository(UserEntity).update({
+      id: userId,
+    }, {
+      profileUrl: imageUrl,
     });
   }
   async findByEmail(email: string): Promise<User | undefined> {
-    const result = await PrismaClient.user.findUnique({ where: { email } });
+    const result = await dataBase.user.findUnique({ where: { email } });
 
     if (!result) return undefined;
 
@@ -29,7 +24,7 @@ export default class UserRepository implements UserRepositoryInterface {
     return user;
   }
   async create(item: User): Promise<User> {
-    const data = await PrismaClient.user.create({
+    const data = await dataBase.user.create({
       data: {
         email: item.email,
         name: item.name,
@@ -69,7 +64,7 @@ export default class UserRepository implements UserRepositoryInterface {
     return user;
   }
   async update(item: User): Promise<void> {
-    await PrismaClient.user.update({
+    await dataBase.user.update({
       data: item,
       where: {
         id: item.id,
@@ -78,7 +73,7 @@ export default class UserRepository implements UserRepositoryInterface {
   }
   async find(id: string): Promise<User> {
     try {
-      const data = await PrismaClient.user.findUnique({
+      const data = await dataBase.user.findUnique({
         where: {
           id,
         },
@@ -113,7 +108,7 @@ export default class UserRepository implements UserRepositoryInterface {
   }
 
   async findByName(name: string): Promise<User[]> {
-    const result = await PrismaClient.user.findMany({
+    const result = await dataBase.user.findMany({
       where: {
         name: name,
       },

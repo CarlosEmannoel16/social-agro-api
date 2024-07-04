@@ -1,4 +1,4 @@
-import { AnimalRepository } from "../../../../infra/animal/AnimalRepository";
+import { AnimalRepository } from "../../../../infra/repository/animal/AnimalRepository";
 import UserRepository from "../../../../infra/user/repository/UserRepository";
 import { CreateAnimalController } from "../../../../presetation/controllers/animal/CreateAnimalController";
 import { CreateAnimalUseCase } from "../../../../usecase/animal/create/CreateAnimalUseCase";

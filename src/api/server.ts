@@ -1,3 +1,5 @@
+import "reflect-metadata"
+
 import dotenv from "dotenv";
 import { app } from "./express";
 import { routes } from "./routes";

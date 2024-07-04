@@ -45,6 +45,6 @@ describe("Unit Create Animal Use Case", () => {
 
     userRepositorySpy.find = jest.fn().mockResolvedValueOnce(null);
 
-    expect(await sut.execute(data)).toThrowError("Usuário não encontrado");
+    expect(await sut.execute(data)).rejects.toThrow("Usuário não encontrado");
   });
 });

@@ -1,4 +1,4 @@
-import { AnimalRepository } from "../../../../infra/animal/AnimalRepository";
+import { AnimalRepository } from "../../../../infra/repository/animal/AnimalRepository";
 import { ControllerProtocol } from "../../../../presetation/controllers/@shared/ControllerProtocol";
 import { SearchAnimalController } from "../../../../presetation/controllers/animal/SearchAnimalController";
 import { SearchAnimalUseCase } from "../../../../usecase/animal/search/SearchAnimalUseCase";

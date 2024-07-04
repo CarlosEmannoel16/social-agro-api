@@ -1,0 +1,46 @@
+openapi: "3.0.0"
+info:
+  version: 1.0.0
+  title: API de Animais
+paths:
+  /animal/all/{idUser}:
+    get:
+      summary: Retorna todos os animais de um usuário.
+      description: Esta rota é usada para pegar os animais de um determinado usuário.
+      parameters:
+        - in: path
+          name: idUser
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: Retorna uma lista de animais.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Animal'
+components:
+  schemas:
+    Animal:
+      type: object
+      properties:
+        id:
+          type: string
+          description: O ID único do animal.
+        name:
+          type: string
+          description: O nome do animal.
+        age:
+          type: integer
+          description: A idade do animal.
+        owner:
+          type: string
+          description: O ID do dono do animal.
+      required:
+        - id
+        - name
+        - age
+        - owner
