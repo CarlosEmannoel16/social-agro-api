@@ -4,6 +4,20 @@ import { UserRepositoryInterface } from "@/domain/user/repository/UserRepository
 import { UserEntity } from "@/infra/ORM/UserEntity";
 import { DatabaseInitializer } from "@/loaders/database";
 export default class UserRepository implements UserRepositoryInterface {
+  async checkIfExistsByEmail(email: string): Promise<boolean> {
+    const result = await DatabaseInitializer.db()
+      .getRepository(UserEntity)
+      .query(`SELECT id FROM user WHERE email = ${email}`);
+
+    return result.length > 0;
+  }
+  async checkIfExistsByPhone(phone: string): Promise<boolean> {
+    const result = await DatabaseInitializer.db()
+    .getRepository(UserEntity)
+    .query(`SELECT id FROM user WHERE phone = ${phone}`);
+
+  return result.length > 0;
+  }
   async addImage(imageUrl: string, userId: string): Promise<void> {
     await DatabaseInitializer.db().getRepository(UserEntity).update(
       {

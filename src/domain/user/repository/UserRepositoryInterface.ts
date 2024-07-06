@@ -6,4 +6,6 @@ export interface UserRepositoryInterface extends RepositoryInterface<User> {
   find(id: string): Promise<User | undefined>;
   findByName(name: string): Promise<User[] | undefined>;
   addImage(imageUrl: string, userId: string): Promise<void>;
+  checkIfExistsByEmail(email: string): Promise<boolean>;
+  checkIfExistsByPhone(phone: string): Promise<boolean>;
 }
