@@ -1,4 +1,5 @@
-import { Entity, Column, PrimaryGeneratedColumn } from "typeorm";
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from "typeorm";
+import { AnimalEntity } from "./AnimalEntity";
 
 @Entity()
 export class UserEntity {
@@ -26,4 +27,7 @@ export class UserEntity {
 
   @Column()
   createdAt!: Date;
+
+  @OneToMany(() => AnimalEntity, (animal) => animal.userId)
+  animals!: AnimalEntity[];
 }

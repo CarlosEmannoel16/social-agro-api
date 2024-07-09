@@ -14,6 +14,7 @@ import { DailyAmountOfMilkEntity } from "./DailyAmountOfMilk";
 import { AnimalExpensesEntity } from "./AnimalExpensesEntity";
 import { AnimalNotesEntity } from "./AnimalNotesEntity";
 import { BreedAnimalEntity } from "./BreedAnimalEntity";
+import { UserEntity } from "./UserEntity";
 
 enum TypeAnimal {
   OX = "OX",
@@ -47,6 +48,9 @@ export class AnimalEntity {
   @Column()
   motherId!: string;
 
+  @Column()
+  userId!: string;
+
   @OneToOne(() => AnimalEntity, (animal) => animal.fatherId)
   father!: AnimalEntity;
 
@@ -79,4 +83,8 @@ export class AnimalEntity {
 
   @ManyToOne(() => BreedAnimalEntity, (breed) => breed.animal)
   breed!: BreedAnimalEntity;
+
+  @Column()
+  @OneToMany(() => UserEntity, (user) => user.animals)
+  user!: string;
 }

@@ -1,13 +1,22 @@
 import { Request, Response } from "express";
-import { ParamsDictionary } from "express-serve-static-core";
-import { ParsedQs } from "qs";
 import { ControllerProtocol } from "../@shared/ControllerProtocol";
 import { CreateUserUseCaseProtocol } from "../../../protocols/usecases/user/CreateUserUseCaseProtocol";
+import yup from "yup";
 export class CreateUserController implements ControllerProtocol {
   constructor(private readonly createUserUseCase: CreateUserUseCaseProtocol) {}
 
   async handle(request: Request, response: Response): Promise<Response> {
     try {
+      yup
+        .object()
+        .shape({
+          email: yup.string().email().required(),
+          password: yup.string().min(6).required(),
+          passwordConfirmation: yup.string().min(6).required(),
+          name: yup.string().required(),
+        })
+        .validateSync(request.body, { abortEarly: false });
+
       const result = await this.createUserUseCase.execute({
         email: request.body.email,
         password: request.body.password,
