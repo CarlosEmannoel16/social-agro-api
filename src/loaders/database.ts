@@ -5,6 +5,11 @@ export class DatabaseInitializer {
   private static _instance: DatabaseInitializer;
   private dataSource!: DataSource;
 
+  private PORT_POSTGRES = 5432;
+  private DB_NAME_POSTGRES = "test";
+  private DB_USER_POSTGRES = "test";
+  private DB_PASSWORD_POSTGRES = "test";
+
   constructor() {
     this.init();
   }
@@ -13,10 +18,10 @@ export class DatabaseInitializer {
     this.dataSource = new DataSource({
       type: "postgres",
       host: "localhost",
-      port: 5432,
-      username: "test",
-      password: "test",
-      database: "test",
+      port: this.PORT_POSTGRES,
+      username: this.DB_USER_POSTGRES,
+      password: this.DB_PASSWORD_POSTGRES,
+      database: this.DB_NAME_POSTGRES,
       synchronize: true,
       logging: true,
       entities,
@@ -26,6 +31,7 @@ export class DatabaseInitializer {
 
   init() {
     this.initPostgres();
+    return this.dataSource;
   }
 
   static instance() {
@@ -38,5 +44,9 @@ export class DatabaseInitializer {
   static db(): DataSource {
     return DatabaseInitializer.instance().dataSource;
   }
-}
 
+  setPortPostgres(port: number) {
+    this.PORT_POSTGRES = port;
+    return this;
+  }
+}
