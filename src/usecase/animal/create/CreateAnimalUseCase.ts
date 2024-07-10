@@ -10,18 +10,16 @@ export class CreateAnimalUseCase implements CreateAnimalUseCaseProtocol {
     private readonly userRepository: UserRepositoryInterface
   ) {}
   async execute(data: InputCreateAnimalDTO): Promise<OutputCreateAnimalDTO> {
-
     const user = await this.userRepository.find(data.ownerId);
     if (!user) throw new Error("Usuário não encontrado");
 
     const animal = AnimalFactory.createNewAnimal({
       dateOfBirth: new Date(data.dateOfBirth),
-      fatherId: data.fatherId,
       type: data.type,
       surname: data.surname,
       breed: data.breed,
-      motherId: data.motherId,
       images: data.images,
+      ownerId: data.ownerId,
     });
 
     const result = await this.animalRepository.create(animal);

@@ -20,12 +20,7 @@ export class Animal {
   private _dateOfUpdate!: Date;
   private _weight!: weightAnimal[];
 
-  constructor(
-    id: string,
-    dateOfBirth: Date,
-    type: TypeAnimal,
-    breed: string
-  ) {
+  constructor(id: string, dateOfBirth: Date, type: TypeAnimal, breed: string) {
     this._id = id;
     this._dateOfBirth = dateOfBirth;
     this._type = type;
@@ -79,8 +74,6 @@ export class Animal {
     return this._id;
   }
 
- 
-
   get breed(): string {
     return this._breed;
   }
@@ -110,6 +103,15 @@ export class Animal {
 
   makeItPublic() {
     this._isPublic = true;
+  }
+  set ownerId(id: string) {
+    if (this._ownerId) throw new Error("Owner already set");
+    if (!id) throw new Error("[Animal] Owner is required");
+    this._ownerId = id;
+  }
+
+  get ownerId(): string {
+    return this._ownerId;
   }
 
   getAgeAnimal(): string {
