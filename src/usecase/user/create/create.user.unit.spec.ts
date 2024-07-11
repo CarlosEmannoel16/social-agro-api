@@ -12,6 +12,8 @@ const makeSut = () => {
     update: jest.fn(),
     addImage: jest.fn(),
     findByName: jest.fn(),
+    checkIfExistsByEmail: jest.fn(),
+    checkIfExistsByPhone: jest.fn(),
   });
   const userRepository = makeUserRepository();
 

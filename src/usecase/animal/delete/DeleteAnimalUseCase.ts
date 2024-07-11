@@ -2,15 +2,15 @@ import { AnimalRepositoryInterface } from "@/domain/animal/repository/AnimaProto
 
 export class DeleteAnimalUseCase {
   constructor(private readonly animalRepository: AnimalRepositoryInterface) {}
-  async handle({ animalId }) {
-    const animal = await this.animalRepository.find(ownerId, animalId);
+  async handle({  }) {
+    // const animal = await this.animalRepository.find();
 
-    if (!animal) throw new Error("Animal não encontrado");
+    // if (!animal) throw new Error("Animal não encontrado");
 
-    if (animal.IdMother || animal.idFather) {
-      throw new Error(
-        "Animal não pode ser deletado pois possui pais associados"
-      );
-    }
+    // if (animal.IdMother || animal.idFather) {
+    //   throw new Error(
+    //     "Animal não pode ser deletado pois possui pais associados"
+    //   );
+    // }
   }
 }

@@ -4,3 +4,4 @@ node_modules
 .Funcionalidades
 coverage
 src/uploads
+dist/

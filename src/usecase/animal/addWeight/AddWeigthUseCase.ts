@@ -8,12 +8,12 @@ export class AddWeightAnimalUseCase {
     const animal = await this.animalRepository.find(data.idUser, data.idAnimal);
     if(!animal) throw new Error("Animal não encontrado")
     console.log(animal)
-    await this.animalRepository.addWeight({
-      date: new Date(data.date),
-      idAnimal: data.idAnimal,
-      idUser: data.idUser,
-      weight: Number(data.weight),
-    });
+    // await this.animalRepository.addWeight({
+    //   date: new Date(data.date),
+    //   idAnimal: data.idAnimal,
+    //   idUser: data.idUser,
+    //   weight: Number(data.weight),
+    // });
 
     
   }

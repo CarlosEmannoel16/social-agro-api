@@ -19,11 +19,11 @@ export class AddMilkProductionUseCase {
         "Data da produção deve ser igual ou anterior a data atual"
       );
 
-      await this.animalRepository.addDailyMilkProduction({
-        dailyMilkProduction: quantityOfMilk,
-        date: dateOfProduction,
-        idAnimal: animal.id,
-        idUser: ownerId
-      })
+      // await this.animalRepository.addDailyMilkProduction({
+      //   dailyMilkProduction: quantityOfMilk,
+      //   date: dateOfProduction,
+      //   idAnimal: animal.id,
+      //   idUser: ownerId
+      // })
   }
 }

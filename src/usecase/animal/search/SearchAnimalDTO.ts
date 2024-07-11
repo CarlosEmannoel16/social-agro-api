@@ -1,4 +1,4 @@
-export interface OutputSearchAnimalUseCase {\
+export interface OutputSearchAnimalUseCase {
     id: string;
     name: string;
     age: string;

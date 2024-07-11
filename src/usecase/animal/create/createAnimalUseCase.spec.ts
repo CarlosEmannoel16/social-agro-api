@@ -6,7 +6,6 @@ import { InputCreateAnimalDTO } from "./CreateUserDTO";
 describe("Unit Create Animal Use Case", () => {
   const makeAnimalRepository = (): AnimalRepositoryInterface => {
     return {
-      addDailyMilkProduction: jest.fn(),
       create: jest.fn(),
       addImage: jest.fn(),
       addNote: jest.fn(),
@@ -29,6 +28,8 @@ describe("Unit Create Animal Use Case", () => {
       findByEmail: jest.fn(),
       findByName: jest.fn(),
       update: jest.fn(),
+      checkIfExistsByEmail: jest.fn(),
+      checkIfExistsByPhone: jest.fn(),
     };
   };
 

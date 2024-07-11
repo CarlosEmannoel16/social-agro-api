@@ -8,7 +8,6 @@ const makeAnimalRepository = (): AnimalRepositoryInterface => ({
   find: jest.fn(),
   findAll: jest.fn(),
   update: jest.fn(),
-  addDailyMilkProduction: jest.fn(),
   addNote: jest.fn(),
   addWeight: jest.fn(),
   deleteNote: jest.fn(),
@@ -24,6 +23,8 @@ const makeUserRepository = (): UserRepositoryInterface => ({
   update: jest.fn(),
   addImage: jest.fn(),
   findByName: jest.fn(),
+  checkIfExistsByEmail: jest.fn(),
+  checkIfExistsByPhone: jest.fn(),
 });
 
 describe("Test Unit Add Image Animal Use Case ", () => {

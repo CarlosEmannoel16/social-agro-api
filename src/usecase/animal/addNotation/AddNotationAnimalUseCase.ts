@@ -19,6 +19,6 @@ export class AddNotationAnimalUseCase
 
     const note = new Note(v4(), data.color,  data.text, data.title, data.ownerId);
 
-    await this.animalRepository.addNote(note);
+    //await this.animalRepository.addNote(note);
   }
 }
