@@ -8,6 +8,7 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"],
+      "@entities/*": ["./src/infra/ORM/*"],
       "@database": ["./src/loaders/database.ts"]
     },
     "esModuleInterop": true,

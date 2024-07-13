@@ -7,7 +7,7 @@
     "test": "npm run tsc -- --noEmit && jest",
     "test:watch": "npm run tsc -- --noEmit && jest --watch",
     "tsc": "tsc",
-    "dev": "nodemon src/api/server.ts"
+    "dev": "ts-node-dev -r tsconfig-paths/register --respawn --transpile-only src/api/server.ts"
   },
   "author": "Carlos Emannoel dos Santos Carneiro",
   "license": "ISC",
@@ -44,7 +44,7 @@
     "@types/jest": "^29.5.6",
     "@types/jsonwebtoken": "^9.0.5",
     "@types/multer": "^1.4.11",
-    "@types/node": "^20.8.7",
+    "@types/node": "^20.14.10",
     "@types/supertest": "^2.0.16",
     "@types/swagger-jsdoc": "^6.0.4",
     "@types/swagger-ui-express": "^4.1.6",
@@ -54,8 +54,10 @@
     "jest-mock-extended": "^3.0.5",
     "supertest": "^6.3.3",
     "testcontainers": "^10.10.2",
-    "ts-node": "^10.9.1",
+    "ts-node": "^10.9.2",
+    "ts-node-dev": "^2.0.0",
     "tsc-node": "^0.0.3",
+    "tsconfig-paths": "^4.2.0",
     "tslint": "^6.1.3"
   }
 }

@@ -2,7 +2,7 @@ import {
   addDailyMilkProductionParams,
   MilkRepositoryInterface,
 } from "@/domain/animal/repository/MilkProductionRepository";
-import { DatabaseInitializer } from "@/loaders/database";
+import { DatabaseInitializer } from "@database";
 import { MilkProduction } from "@/domain/animal/valueObjects/MilkProduction";
 import { MilkProductionEntity } from "@/infra/ORM/MilkProductionEntity";
 
@@ -16,7 +16,7 @@ export class MilkProductionRepository implements MilkRepositoryInterface {
 
     return item;
   }
-  update(item: MilkProduction): Promise<void> {
+  update(item: MilkProduction): Promise<void> { 
     throw new Error("Method not implemented.");
   }
   findAll(userId: string): Promise<MilkProduction[]> {

@@ -2,7 +2,8 @@ import { User } from "@/domain/user/entity/User";
 import { UserFactory } from "@/domain/user/factory/UserFactory";
 import { UserRepositoryInterface } from "@/domain/user/repository/UserRepositoryInterface";
 import { UserEntity } from "@/infra/ORM/UserEntity";
-import { DatabaseInitializer } from "@/loaders/database";
+import { DatabaseInitializer } from "@database"
+
 export default class UserRepository implements UserRepositoryInterface {
   async checkIfExistsByEmail(email: string): Promise<boolean> {
     const result = await DatabaseInitializer.db()

@@ -2,7 +2,7 @@ import { Expense } from "@/domain/expenses/entity/Expense";
 import { ExpenseFactory } from "@/domain/expenses/factories/expenseFactory";
 import { ExpenseRepositoryInterface } from "@/domain/expenses/repository/ExpenseProtocolRepository";
 import { AnimalExpensesEntity } from "@/infra/ORM/AnimalExpensesEntity";
-import { DatabaseInitializer } from "@/loaders/database";
+import { DatabaseInitializer } from "@database";
 export class ExpenseRepository implements ExpenseRepositoryInterface {
   async delete(id: string): Promise<void> {
     await DatabaseInitializer.db()

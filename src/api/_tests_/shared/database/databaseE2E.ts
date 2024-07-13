@@ -1,5 +1,5 @@
 import { PostgreSqlContainer } from "@testcontainers/postgresql";
-import { DatabaseInitializer } from "@/loaders/database";
+import { DatabaseInitializer } from "@database";
 
 const runContainers = async () => {
   const postgresContainers = new PostgreSqlContainer()

@@ -5,13 +5,13 @@ import {
   AnimalRepositoryInterface,
   addWeightParams,
 } from "../../../domain/animal/repository/AnimaProtocolRepository";
-import { AnimalNotesEntity } from "@/infra/ORM/AnimalNotesEntity";
-import { DatabaseInitializer } from "@/loaders/database";
+import { DatabaseInitializer } from "@database";
 import { AnimalEntity } from "@/infra/ORM/AnimalEntity";
 import { ILike } from "typeorm";
 import { ImagesAnimalEntity } from "@/infra/ORM/ImagesAnimalEntity";
 import { WeightHistoryEntity } from "@/infra/ORM/WeightHistoryEntity";
 import { VaccinationEntity } from "@/infra/ORM/VaccinationEntity";
+import { AnimalNotesEntity } from "@entities/AnimalNotesEntity";
 export class AnimalRepository implements AnimalRepositoryInterface {
   async editNote(data: Note): Promise<Note | undefined> {
     const note = new AnimalNotesEntity();
