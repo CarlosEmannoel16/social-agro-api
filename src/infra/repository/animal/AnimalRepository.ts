@@ -3,16 +3,61 @@ import { Animal, TypeAnimal } from "../../../domain/animal/entity/Animal";
 import { AnimalFactory } from "../../../domain/animal/factory/AnimalFactory";
 import {
   AnimalRepositoryInterface,
+  InputFindWithParamsRepository,
   addWeightParams,
 } from "../../../domain/animal/repository/AnimaProtocolRepository";
 import { DatabaseInitializer } from "@database";
 import { AnimalEntity } from "@/infra/ORM/AnimalEntity";
-import { ILike } from "typeorm";
+import { ILike, In } from "typeorm";
 import { ImagesAnimalEntity } from "@/infra/ORM/ImagesAnimalEntity";
 import { WeightHistoryEntity } from "@/infra/ORM/WeightHistoryEntity";
 import { VaccinationEntity } from "@/infra/ORM/VaccinationEntity";
 import { AnimalNotesEntity } from "@entities/AnimalNotesEntity";
+import { weightAnimal } from "@/domain/animal/entity/WeightAnimal";
 export class AnimalRepository implements AnimalRepositoryInterface {
+  async findByIds(ids: string[], userId: string): Promise<Animal[]> {
+    const animals = await DatabaseInitializer.db()
+      .getRepository(AnimalEntity)
+      .find({
+        where: {
+          userId: userId,
+          id: In(ids),
+        },
+      });
+
+    if (!animals) return [];
+
+    return animals.map((animal) => {
+      return AnimalFactory.createNewAnimal({
+        dateOfBirth: animal.dateOfBirth,
+        type: animal.type as TypeAnimal,
+        breed: animal.breed ? animal.breed.name : undefined,
+        fatherId: animal.fatherId || undefined,
+        id: animal.id,
+        images: animal.images.map((img) => img.url),
+        motherId: animal.motherId || undefined,
+        surname: animal.surname,
+        ownerId: animal.userId,
+        weightHistory: animal.weightHistory.map((weight) => {
+          return new weightAnimal(weight.weight, weight.createdAt);
+        }),
+      });
+    });
+  }
+  async createSon(data: Animal, userId: string): Promise<Animal> {
+    const result = await DatabaseInitializer.db()
+      .getRepository(AnimalEntity)
+      .save({
+        dateOfBirth: data.dateOfBirth,
+        fatherId: data.fatherId,
+        motherId: data.motherId,
+        surname: data.surname,
+        type: data.type,
+        userId: userId,
+      });
+
+    return data;
+  }
   async editNote(data: Note): Promise<Note | undefined> {
     const note = new AnimalNotesEntity();
     note.color = data.color;
@@ -44,7 +89,7 @@ export class AnimalRepository implements AnimalRepositoryInterface {
     return data;
   }
   async findWithParams(
-    params: string,
+    params: InputFindWithParamsRepository,
     userId: string
   ): Promise<Animal[] | undefined> {
     const repository = DatabaseInitializer.db().getRepository(AnimalEntity);
@@ -157,9 +202,8 @@ export class AnimalRepository implements AnimalRepositoryInterface {
     });
   }
   async findHistoryVaccines(idAnimal: string) {
-    const repository = DatabaseInitializer.db().getRepository(
-      VaccinationEntity
-    );
+    const repository =
+      DatabaseInitializer.db().getRepository(VaccinationEntity);
 
     const result = await repository.find({
       where: {

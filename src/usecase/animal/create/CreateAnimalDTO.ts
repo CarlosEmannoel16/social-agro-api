@@ -1,4 +1,3 @@
-import { Type } from "typescript";
 import { TypeAnimal } from "../../../domain/animal/entity/Animal";
 
 export interface InputCreateAnimalDTO {
