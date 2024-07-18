@@ -33,9 +33,5 @@ describe("Animals unit tests", () => {
     expect(animal.surname).toBe("New name");
   });
 
-  it("should change to public", () => {
-    let animal = new Animal("Animal", new Date(), TypeAnimal.COW, "1");
-    animal.makeItPublic();
-    expect(animal.isPublic).toBe(true);
-  });
+ 
 });

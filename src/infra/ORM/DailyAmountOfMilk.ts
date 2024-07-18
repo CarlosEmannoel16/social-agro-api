@@ -1,7 +1,7 @@
 import { Column, Entity, ManyToOne, PrimaryColumn } from "typeorm";
 import { AnimalEntity } from "./AnimalEntity";
 
-@Entity()
+@Entity({ name: "daily_amount_of_milk" })
 export class DailyAmountOfMilkEntity {
   @Column()
   @PrimaryColumn()

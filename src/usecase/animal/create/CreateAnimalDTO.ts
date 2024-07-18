@@ -2,7 +2,6 @@ import { TypeAnimal } from "../../../domain/animal/entity/Animal";
 
 export interface InputCreateAnimalDTO {
   surname: string;
-  isPublic: boolean;
   type: TypeAnimal;
   weight: number;
   dateOfBirth: Date;
@@ -15,6 +14,5 @@ export interface InputCreateAnimalDTO {
 export interface OutputCreateAnimalDTO {
   id: string;
   surname: string;
-  isPublic: boolean;
   images: string[];
 }

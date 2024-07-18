@@ -8,7 +8,6 @@ export enum TypeAnimal {
 export class Animal {
   private _id: string;
   private _surname!: string;
-  private _isPublic: boolean = false;
   private _dateOfBirth!: Date;
   private _fatherId!: string;
   private _motherId!: string;
@@ -62,9 +61,6 @@ export class Animal {
   get surname(): string {
     return this._surname;
   }
-  get isPublic(): boolean {
-    return this._isPublic;
-  }
 
   get dateOfBirth(): Date {
     return this._dateOfBirth;
@@ -101,9 +97,6 @@ export class Animal {
     return this._images;
   }
 
-  makeItPublic() {
-    this._isPublic = true;
-  }
   set ownerId(id: string) {
     if (this._ownerId) throw new Error("Owner already set");
     if (!id) throw new Error("[Animal] Owner is required");

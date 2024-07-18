@@ -8,14 +8,13 @@ export class AuthUseCase implements AuthenticationUseCaseProtocol {
   constructor(private readonly userRepository: UserRepositoryInterface) {}
   async execute(input: InputAuthUseCase): Promise<OutputAuthUseCase> {
     const privateKey = "eee88@09955%$#/";
- 
+
     const user = await this.userRepository.findByEmail(input.email);
-    console.log(user);
+    console.log("User==>", user);
     if (!user) throw new Error("Email ou senha incorretos");
 
     const isCorrectPassword = user.password.trim() === input.password.trim();
     if (!isCorrectPassword) throw new Error("Email ou senha incorretos");
-
 
     const token = jwt.sign(
       {
@@ -23,9 +22,8 @@ export class AuthUseCase implements AuthenticationUseCaseProtocol {
       },
       privateKey,
       { expiresIn: "48h", algorithm: "HS256" }
-    )
+    );
 
-   
     return {
       token,
       user: {

@@ -13,7 +13,8 @@ const makeAnimalRepository = (): AnimalRepositoryInterface => {
     addWeight: jest.fn(),
     deleteNote: jest.fn(),
     editNote: jest.fn(),
-
+    createSon: jest.fn(),
+    findByIds: jest.fn(),
   };
 };
 

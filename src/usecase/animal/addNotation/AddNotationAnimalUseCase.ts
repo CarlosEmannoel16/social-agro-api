@@ -11,13 +11,21 @@ export class AddNotationAnimalUseCase
 
   async execute(data: InputAddNotationAnimalDTO): Promise<any> {
     const animal = await this.animalRepository.findWithParams(
-      data.animalId,
+      {
+        id: data.animalId,
+      },
       data.ownerId
     );
 
     if (!animal) throw new Error("Animal not exists");
 
-    const note = new Note(v4(), data.color,  data.text, data.title, data.ownerId);
+    const note = new Note(
+      v4(),
+      data.color,
+      data.text,
+      data.title,
+      data.ownerId
+    );
 
     //await this.animalRepository.addNote(note);
   }

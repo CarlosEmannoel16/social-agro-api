@@ -1,7 +1,7 @@
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from "typeorm";
 import { AnimalEntity } from "./AnimalEntity";
 
-@Entity()
+@Entity({ name: "user" })
 export class UserEntity {
   @Column()
   @PrimaryGeneratedColumn()

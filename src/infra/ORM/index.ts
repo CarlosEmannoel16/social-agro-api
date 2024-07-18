@@ -8,6 +8,7 @@ import { VaccinationEntity } from "./VaccinationEntity";
 import { DailyAmountOfMilkEntity } from "./DailyAmountOfMilk";
 import { AnimalNotesEntity } from "./AnimalNotesEntity";
 import { MilkProductionEntity } from "./MilkProductionEntity";
+import { UserEntity } from "./UserEntity";
 export const entities = [
   CategoryExpensesEntity,
   ImagesAnimalEntity,
@@ -18,5 +19,6 @@ export const entities = [
   VaccinationEntity,
   DailyAmountOfMilkEntity,
   AnimalNotesEntity,
-  MilkProductionEntity
+  MilkProductionEntity,
+  UserEntity
 ];

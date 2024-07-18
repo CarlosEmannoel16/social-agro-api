@@ -25,7 +25,6 @@ export class CreateAnimalController implements ControllerProtocol {
         dateOfBirth: request.body.dateOfBirth,
         fatherId: request.body.fatherId,
         images: [image],
-        isPublic: request.body.isPublic,
         motherId: request.body.motherId,
         ownerId: request.body.ownerId,
         surname: request.body.surname,

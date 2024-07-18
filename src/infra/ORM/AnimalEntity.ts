@@ -21,7 +21,7 @@ enum TypeAnimal {
   COW = "COW",
 }
 
-@Entity()
+@Entity({name: "animal"})
 export class AnimalEntity {
   @Column()
   @PrimaryGeneratedColumn()
@@ -84,7 +84,7 @@ export class AnimalEntity {
   @ManyToOne(() => BreedAnimalEntity, (breed) => breed.animal)
   breed!: BreedAnimalEntity;
 
-  @Column()
-  @OneToMany(() => UserEntity, (user) => user.animals)
+
+  @ManyToOne(() => UserEntity, (user) => user.animals)
   user!: string;
 }

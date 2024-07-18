@@ -2,6 +2,7 @@ import { AnimalRepositoryInterface } from "@/domain/animal/repository/AnimaProto
 import { CreateAnimalUseCase } from "./CreateAnimalUseCase";
 import { UserRepositoryInterface } from "@/domain/user/repository/UserRepositoryInterface";
 import { InputCreateAnimalDTO } from "./CreateAnimalDTO";
+import { TypeAnimal } from "@/domain/animal/entity/Animal";
 
 describe("Unit Create Animal Use Case", () => {
   const makeAnimalRepository = (): AnimalRepositoryInterface => {
@@ -16,6 +17,8 @@ describe("Unit Create Animal Use Case", () => {
       findAll: jest.fn(),
       findWithParams: jest.fn(),
       update: jest.fn(),
+      createSon: jest.fn(),
+      findByIds: jest.fn(),
     };
   };
 
@@ -42,10 +45,32 @@ describe("Unit Create Animal Use Case", () => {
 
   it("should return error when user not found", async () => {
     const { sut, userRepositorySpy } = makeSut();
-    const data = {} as InputCreateAnimalDTO;
+    const data = {
+      ownerId: "1",
+    } as InputCreateAnimalDTO;
 
     userRepositorySpy.find = jest.fn().mockResolvedValueOnce(null);
 
-    expect(await sut.execute(data)).rejects.toThrow("Usuário não encontrado");
+    expect(sut.execute(data)).rejects.toThrow("Usuário não encontrado");
+  });
+
+  it("should return error when animal not created", async () => {
+    const { sut, animalRepositorySpy, userRepositorySpy } = makeSut();
+    const data = {
+      ownerId: "1",
+      dateOfBirth: new Date(),
+      type: TypeAnimal.COW,
+      surname: "Rex",
+      breed: "Nelore",
+      images: [],
+      fatherId: "1",
+      motherId: "2",
+      weight: 10,
+    } as InputCreateAnimalDTO;
+
+    userRepositorySpy.find = jest.fn().mockResolvedValueOnce({});
+    animalRepositorySpy.create = jest.fn().mockResolvedValueOnce(null);
+
+    expect(await sut.execute(data)).rejects.toThrow("Erro ao criar animal");
   });
 });

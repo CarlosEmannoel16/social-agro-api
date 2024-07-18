@@ -28,7 +28,6 @@ export class CreateAnimalUseCase implements CreateAnimalUseCaseProtocol {
     return {
       id: result.id,
       surname: result.surname,
-      isPublic: result.isPublic,
       images: result.image,
     };
   }

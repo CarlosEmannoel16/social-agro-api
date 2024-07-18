@@ -6,27 +6,32 @@ export class DatabaseInitializer {
   private dataSource!: DataSource;
 
   private PORT_POSTGRES = 5432;
-  private DB_NAME_POSTGRES = "test";
-  private DB_USER_POSTGRES = "test";
-  private DB_PASSWORD_POSTGRES = "test";
+  private DB_NAME_POSTGRES = "agro";
+  private DB_USER_POSTGRES = "postgres";
+  private DB_PASSWORD_POSTGRES = "123456";
 
   constructor() {
     this.init();
   }
 
   private initPostgres() {
-    this.dataSource = new DataSource({
-      type: "postgres",
-      host: "localhost",
-      port: this.PORT_POSTGRES,
-      username: this.DB_USER_POSTGRES,
-      password: this.DB_PASSWORD_POSTGRES,
-      database: this.DB_NAME_POSTGRES,
-      synchronize: true,
-      logging: true,
-      entities,
-    });
-    console.log("Postgres initialized");
+    try {
+      this.dataSource = new DataSource({
+        type: "postgres",
+        host: "localhost",
+        port: this.PORT_POSTGRES,
+        username: this.DB_USER_POSTGRES,
+        password: this.DB_PASSWORD_POSTGRES,
+        database: this.DB_NAME_POSTGRES,
+        synchronize: true,
+        logging: true,
+        entities,
+      });
+      this.dataSource.connect();
+      console.log("Postgres initialized");
+    } catch (error) {
+      console.log("Error initializing Postgres", error);
+    }
   }
 
   init() {

@@ -13,6 +13,8 @@ const makeAnimalRepository = (): AnimalRepositoryInterface => ({
   deleteNote: jest.fn(),
   editNote: jest.fn(),
   findWithParams: jest.fn(),
+  createSon: jest.fn(),
+  findByIds: jest.fn(),
 });
 
 const makeUserRepository = (): UserRepositoryInterface => ({

@@ -1,7 +1,7 @@
 import { Column, Entity, ManyToOne, PrimaryColumn } from "typeorm";
 import { AnimalEntity } from "./AnimalEntity";
 
-@Entity()
+@Entity({ name: "weight_history" })
 export class WeightHistoryEntity {
   @Column()
   @PrimaryColumn()
