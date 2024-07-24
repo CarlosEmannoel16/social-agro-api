@@ -1,6 +1,6 @@
 # API de Gerenciamento de Gados e Fazendas
 
-Esta é uma API para gerenciamento de gados e fazendas, desenvolvida utilizando TypeScript e Node.js, com banco de dados PostgreSQL. O projeto segue a arquitetura limpa (Clean Architecture) e Domain-Driven Design (DDD), com testes implementados utilizando Jest.
+Esta é uma API para gerenciamento de vacas leiteiras e fazendas, desenvolvida utilizando TypeScript e Node.js, com banco de dados PostgreSQL. O projeto segue a arquitetura limpa (Clean Architecture) e Domain-Driven Design (DDD), com testes implementados utilizando Jest.
 
 ## Índice
 
@@ -49,7 +49,6 @@ npm run test
 
 ## Contato
 
-- **Email**: [exemplo@dominio.com](contato@emannoel.dev.br)
-- **LinkedIn**: [Nome no LinkedIn](https://www.linkedin.com/in/carlos-emannoel/)
+- **Email**: [contato@emannoel.dev.br](contato@emannoel.dev.br)
+- **LinkedIn**: [Carlos Emannoel](https://www.linkedin.com/in/carlos-emannoel/)
 
-Vamos construir algo incrível juntos!
