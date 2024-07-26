@@ -3,7 +3,6 @@ import { RepositoryInterface } from "../../_shared/repository/RepositoryInsterfa
 import { Animal } from "../entity/Animal";
 
 export type addWeightParams = {
-  idUser: string;
   idAnimal: string;
   weight: number;
   date: Date;
@@ -20,7 +19,7 @@ export interface AnimalRepositoryInterface extends RepositoryInterface<Animal> {
     userId: string
   ): Promise<Animal[] | undefined>;
   find(animalId: string, userId: string): Promise<Animal | undefined>;
-  addWeight(data: addWeightParams, userId: string): Promise<any>;
+  addWeight(data: addWeightParams): Promise<any>;
   addNote(data: Note, userId: string): Promise<Note>;
   deleteNote(
     animalId: string,

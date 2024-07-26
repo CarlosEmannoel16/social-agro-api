@@ -1,8 +1,12 @@
 import { AnimalRepositoryInterface } from "@/domain/animal/repository/AnimaProtocolRepository";
 import { InputAddMilkProductionDTO } from "./AddMilkProductionDTO";
+import { MilkRepositoryInterface } from "@/domain/animal/repository/MilkProductionRepository";
 
 export class AddMilkProductionUseCase {
-  constructor(private readonly animalRepository: AnimalRepositoryInterface) {}
+  constructor(
+    private readonly animalRepository: AnimalRepositoryInterface,
+    private readonly milkProductionRepository: MilkRepositoryInterface
+  ) {}
 
   async handler({
     animalId,
@@ -19,11 +23,11 @@ export class AddMilkProductionUseCase {
         "Data da produção deve ser igual ou anterior a data atual"
       );
 
-      // await this.animalRepository.addDailyMilkProduction({
-      //   dailyMilkProduction: quantityOfMilk,
-      //   date: dateOfProduction,
-      //   idAnimal: animal.id,
-      //   idUser: ownerId
-      // })
+    await this.milkProductionRepository.addDailyMilkProduction({
+      dailyMilkProduction: quantityOfMilk,
+      date: dateOfProduction,
+      idAnimal: animal.id,
+      idUser: ownerId,
+    });
   }
 }

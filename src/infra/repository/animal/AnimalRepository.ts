@@ -191,7 +191,7 @@ export class AnimalRepository implements AnimalRepositoryInterface {
       }))
     );
   }
-  async addWeight(data: addWeightParams) {
+  async addWeight(data: addWeightParams): Promise<any> {
     const repository =
       DatabaseInitializer.db().getRepository(WeightHistoryEntity);
 

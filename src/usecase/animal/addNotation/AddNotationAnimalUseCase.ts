@@ -27,6 +27,6 @@ export class AddNotationAnimalUseCase
       data.ownerId
     );
 
-    //await this.animalRepository.addNote(note);
+    await this.animalRepository.addNote(note, data.ownerId);
   }
 }
