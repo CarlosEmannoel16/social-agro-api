@@ -5,6 +5,8 @@ export enum TypeAnimal {
   COW = "COW",
 }
 
+const KEY_LOGGER = "CLASS ANIMAL";
+
 export class Animal {
   private _id: string;
   private _surname!: string;
@@ -29,15 +31,16 @@ export class Animal {
 
   validate() {
     const errors = [];
-    if (!this._id) errors.push("[Animal] Id is required");
-    if (!this._dateOfBirth) errors.push("[Animal] Date of birth is required");
+    if (!this._id) errors.push(KEY_LOGGER + " Id is required");
+    if (!this._dateOfBirth)
+      errors.push(KEY_LOGGER + " Date of birth is required");
 
     if (errors.length > 0) throw new Error(errors.join(", "));
   }
 
   set surname(name: string) {
-    if (this._surname) throw new Error("Surname already set");
-    if (!name) throw new Error("Name is required");
+    if (this._surname) throw new Error(KEY_LOGGER + " Surname already set");
+    if (!name) throw new Error(KEY_LOGGER + " Name is required");
     this._surname = name;
   }
 
