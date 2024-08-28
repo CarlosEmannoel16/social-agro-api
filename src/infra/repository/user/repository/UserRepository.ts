@@ -89,6 +89,7 @@ export default class UserRepository implements UserRepositoryInterface {
           },
         });
 
+
       if (!data) throw new Error("User not found");
 
       const user = UserFactory.createNewUser({

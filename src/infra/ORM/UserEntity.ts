@@ -1,10 +1,16 @@
-import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from "typeorm";
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  OneToMany,
+  PrimaryColumn,
+} from "typeorm";
 import { AnimalEntity } from "./AnimalEntity";
 
 @Entity({ name: "user" })
 export class UserEntity {
   @Column()
-  @PrimaryGeneratedColumn()
+  @PrimaryColumn()
   id!: string;
 
   @Column()
@@ -19,8 +25,8 @@ export class UserEntity {
   @Column()
   password!: string;
 
-  @Column()
-  profileUrl!: string;
+  @Column({ nullable: true })
+  profileUrl?: string;
 
   @Column()
   updatedAt!: Date;

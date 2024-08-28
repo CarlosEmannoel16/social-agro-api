@@ -52,3 +52,11 @@ npm run test
 - **Email**: [contato@emannoel.dev.br](contato@emannoel.dev.br)
 - **LinkedIn**: [Carlos Emannoel](https://www.linkedin.com/in/carlos-emannoel/)
 
+
+
+## Rotas
+## Gados
+
+- **GET /cows**: Retorna uma lista com todas as vacas cadastradas.
+
+

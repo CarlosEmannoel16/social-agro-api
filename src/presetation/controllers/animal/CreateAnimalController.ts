@@ -3,7 +3,9 @@ import { ParamsDictionary } from "express-serve-static-core";
 import { ParsedQs } from "qs";
 import { ControllerProtocol } from "../@shared/ControllerProtocol";
 import { CreateAnimalUseCaseProtocol } from "../../../protocols/usecases/animal/CreateAnimalUseCaseProtocol";
-import os from "os";
+import * as yup from "yup";
+import { ValidationError } from "@/_shared/errors/Errors";
+import { handlerErrorsController } from "@/presetation/helpers/handlerErrosController";
 export class CreateAnimalController implements ControllerProtocol {
   constructor(
     private readonly createAnimalUseCase: CreateAnimalUseCaseProtocol
@@ -14,12 +16,28 @@ export class CreateAnimalController implements ControllerProtocol {
     response: Response<any, Record<string, any>>
   ): Promise<Response<any, Record<string, any>>> {
     try {
+      if (!Object.keys(request.body).length)
+        throw new ValidationError("Body is empty");
       const file = request?.file as Express.Multer.File;
-      
 
-      const image = `${file.filename}`;
+      const image = `${file?.filename}`;
 
       console.log(request.body);
+
+      yup
+        .object()
+        .shape({
+          surname: yup.string().required(),
+          dateOfBirth: yup.date().required(),
+          breed: yup?.string().required(),
+          fatherId: yup.string(),
+          motherId: yup.string(),
+          ownerId: yup.string().required(),
+          gender: yup.string().required(),
+          weight: yup.number().required(),
+        })
+        .validateSync(request.body);
+
       const result = await this.createAnimalUseCase.execute({
         breed: request.body.breed,
         dateOfBirth: request.body.dateOfBirth,
@@ -37,9 +55,7 @@ export class CreateAnimalController implements ControllerProtocol {
       });
     } catch (error) {
       console.log(error);
-      return response
-        .status(500)
-        .json({ error: "Erro ao tentar cadastrar animal" });
+      return response.status(500).json(handlerErrorsController(error as Error));
     }
   }
 }

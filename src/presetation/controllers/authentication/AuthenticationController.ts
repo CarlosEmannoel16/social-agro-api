@@ -4,6 +4,8 @@ import { ParsedQs } from "qs";
 import { ControllerProtocol } from "../@shared/ControllerProtocol";
 import { AuthenticationUseCaseProtocol } from "../../../protocols/usecases/auth/AutheticationUseCase";
 import * as yup from "yup";
+import { handlerErrorsController } from "@/presetation/helpers/handlerErrosController";
+import { ValidationError } from "@/_shared/errors/Errors";
 export class AuthenticationController implements ControllerProtocol {
   constructor(
     private readonly authenticationUseCase: AuthenticationUseCaseProtocol
@@ -13,8 +15,8 @@ export class AuthenticationController implements ControllerProtocol {
     response: Response<any, Record<string, any>>
   ): Promise<Response<any, Record<string, any>>> {
     try {
-      console.log(request.body);
-
+      if (!Object.keys(request?.body).length)
+        throw new ValidationError("Body is required");
       yup
         .object()
         .shape({
@@ -30,9 +32,9 @@ export class AuthenticationController implements ControllerProtocol {
         password,
       });
       return response.status(200).json(result);
-    } catch (error) {
+    } catch (error: any) {
       console.log(error);
-      return response.status(400).json({ message: error });
+      return response.status(400).json(handlerErrorsController(error));
     }
   }
 }

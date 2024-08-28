@@ -10,12 +10,14 @@ import { makeFindAnimalController } from "../../main/factories/controller/animal
 import { makeAuthenticationControllerController } from "../../main/factories/controller/auth/AuthControllerFactory";
 import { makeSearchAnimalController } from "../../main/factories/controller/animal/SerachAnimalControllerFactory";
 import { makeAddWeightAnimalController } from "../../main/factories/controller/animal/AddWeightAnimalControllerFactory";
+import { middlewareAdapter } from "./@shared/middlewareAdpter";
+import { makeMiddlewareAuth } from "@/presetation/middleware/MiddlewareAuthFactory";
 
 export const routes = (app: Express) => {
   const router = express.Router();
   app.get("/", (_, res) => res.send("."));
 
-  router.post("/authenticate", routeAdapter(makeAuthenticationControllerController()));
+  router.post("/auth", routeAdapter(makeAuthenticationControllerController()));
 
   //User routes
   router.post(
@@ -23,7 +25,8 @@ export const routes = (app: Express) => {
     upload.single("profileImage"),
     routeAdapter(makeCreateUserController())
   );
-  router.get("/user/:id", routeAdapter(makeFindUserController()));
+  router.get("/user/:id", middlewareAdapter(makeMiddlewareAuth()), routeAdapter(makeFindUserController()));
+  router.post("/user/register", routeAdapter(makeCreateUserController()));
 
   
   //Animal routes

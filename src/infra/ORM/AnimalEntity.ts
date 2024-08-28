@@ -6,6 +6,7 @@ import {
   OneToMany,
   ManyToOne,
   OneToOne,
+  PrimaryColumn,
 } from "typeorm";
 import { VaccinationEntity } from "./VaccinationEntity";
 import { WeightHistoryEntity } from "./WeightHistoryEntity";
@@ -24,7 +25,7 @@ enum TypeAnimal {
 @Entity({name: "animal"})
 export class AnimalEntity {
   @Column()
-  @PrimaryGeneratedColumn()
+  @PrimaryColumn()
   id!: string;
 
   @Column()

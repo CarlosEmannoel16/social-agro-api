@@ -2,10 +2,14 @@ import { UserFactory } from "../../../domain/user/factory/UserFactory";
 import { UserRepositoryInterface } from "../../../domain/user/repository/UserRepositoryInterface";
 import { CreateUserUseCaseProtocol } from "../../../protocols/usecases/user/CreateUserUseCaseProtocol";
 import { InputCreateUserDTO, OutputCreateUserDTO } from "./CreateUserDTO";
+import jwt from "jsonwebtoken";
 
 export default class CreateUserUseCase implements CreateUserUseCaseProtocol {
   constructor(private readonly userRepository: UserRepositoryInterface) {}
   async execute(data: InputCreateUserDTO): Promise<OutputCreateUserDTO> {
+    //Temp
+    const privateKey = "eee88@09955%$#/";
+
     const user = UserFactory.createNewUser({
       email: data.email,
       name: data.name,
@@ -17,10 +21,19 @@ export default class CreateUserUseCase implements CreateUserUseCaseProtocol {
 
     await this.userRepository.create(user);
 
+     const token = jwt.sign(
+      {
+        id: user.id,
+      },
+      privateKey,
+      { expiresIn: "48h", algorithm: "HS256" }
+    );
+
     return {
       id: user.id,
       name: user.name,
       email: user.email,
+      token,
     };
   }
 }

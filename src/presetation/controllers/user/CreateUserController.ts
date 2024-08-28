@@ -1,18 +1,23 @@
 import { Request, Response } from "express";
 import { ControllerProtocol } from "../@shared/ControllerProtocol";
 import { CreateUserUseCaseProtocol } from "../../../protocols/usecases/user/CreateUserUseCaseProtocol";
-import yup from "yup";
+import * as yup from "yup";
+import { handlerErrorsController } from "@/presetation/helpers/handlerErrosController";
+import { ValidationError } from "@/_shared/errors/Errors";
 export class CreateUserController implements ControllerProtocol {
   constructor(private readonly createUserUseCase: CreateUserUseCaseProtocol) {}
 
   async handle(request: Request, response: Response): Promise<Response> {
     try {
+      if (!Object.keys(request?.body).length)
+        throw new ValidationError("Body is required");
       yup
         .object()
         .shape({
           email: yup.string().email().required(),
           password: yup.string().min(6).required(),
           passwordConfirmation: yup.string().min(6).required(),
+          dateOfBirth: yup.date().required(),
           name: yup.string().required(),
         })
         .validateSync(request.body, { abortEarly: false });
@@ -25,9 +30,9 @@ export class CreateUserController implements ControllerProtocol {
         imageUrl: request?.file?.path || "",
       });
       return response.status(201).json(result);
-    } catch (error) {
+    } catch (error: any) {
       console.log(error);
-      return response.status(500).json({ message: "Internal Error" });
+      return response.status(500).json(handlerErrorsController(error));
     }
   }
 }

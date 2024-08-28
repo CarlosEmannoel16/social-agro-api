@@ -3,6 +3,7 @@ import { AuthenticationUseCaseProtocol } from "../../protocols/usecases/auth/Aut
 import { InputAuthUseCase, OutputAuthUseCase } from "./authDTO";
 import { UserRepositoryInterface } from "../../domain/user/repository/UserRepositoryInterface";
 import jwt from "jsonwebtoken";
+import { ValidationError } from "@/_shared/errors/Errors";
 
 export class AuthUseCase implements AuthenticationUseCaseProtocol {
   constructor(private readonly userRepository: UserRepositoryInterface) {}
@@ -10,11 +11,10 @@ export class AuthUseCase implements AuthenticationUseCaseProtocol {
     const privateKey = "eee88@09955%$#/";
 
     const user = await this.userRepository.findByEmail(input.email);
-    console.log("User==>", user);
-    if (!user) throw new Error("Email ou senha incorretos");
+    if (!user) throw new ValidationError("Email ou senha incorretos");
 
     const isCorrectPassword = user.password.trim() === input.password.trim();
-    if (!isCorrectPassword) throw new Error("Email ou senha incorretos");
+    if (!isCorrectPassword) throw new ValidationError("Email ou senha incorretos");
 
     const token = jwt.sign(
       {

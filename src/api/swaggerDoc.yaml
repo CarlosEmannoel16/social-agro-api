@@ -5,7 +5,7 @@ info:
 paths:
   /animal/all/{idUser}:
     get:
-      summary: Retorna todos os animais de um usuário.
+      summary: Retorna todos os animais de um usuário especifico.
       description: Esta rota é usada para pegar os animais de um determinado usuário.
       parameters:
         - in: path
@@ -21,7 +21,24 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Animal'
+                  $ref: "#/components/schemas/Animal"
+  /animal:
+    post:
+      summary: Cria um novo animal.
+      description: Esta rota é usada para criar um novo animal.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AnimalCreate"
+      responses:
+        201:
+          description: Retorna o animal criado.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Animal"
 components:
   schemas:
     Animal:
@@ -30,17 +47,54 @@ components:
         id:
           type: string
           description: O ID único do animal.
-        name:
+        surname:
           type: string
-          description: O nome do animal.
+          description: O apelido do animal.
         age:
           type: integer
           description: A idade do animal.
         owner:
           type: string
           description: O ID do dono do animal.
+        dateOfBirth:
+          type: string
+          description: A data de nascimento do animal.
       required:
         - id
         - name
         - age
         - owner
+
+    AnimalCreate:
+      type: object
+      properties:
+        surname:
+          type: string
+          description: O apelido do animal.
+        dateOfBirth:
+          type: string
+          description: A data de nascimento do animal.
+        breed:
+          type: string
+          description: A raça do animal.
+        fatherId:
+          type: string
+          description: O ID do pai do animal.
+        motherId:
+          type: string
+          description: O ID da mãe do animal.
+        ownerId:
+          type: string
+          description: O ID do dono do animal.
+        gender:
+          type: string
+          description: O gênero do animal.
+        weight:
+          type: number
+          description: O peso atual do animal.
+
+      required:
+        - name
+        - dateOfBirth
+        - ownerId
+        - gender
