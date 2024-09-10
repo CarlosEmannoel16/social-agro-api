@@ -1,9 +1,7 @@
+import { GenderAnimal } from "@/infra/ORM/AnimalEntity";
 import { weightAnimal } from "./WeightAnimal";
 
-export enum TypeAnimal {
-  OX = "OX",
-  COW = "COW",
-}
+
 
 const KEY_LOGGER = "CLASS ANIMAL";
 
@@ -13,7 +11,7 @@ export class Animal {
   private _dateOfBirth!: Date;
   private _fatherId!: string;
   private _motherId!: string;
-  private _type!: TypeAnimal;
+  private _gender!: GenderAnimal;
   private _breed!: string;
   private _ownerId!: string;
   private _images: string[] = [];
@@ -21,10 +19,15 @@ export class Animal {
   private _dateOfUpdate!: Date;
   private _weight!: weightAnimal[];
 
-  constructor(id: string, dateOfBirth: Date, type: TypeAnimal, breed: string) {
+  constructor(
+    id: string,
+    dateOfBirth: Date,
+    gender: GenderAnimal,
+    breed: string
+  ) {
     this._id = id;
     this._dateOfBirth = dateOfBirth;
-    this._type = type;
+    this._gender = gender;
     this._breed = breed;
     this.validate();
   }
@@ -77,10 +80,7 @@ export class Animal {
     return this._breed;
   }
 
-  get type(): TypeAnimal {
-    return this._type;
-  }
-
+  
   get fatherId(): string {
     return this._fatherId;
   }
@@ -110,6 +110,9 @@ export class Animal {
     return this._ownerId;
   }
 
+  get gender(): GenderAnimal {
+    return this._gender;
+  }
   getAgeAnimal(): string {
     const dateCurrent = new Date();
     const dateOfBirth = new Date(this._dateOfBirth);

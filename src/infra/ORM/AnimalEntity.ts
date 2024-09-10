@@ -17,12 +17,12 @@ import { AnimalNotesEntity } from "./AnimalNotesEntity";
 import { BreedAnimalEntity } from "./BreedAnimalEntity";
 import { UserEntity } from "./UserEntity";
 
-enum TypeAnimal {
-  OX = "OX",
-  COW = "COW",
+export enum GenderAnimal {
+  OX = "M",
+  COW = "F",
 }
 
-@Entity({name: "animal"})
+@Entity({ name: "animal" })
 export class AnimalEntity {
   @Column()
   @PrimaryColumn()
@@ -32,7 +32,7 @@ export class AnimalEntity {
   surname!: string;
 
   @Column()
-  type!: TypeAnimal;
+  gender!: GenderAnimal;
 
   @Column()
   dateOfBirth!: Date;
@@ -43,11 +43,15 @@ export class AnimalEntity {
   @Column()
   updatedAt!: Date;
 
-  @Column()
-  fatherId!: string;
+  @Column({
+    nullable: true,
+  })
+  fatherId?: string;
 
-  @Column()
-  motherId!: string;
+  @Column({
+    nullable: true,
+  })
+  motherId?: string;
 
   @Column()
   userId!: string;
@@ -84,7 +88,6 @@ export class AnimalEntity {
 
   @ManyToOne(() => BreedAnimalEntity, (breed) => breed.animal)
   breed!: BreedAnimalEntity;
-
 
   @ManyToOne(() => UserEntity, (user) => user.animals)
   user!: string;

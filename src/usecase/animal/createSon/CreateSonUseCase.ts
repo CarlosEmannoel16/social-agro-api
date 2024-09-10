@@ -5,7 +5,7 @@ import {
   OutputCreateSonDTO,
 } from "./CreateSonUseCaseInterface";
 import { AnimalFactory } from "@/domain/animal/factory/AnimalFactory";
-import { TypeAnimal } from "@/domain/animal/entity/Animal";
+import { GenderAnimal } from "@/domain/animal/entity/Animal";
 import { weightAnimal } from "@/domain/animal/entity/WeightAnimal";
 
 export class CreateSonUseCase implements CreateSonUseCaseInterface {
@@ -28,7 +28,7 @@ export class CreateSonUseCase implements CreateSonUseCaseInterface {
     const son = AnimalFactory.createNewAnimal({
       dateOfBirth: data.dateOfBirth,
       motherId: mother.id,
-      type: TypeAnimal.COW,
+      gender: GenderAnimal.COW,
       images: data.images,
       surname: data.surname,
       weightHistory: [new weightAnimal(data.weight, new Date())],

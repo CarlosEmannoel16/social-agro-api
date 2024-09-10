@@ -7,6 +7,7 @@ export class UserAuthMiddleware implements MiddlewareProtocol {
 
   async execute(req: Request, res: Response, next: NextFunction) {
     //Adicionar no env
+    console.log("-- middleware --");
     const privateKey = "eee88@09955%$#/";
     let user;
     const bearer = req.headers.authorization;

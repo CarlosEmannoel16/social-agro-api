@@ -1,8 +1,8 @@
-import { TypeAnimal } from "../../../domain/animal/entity/Animal";
+import { GenderAnimal } from "../../../domain/animal/entity/Animal";
 
 export interface InputCreateAnimalDTO {
   surname: string;
-  type: TypeAnimal;
+  gender: GenderAnimal;
   weight: number;
   dateOfBirth: Date;
   motherId: string;

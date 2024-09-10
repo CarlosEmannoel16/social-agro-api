@@ -8,7 +8,7 @@ USUARIO_COMUM:
         - Cadastro de animal
         - Visualizar todos os animais de um determinado sexo
         - Realizar busca por nome
-        - Realizar busca por raça
+        - Realizar busca por arça
         - Realizar busca por idade
         - Realizar a transferencia de um animal para outro usuario
         - Deixar um animal publico ou privado (Inicalmente será privado)

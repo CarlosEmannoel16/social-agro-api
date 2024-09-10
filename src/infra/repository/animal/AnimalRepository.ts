@@ -1,5 +1,5 @@
 import { Note } from "@/domain/expenses/valueObjects/Note";
-import { Animal, TypeAnimal } from "../../../domain/animal/entity/Animal";
+import { Animal } from "../../../domain/animal/entity/Animal";
 import { AnimalFactory } from "../../../domain/animal/factory/AnimalFactory";
 import {
   AnimalRepositoryInterface,
@@ -7,13 +7,14 @@ import {
   addWeightParams,
 } from "../../../domain/animal/repository/AnimaProtocolRepository";
 import { DatabaseInitializer } from "@database";
-import { AnimalEntity } from "@/infra/ORM/AnimalEntity";
+import { AnimalEntity, GenderAnimal } from "@/infra/ORM/AnimalEntity";
 import { ILike, In } from "typeorm";
 import { ImagesAnimalEntity } from "@/infra/ORM/ImagesAnimalEntity";
 import { WeightHistoryEntity } from "@/infra/ORM/WeightHistoryEntity";
 import { VaccinationEntity } from "@/infra/ORM/VaccinationEntity";
 import { AnimalNotesEntity } from "@entities/AnimalNotesEntity";
 import { weightAnimal } from "@/domain/animal/entity/WeightAnimal";
+import { v4 } from "uuid";
 export class AnimalRepository implements AnimalRepositoryInterface {
   async findByIds(ids: string[], userId: string): Promise<Animal[]> {
     const animals = await DatabaseInitializer.db()
@@ -30,7 +31,7 @@ export class AnimalRepository implements AnimalRepositoryInterface {
     return animals.map((animal) => {
       return AnimalFactory.createNewAnimal({
         dateOfBirth: animal.dateOfBirth,
-        type: animal.type as TypeAnimal,
+        gender: animal.gender,
         breed: animal.breed ? animal.breed.name : undefined,
         fatherId: animal.fatherId || undefined,
         id: animal.id,
@@ -52,7 +53,7 @@ export class AnimalRepository implements AnimalRepositoryInterface {
         fatherId: data.fatherId,
         motherId: data.motherId,
         surname: data.surname,
-        type: data.type,
+        gender: data.gender,
         userId: userId,
       });
 
@@ -107,7 +108,7 @@ export class AnimalRepository implements AnimalRepositoryInterface {
     return result.map((animal) => {
       return AnimalFactory.createNewAnimal({
         dateOfBirth: animal.dateOfBirth,
-        type: animal.type as TypeAnimal,
+        gender: animal.gender as   GenderAnimal,
         breed: animal.breed ? animal.breed.name : undefined,
         images: animal.images.map((img) => img.url),
         fatherId: animal.fatherId || undefined,
@@ -132,12 +133,15 @@ export class AnimalRepository implements AnimalRepositoryInterface {
   async create(item: Animal): Promise<Animal> {
     const repository = DatabaseInitializer.db().getRepository(AnimalEntity);
 
+    console.log("anima; DTP =", item);
     const result = await repository.save({
-      fatherId: item.fatherId,
+      id: v4(),
       dateOfBirth: item.dateOfBirth,
       surname: item.surname,
-      type: item.type,
-      motherId: item.motherId,
+      gender: item.gender,
+      userId: item.ownerId,
+      createdAt: new Date(),
+      updatedAt: new Date(),
     });
 
     if (!result) throw new Error("Error to create animal");
@@ -159,7 +163,7 @@ export class AnimalRepository implements AnimalRepositoryInterface {
 
     return AnimalFactory.createNewAnimal({
       dateOfBirth: animal.dateOfBirth,
-      type: animal.type as TypeAnimal,
+      gender: animal.gender as GenderAnimal,
       breed: animal.breed.name || undefined,
       images: animal.images.map((img) => img.url),
       fatherId: animal.fatherId || undefined,
@@ -177,7 +181,7 @@ export class AnimalRepository implements AnimalRepositoryInterface {
     return AnimalFactory.createMap(
       animal.map((animal) => ({
         dateOfBirth: animal.dateOfBirth,
-        type: animal.type as TypeAnimal,
+        gender: animal.gender,
         breed: animal.breed.name || undefined,
         images: animal.images.map((img) => img.url),
         fatherId: animal.fatherId || undefined,

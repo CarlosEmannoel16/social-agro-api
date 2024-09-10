@@ -46,7 +46,7 @@ export class CreateAnimalController implements ControllerProtocol {
         motherId: request.body.motherId,
         ownerId: request.body.ownerId,
         surname: request.body.surname,
-        type: request.body.type,
+        gender: request.body.gender,
         weight: request.body.weight,
       });
 

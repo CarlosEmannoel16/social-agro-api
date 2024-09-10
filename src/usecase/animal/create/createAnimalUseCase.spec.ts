@@ -2,7 +2,7 @@ import { AnimalRepositoryInterface } from "@/domain/animal/repository/AnimaProto
 import { CreateAnimalUseCase } from "./CreateAnimalUseCase";
 import { UserRepositoryInterface } from "@/domain/user/repository/UserRepositoryInterface";
 import { InputCreateAnimalDTO } from "./CreateAnimalDTO";
-import { TypeAnimal } from "@/domain/animal/entity/Animal";
+import { GenderAnimal } from "@/domain/animal/entity/Animal";
 
 describe("Unit Create Animal Use Case", () => {
   const makeAnimalRepository = (): AnimalRepositoryInterface => {
@@ -59,7 +59,7 @@ describe("Unit Create Animal Use Case", () => {
     const data = {
       ownerId: "1",
       dateOfBirth: new Date(),
-      type: TypeAnimal.COW,
+      gender: GenderAnimal.COW,
       surname: "Rex",
       breed: "Nelore",
       images: [],
