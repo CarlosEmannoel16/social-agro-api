@@ -6,18 +6,15 @@ import { SearchAnimalUseCaseProtocol } from "../../../protocols/usecases/animal/
 export class SearchAnimalController implements ControllerProtocol {
   constructor(private searchAnimalUseCase: SearchAnimalUseCaseProtocol) {}
   async handle(
-    request: Request<ParamsDictionary, any, any, ParsedQs, Record<string, any>>,
-    response: Response<any, Record<string, any>>
-  ): Promise<Response<any, Record<string, any>>> {
+    request: Request,
+    response: Response
+  ): Promise<Response> {
     try {
-     
-
       const result = await this.searchAnimalUseCase.execute({
         idUser: request.params.idUser,
         params: request.params.params,
       });
 
-      console.log(result);
 
       return response.status(200).json(result);
     } catch (error) {

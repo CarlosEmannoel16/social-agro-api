@@ -9,9 +9,9 @@ export class FindAllAnimalsController implements ControllerProtocol {
     private readonly findAllAnimalsUseCase: FindAllAnimalsUseCaseProtocol
   ) {}
   async handle(
-    request: Request<ParamsDictionary, any, any, ParsedQs, Record<string, any>>,
-    response: Response<any, Record<string, any>>
-  ): Promise<Response<any, Record<string, any>>> {
+    request: Request,
+    response: Response
+  ): Promise<Response> {
     try {
      if(!request.params.idUser) throw new Error("Id do usuário não informado");
      console.log(request.params.idUser);

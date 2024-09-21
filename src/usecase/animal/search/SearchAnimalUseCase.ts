@@ -13,7 +13,7 @@ export class SearchAnimalUseCase implements SearchAnimalUseCaseProtocol {
   ): Promise<OutputSearchAnimalUseCase[] | []> {
     const data = await this.animalRepository.findWithParams(
       {
-        id: params.params,
+        surname: params.params,
       },
       params.idUser
     );

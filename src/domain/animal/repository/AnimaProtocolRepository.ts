@@ -9,7 +9,7 @@ export type addWeightParams = {
 };
 
 export type InputFindWithParamsRepository = {
-  id: string;
+  surname: string;
 };
 
 export interface AnimalRepositoryInterface extends RepositoryInterface<Animal> {
@@ -29,4 +29,5 @@ export interface AnimalRepositoryInterface extends RepositoryInterface<Animal> {
   editNote(data: Note, userId: string): Promise<Note | undefined>;
   findByIds(ids: string[], userId: string): Promise<Animal[]>;
   createSon(data: Animal, userId: string): Promise<Animal>;
+  findAll(userId: string): Promise<Animal[]>;
 }

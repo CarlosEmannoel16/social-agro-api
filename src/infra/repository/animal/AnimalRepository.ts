@@ -108,7 +108,7 @@ export class AnimalRepository implements AnimalRepositoryInterface {
     return result.map((animal) => {
       return AnimalFactory.createNewAnimal({
         dateOfBirth: animal.dateOfBirth,
-        gender: animal.gender as   GenderAnimal,
+        gender: animal.gender as GenderAnimal,
         breed: animal.breed ? animal.breed.name : undefined,
         images: animal.images.map((img) => img.url),
         fatherId: animal.fatherId || undefined,
@@ -133,7 +133,6 @@ export class AnimalRepository implements AnimalRepositoryInterface {
   async create(item: Animal): Promise<Animal> {
     const repository = DatabaseInitializer.db().getRepository(AnimalEntity);
 
-    console.log("anima; DTP =", item);
     const result = await repository.save({
       id: v4(),
       dateOfBirth: item.dateOfBirth,
@@ -171,10 +170,16 @@ export class AnimalRepository implements AnimalRepositoryInterface {
       surname: animal.surname,
     });
   }
-  async findAll(): Promise<Animal[]> {
+  async findAll(userId: string): Promise<Animal[]> {
     const repository = DatabaseInitializer.db().getRepository(AnimalEntity);
 
-    const animal = await repository.find();
+    const animal = await repository.find({
+      where: {
+        userId: userId,
+      },
+    });
+
+    console.log(animal);
 
     if (!animal) throw new Error("Error to find animals");
 
@@ -182,16 +187,16 @@ export class AnimalRepository implements AnimalRepositoryInterface {
       animal.map((animal) => ({
         dateOfBirth: animal.dateOfBirth,
         gender: animal.gender,
-        breed: animal.breed.name || undefined,
-        images: animal.images.map((img) => img.url),
+        breed: animal?.breed?.name || undefined,
+        images: animal?.images?.map((img) => img.url) || [],
         fatherId: animal.fatherId || undefined,
         motherId: animal.motherId || undefined,
         surname: animal.surname,
         id: animal.id,
-        weightHistory: animal.weightHistory.map((weight) => ({
+        weightHistory: animal?.weightHistory?.map((weight) => ({
           dateOfRegister: weight.createdAt,
           weight: weight.weight,
-        })),
+        })) || [],
       }))
     );
   }
