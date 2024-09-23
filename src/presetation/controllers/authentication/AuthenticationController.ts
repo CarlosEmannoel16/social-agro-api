@@ -6,6 +6,7 @@ import { AuthenticationUseCaseProtocol } from "../../../protocols/usecases/auth/
 import * as yup from "yup";
 import { handlerErrorsController } from "@/presetation/helpers/handlerErrosController";
 import { ValidationError } from "@/_shared/errors/Errors";
+import { Logger } from "@/infra/shared/logger/Logger";
 export class AuthenticationController implements ControllerProtocol {
   constructor(
     private readonly authenticationUseCase: AuthenticationUseCaseProtocol
@@ -33,7 +34,7 @@ export class AuthenticationController implements ControllerProtocol {
       });
       return response.status(200).json(result);
     } catch (error: any) {
-      console.log(error);
+      Logger.error(error);
       return response.status(400).json(handlerErrorsController(error));
     }
   }

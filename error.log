@@ -1,0 +1,37 @@
+{"level":"info","message":"Server runing in port 3000","service":"user-service"}
+{"level":"info","message":"Server runing in port 3000"}
+{"level":"info","message":"Server runing in port 3000"}
+{"level":"info","message":"Postgres initialized"}
+{"level":"info","message":"Postgres initialized"}
+{"level":"info","message":"Server runing in port 3000"}
+{"level":"info","message":"Postgres initialized"}
+{"level":"info","message":"Postgres initialized"}
+{"level":"info","message":"Server runing in port 3000"}
+{"level":"info","message":"Postgres initialized"}
+{"level":"info","message":"Postgres initialized"}
+{"level":"info","message":"Server runing in port 3000"}
+{"level":"info","message":"Postgres initialized"}
+{"level":"info","message":"Postgres initialized"}
+{"level":"info","message":"Server runing in port 3000"}
+{"level":"info","message":"Postgres initialized"}
+{"level":"info","message":"Postgres initialized"}
+{"level":"info","message":"Server runing in port 3000"}
+{"level":"info","message":"Postgres initialized"}
+{"level":"info","message":"Postgres initialized"}
+{"level":"info","message":"Server runing in port 3000"}
+{"level":"info","message":"Postgres initialized"}
+{"level":"info","message":"Postgres initialized"}
+{"level":"info","message":"Server runing in port 3000"}
+{"level":"info","message":"Postgres initialized"}
+{"level":"info","message":"Postgres initialized"}
+{"level":"info","message":"Postgres initialized"}
+{"level":"info","message":"Server runing in port 3000"}
+[32minfo[39m:    Postgres initialized
+[32minfo[39m:    Postgres initialized
+[32minfo[39m:    Server runing in port 3000
+2024-09-23T17:04:34.948Z [undefined] info: Postgres initialized
+2024-09-23T17:04:34.957Z [undefined] info: Postgres initialized
+2024-09-23T17:04:34.958Z [undefined] info: Server runing in port 3000
+2024-09-23T17:05:05.416Z - info: Postgres initialized
+2024-09-23T17:05:05.417Z - info: Postgres initialized
+2024-09-23T17:05:05.418Z - info: Server runing in port 3000

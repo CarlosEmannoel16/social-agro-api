@@ -7,7 +7,6 @@ export class UserAuthMiddleware implements MiddlewareProtocol {
 
   async execute(req: Request, res: Response, next: NextFunction) {
     //Adicionar no env
-    console.log("-- middleware --");
     const privateKey = "eee88@09955%$#/";
     let user;
     const bearer = req.headers.authorization;
@@ -27,7 +26,6 @@ export class UserAuthMiddleware implements MiddlewareProtocol {
 
       if (result instanceof Object && result?.id) {
         user = await this.userRepository.find(result?.id);
-        console.log(user);
         if (!user) return res.status(401).json({ message: "not authorized" });
         req.headers["userId"] = user.id;
         next();

@@ -6,6 +6,7 @@ import { CreateAnimalUseCaseProtocol } from "../../../protocols/usecases/animal/
 import * as yup from "yup";
 import { ValidationError } from "@/_shared/errors/Errors";
 import { handlerErrorsController } from "@/presetation/helpers/handlerErrosController";
+import { Logger } from "@/infra/shared/logger/Logger";
 export class CreateAnimalController implements ControllerProtocol {
   constructor(
     private readonly createAnimalUseCase: CreateAnimalUseCaseProtocol
@@ -22,7 +23,6 @@ export class CreateAnimalController implements ControllerProtocol {
 
       const image = `${file?.filename}`;
 
-      console.log(request.body);
 
       yup
         .object()
@@ -54,7 +54,7 @@ export class CreateAnimalController implements ControllerProtocol {
         json: () => response.json(result),
       });
     } catch (error) {
-      console.log(error);
+      Logger.error(error);
       return response.status(500).json(handlerErrorsController(error as Error));
     }
   }

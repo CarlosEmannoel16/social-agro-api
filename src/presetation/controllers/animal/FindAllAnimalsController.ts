@@ -3,6 +3,7 @@ import { ParamsDictionary } from "express-serve-static-core";
 import { ParsedQs } from "qs";
 import { ControllerProtocol } from "../@shared/ControllerProtocol";
 import { FindAllAnimalsUseCaseProtocol } from "../../../protocols/usecases/animal/FindAllAnimalsUseCaseProtocol";
+import { Logger } from "@/infra/shared/logger/Logger";
 
 export class FindAllAnimalsController implements ControllerProtocol {
   constructor(
@@ -14,11 +15,10 @@ export class FindAllAnimalsController implements ControllerProtocol {
   ): Promise<Response> {
     try {
      if(!request.params.idUser) throw new Error("Id do usuário não informado");
-     console.log(request.params.idUser);
       const result = await this.findAllAnimalsUseCase.execute(request.params.idUser);
       return response.status(200).json(result);
     } catch (error) {
-      console.log(error);
+      Logger.error(error);
       return response
         .status(500)
         .json({ error: "Erro ao tentar buscar todos os animal" });

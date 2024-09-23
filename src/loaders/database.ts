@@ -1,3 +1,4 @@
+import { Logger } from "@/infra/shared/logger/Logger";
 import { entities } from "../infra/ORM/index";
 import { DataSource } from "typeorm";
 
@@ -28,9 +29,9 @@ export class DatabaseInitializer {
         entities,
       });
       this.dataSource.connect();
-      console.log("Postgres initialized");
+      Logger.info("Postgres initialized");
     } catch (error) {
-      console.log("Error initializing Postgres", error);
+      Logger.error("Error initializing Postgres", error);
     }
   }
 

@@ -4,6 +4,7 @@ import { CreateUserUseCaseProtocol } from "../../../protocols/usecases/user/Crea
 import * as yup from "yup";
 import { handlerErrorsController } from "@/presetation/helpers/handlerErrosController";
 import { ValidationError } from "@/_shared/errors/Errors";
+import { Logger } from "@/infra/shared/logger/Logger";
 export class CreateUserController implements ControllerProtocol {
   constructor(private readonly createUserUseCase: CreateUserUseCaseProtocol) {}
 
@@ -31,7 +32,7 @@ export class CreateUserController implements ControllerProtocol {
       });
       return response.status(201).json(result);
     } catch (error: any) {
-      console.log(error);
+      Logger.error(error);
       return response.status(500).json(handlerErrorsController(error));
     }
   }
