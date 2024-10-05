@@ -1,11 +1,11 @@
-import { Column, Entity, ManyToOne, PrimaryColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryColumn, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { AnimalEntity } from "./AnimalEntity";
 
 @Entity({ name: "milk_production" })
 export class MilkProductionEntity {
   @Column()
-  @PrimaryColumn()
-  id!: string;
+  @PrimaryGeneratedColumn()
+  id!: number;
 
   @Column()
   quantity!: number;
@@ -13,10 +13,10 @@ export class MilkProductionEntity {
   @Column()
   animalId!: string;
 
-  @Column()
+  @CreateDateColumn()
   createdAt!: Date;
 
-  @Column()
+  @UpdateDateColumn()
   updatedAt!: Date;
 
   @ManyToOne(() => AnimalEntity, (animal) => animal.weightHistory)

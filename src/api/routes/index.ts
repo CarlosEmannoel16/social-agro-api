@@ -12,6 +12,9 @@ import { makeSearchAnimalController } from "../../main/factories/controller/anim
 import { makeAddWeightAnimalController } from "../../main/factories/controller/animal/AddWeightAnimalControllerFactory";
 import { middlewareAdapter } from "./@shared/middlewareAdpter";
 import { makeMiddlewareAuth } from "@/presetation/middleware/MiddlewareAuthFactory";
+import { makeAddMilkProductionController } from "@/main/factories/controller/animal/AddMilkProductionControllerFactory";
+
+const auth = middlewareAdapter(makeMiddlewareAuth());
 
 export const routes = (app: Express) => {
   const router = express.Router();
@@ -22,27 +25,51 @@ export const routes = (app: Express) => {
   //User routes
   router.post(
     "/user",
+    auth,
     upload.single("profileImage"),
     routeAdapter(makeCreateUserController())
   );
-  router.get("/user/:id", middlewareAdapter(makeMiddlewareAuth()), routeAdapter(makeFindUserController()));
+  router.get(
+    "/user/:id",
+    auth,
+    routeAdapter(makeFindUserController())
+  );
   router.post("/user/register", routeAdapter(makeCreateUserController()));
 
-  
   //Animal routes
   router.post(
     "/animal",
+    auth,
     upload.single("file"),
     routeAdapter(makeCreateAnimalController())
   );
 
   router.get(
     "/animal/all/:idUser",
+    auth,
     routeAdapter(makeFindAllAnimalController())
   );
-  router.get("/animal/:id", routeAdapter(makeFindAnimalController()));
-  router.get("/animal/search/:params/:idUser", routeAdapter(makeSearchAnimalController()));
-  router.patch("/animal/add-weight", routeAdapter(makeAddWeightAnimalController()));
+  router.get(
+    "/animal/:id",
+    auth,
+    routeAdapter(makeFindAnimalController())
+  );
+  router.get(
+    "/animal/search/:params/:idUser",
+    auth,
+    routeAdapter(makeSearchAnimalController())
+  );
+  router.post(
+    "/animal/add-weight",
+    auth,
+    routeAdapter(makeAddWeightAnimalController())
+  );
+
+  router.post(
+    "/animal/add-milk-production",
+    auth,
+    routeAdapter(makeAddMilkProductionController())
+  );
   //router.put("/:id/add-image", routeAdapter(makeCreateAnimalController()));
 
   app.use(router);

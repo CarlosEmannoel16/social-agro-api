@@ -1,22 +1,31 @@
-import { Column, Entity, ManyToOne, PrimaryColumn } from "typeorm";
+import {
+  Column,
+  Entity,
+  ManyToOne,
+  PrimaryColumn,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from "typeorm";
 import { AnimalEntity } from "./AnimalEntity";
 
 @Entity({ name: "weight_history" })
 export class WeightHistoryEntity {
-  @Column()
-  @PrimaryColumn()
-  id!: string;
+  @PrimaryGeneratedColumn()
+  id!: number;
+
+  @Column({ type: "float" })
+  weight!: number;
 
   @Column()
-  weight!: number;
+  date!: Date;
 
   @Column()
   animalId!: string;
 
-  @Column()
+  @Column({ default: new Date() })
   createdAt!: Date;
 
-  @Column()
+  @UpdateDateColumn()
   updatedAt!: Date;
 
   @ManyToOne(() => AnimalEntity, (animal) => animal.weightHistory)

@@ -1,6 +1,8 @@
 import { v4 } from "uuid";
-import { Animal, GenderAnimal } from "../entity/Animal";
+import { Animal } from "../entity/Animal";
 import { weightAnimal } from "../entity/WeightAnimal";
+import { GenderAnimal } from "@/infra/ORM/AnimalEntity";
+import { MilkProduction } from "../valueObjects/MilkProduction";
 
 interface InputCreateNewAnimalDTO {
   dateOfBirth: Date;
@@ -16,6 +18,7 @@ interface InputCreateNewAnimalDTO {
     weight: number;
     dateOfRegister: Date;
   }[];
+  milkProduction?: MilkProduction[];
 }
 
 export class AnimalFactory {
@@ -30,6 +33,7 @@ export class AnimalFactory {
     weightHistory,
     id = v4(),
     ownerId,
+    milkProduction,
   }: InputCreateNewAnimalDTO) {
     const animal = new Animal(id, dateOfBirth, gender, breed);
 
@@ -48,6 +52,8 @@ export class AnimalFactory {
         animal.addWeight(w);
       });
     }
+
+    if (milkProduction) animal.addMilkProductions(milkProduction);
 
     return animal;
   }

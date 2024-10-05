@@ -9,7 +9,9 @@
     "paths": {
       "@/*": ["./src/*"],
       "@entities/*": ["./src/infra/ORM/*"],
-      "@database": ["./src/loaders/database.ts"]
+      "@database": ["./src/loaders/database.ts"],
+      "@useCases/*": ["./src/usecase/*"],
+      "@Logger": ["./src/infra/shared/logger/Logger"],
     },
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,

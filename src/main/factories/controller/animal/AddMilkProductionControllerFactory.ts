@@ -1,5 +1,6 @@
 import { AnimalRepository } from "@/infra/repository/animal/AnimalRepository";
 import { MilkProductionRepository } from "@/infra/repository/milkProduction/MilkProductionRepository";
+import { AddMilkProductionAnimalController } from "@/presetation/controllers/animal/AddMilkProductionAnimalController";
 import { AddMilkProductionUseCase } from "@/usecase/animal/addMilkProduction/AddMilkProductionUseCase";
 
 export const makeAddMilkProductionController = () => {
@@ -9,4 +10,6 @@ export const makeAddMilkProductionController = () => {
     animalRepository,
     milkProductionRepository
   );
+
+  return new AddMilkProductionAnimalController(addMilkProductionUseCase);
 };

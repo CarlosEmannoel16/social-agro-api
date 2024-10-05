@@ -1,8 +1,6 @@
-import { Vaccination } from "@prisma/client";
 import {
   Entity,
   Column,
-  PrimaryGeneratedColumn,
   OneToMany,
   ManyToOne,
   OneToOne,
@@ -16,6 +14,7 @@ import { AnimalExpensesEntity } from "./AnimalExpensesEntity";
 import { AnimalNotesEntity } from "./AnimalNotesEntity";
 import { BreedAnimalEntity } from "./BreedAnimalEntity";
 import { UserEntity } from "./UserEntity";
+import { MilkProductionEntity } from "./MilkProductionEntity";
 
 export enum GenderAnimal {
   OX = "M",
@@ -56,6 +55,9 @@ export class AnimalEntity {
   @Column()
   userId!: string;
 
+  @OneToMany(() => MilkProductionEntity, (milk) => milk.animal)
+  milkProduction!: MilkProductionEntity[];
+
   @OneToOne(() => AnimalEntity, (animal) => animal.fatherId)
   father!: AnimalEntity;
 
@@ -63,7 +65,7 @@ export class AnimalEntity {
   mother!: AnimalEntity;
 
   @OneToMany(() => VaccinationEntity, (vaccination) => vaccination.animal)
-  vaccination!: Vaccination[];
+  vaccination!: VaccinationEntity[];
 
   @OneToMany(() => WeightHistoryEntity, (weight) => weight.animal)
   weightHistory!: WeightHistoryEntity[];

@@ -1,7 +1,6 @@
 import { GenderAnimal } from "@/infra/ORM/AnimalEntity";
 import { weightAnimal } from "./WeightAnimal";
-
-
+import { MilkProduction } from "../valueObjects/MilkProduction";
 
 const KEY_LOGGER = "CLASS ANIMAL";
 
@@ -18,6 +17,7 @@ export class Animal {
   private _dateOfCreation!: Date;
   private _dateOfUpdate!: Date;
   private _weight!: weightAnimal[];
+  private _milkProduction!: MilkProduction[];
 
   constructor(
     id: string,
@@ -64,6 +64,20 @@ export class Animal {
     this._breed = breed;
   }
 
+  addMilkProductions(milk: MilkProduction[]) {
+    if (this._milkProduction) throw new Error("Milk production already set");
+    this._milkProduction = milk;
+  }
+
+  addMilkProduction(milk: MilkProduction) {
+    if (!this._milkProduction) this._milkProduction = [];
+    this._milkProduction.push(milk);
+  }
+
+  get milkProductions(): MilkProduction[] {
+    return this._milkProduction;
+  }
+
   get surname(): string {
     return this._surname;
   }
@@ -80,7 +94,6 @@ export class Animal {
     return this._breed;
   }
 
-  
   get fatherId(): string {
     return this._fatherId;
   }
@@ -142,6 +155,17 @@ export class Animal {
         return {
           weight: weight.weight,
           dateOfRegister: weight.getDateOfRegisterPTBR(),
+        };
+      }) || []
+    );
+  }
+
+  getMilkProductions(): any {
+    return (
+      this._milkProduction?.map((milk) => {
+        return {
+          dateOfRegister: milk.date,
+          quantity: milk.quantity,
         };
       }) || []
     );

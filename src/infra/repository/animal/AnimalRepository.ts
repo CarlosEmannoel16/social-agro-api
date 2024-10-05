@@ -3,6 +3,7 @@ import { Animal } from "../../../domain/animal/entity/Animal";
 import { AnimalFactory } from "../../../domain/animal/factory/AnimalFactory";
 import {
   AnimalRepositoryInterface,
+  InputFindParamsRepository,
   InputFindWithParamsRepository,
   addWeightParams,
 } from "../../../domain/animal/repository/AnimaProtocolRepository";
@@ -14,6 +15,7 @@ import { WeightHistoryEntity } from "@/infra/ORM/WeightHistoryEntity";
 import { VaccinationEntity } from "@/infra/ORM/VaccinationEntity";
 import { AnimalNotesEntity } from "@entities/AnimalNotesEntity";
 import { weightAnimal } from "@/domain/animal/entity/WeightAnimal";
+import { MilkProduction } from "@/domain/animal/valueObjects/MilkProduction";
 import { v4 } from "uuid";
 export class AnimalRepository implements AnimalRepositoryInterface {
   async findByIds(ids: string[], userId: string): Promise<Animal[]> {
@@ -149,25 +151,28 @@ export class AnimalRepository implements AnimalRepositoryInterface {
   async update(item: Animal): Promise<void> {
     throw new Error("Method not implemented.");
   }
-  async find(animalId: string): Promise<Animal | undefined> {
+  async find(data: InputFindParamsRepository): Promise<Animal | undefined> {
     const repository = DatabaseInitializer.db().getRepository(AnimalEntity);
 
     const animal = await repository.findOne({
       where: {
-        id: animalId,
+        id: data.animalId,
+        userId: data.userId,
       },
     });
 
     if (!animal) return;
 
     return AnimalFactory.createNewAnimal({
-      dateOfBirth: animal.dateOfBirth,
+      dateOfBirth: animal?.dateOfBirth,
       gender: animal.gender as GenderAnimal,
-      breed: animal.breed.name || undefined,
-      images: animal.images.map((img) => img.url),
-      fatherId: animal.fatherId || undefined,
-      motherId: animal.motherId || undefined,
+      breed: animal?.breed?.name || undefined,
+      images: animal?.images?.map((img) => img.url) || [],
+      fatherId: animal?.fatherId || undefined,
+      motherId: animal?.motherId || undefined,
       surname: animal.surname,
+      ownerId: animal?.userId,
+      id: animal.id,
     });
   }
   async findAll(userId: string): Promise<Animal[]> {
@@ -177,9 +182,11 @@ export class AnimalRepository implements AnimalRepositoryInterface {
       where: {
         userId: userId,
       },
+      relations: {
+        weightHistory: true,
+        milkProduction: true,
+      },
     });
-
-    console.log(animal);
 
     if (!animal) throw new Error("Error to find animals");
 
@@ -193,10 +200,15 @@ export class AnimalRepository implements AnimalRepositoryInterface {
         motherId: animal.motherId || undefined,
         surname: animal.surname,
         id: animal.id,
-        weightHistory: animal?.weightHistory?.map((weight) => ({
-          dateOfRegister: weight.createdAt,
-          weight: weight.weight,
-        })) || [],
+        weightHistory:
+          animal?.weightHistory?.map((weight) => ({
+            dateOfRegister: weight.date,
+            weight: weight.weight,
+          })) || [],
+        milkProduction: animal.milkProduction.map(
+          (milk) =>
+            new MilkProduction(milk.createdAt, milk.quantity, milk.animalId)
+        ),
       }))
     );
   }

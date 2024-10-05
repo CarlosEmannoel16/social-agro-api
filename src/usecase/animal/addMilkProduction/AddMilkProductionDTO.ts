@@ -1,6 +1,6 @@
 export interface InputAddMilkProductionDTO {
   animalId: string
-  ownerId: string
+  userId: string
   dateOfProduction: Date
   quantityOfMilk: number
 }

@@ -10,6 +10,10 @@ export interface OutputFindAllAnimalDTO {
   weightHistory: {
     weight: number;
     dateOfRegister: string;
-  };
+  }[];
+  milkProduction: {
+    dateOfRegister: string;
+    quantity: number;
+  }[];
 }
 [];

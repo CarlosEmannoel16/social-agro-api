@@ -1,4 +1,5 @@
-import { Animal, GenderAnimal } from "./Animal";
+import { GenderAnimal } from "@/infra/ORM/AnimalEntity";
+import { Animal } from "./Animal";
 
 describe("Animals unit tests", () => {
   it("should throw error when id is empty", () => {

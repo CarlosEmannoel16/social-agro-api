@@ -3,6 +3,8 @@ import { ParamsDictionary } from "express-serve-static-core";
 import { ParsedQs } from "qs";
 import { ControllerProtocol } from "../@shared/ControllerProtocol";
 import { AddWeightAnimalUseCase } from "../../../usecase/animal/addWeight/AddWeigthUseCase";
+import { Logger } from "@Logger";
+import { handlerErrorsController } from "@/presetation/helpers/handlerErrosController";
 
 export class AddWeightAnimalController implements ControllerProtocol {
   constructor(
@@ -13,15 +15,13 @@ export class AddWeightAnimalController implements ControllerProtocol {
     res: Response<any, Record<string, any>>
   ): Promise<Response> {
     try {
-
-      await this.addWeightAnimalUseCase.execute(req.body.data);
+      await this.addWeightAnimalUseCase.execute(req.body);
       return res.status(200).json({
         message: "Peso adicionado com sucesso",
       });
     } catch (error) {
-      return res.json({
-        error: "Erro ao tentar adicionar peso ao animal",
-      });
+      Logger.error(error);
+      return res.status(500).json(handlerErrorsController(error as Error));
     }
   }
 }

@@ -12,13 +12,18 @@ export type InputFindWithParamsRepository = {
   surname: string;
 };
 
+export type InputFindParamsRepository = {
+  userId: string;
+  animalId: string;
+};
+
 export interface AnimalRepositoryInterface extends RepositoryInterface<Animal> {
   addImage(animalId: string, imageUrl: string, userId: string): Promise<void>;
   findWithParams(
     params: InputFindWithParamsRepository,
     userId: string
   ): Promise<Animal[] | undefined>;
-  find(animalId: string, userId: string): Promise<Animal | undefined>;
+  find(data: InputFindParamsRepository): Promise<Animal | undefined>;
   addWeight(data: addWeightParams): Promise<any>;
   addNote(data: Note, userId: string): Promise<Note>;
   deleteNote(

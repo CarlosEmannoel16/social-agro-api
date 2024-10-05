@@ -1,21 +1,27 @@
+import { Logger } from "@/infra/shared/logger/Logger";
 import { AnimalRepositoryInterface } from "../../../domain/animal/repository/AnimaProtocolRepository";
 import { InputAddWeightAnimalDTO } from "./AddWeightDTO";
+import { validationAddWeightUseCase } from "./Validation";
 
 export class AddWeightAnimalUseCase {
   constructor(private readonly animalRepository: AnimalRepositoryInterface) {}
   async execute(data: InputAddWeightAnimalDTO) {
-    if (!data.idAnimal || !data.idUser || !data.weight || !data.date)
-      throw new Error("Dados inválidos");
-    const animal = await this.animalRepository.find(data.idUser, data.idAnimal);
-    if (!animal) throw new Error("Animal não encontrado");
-  
+    validationAddWeightUseCase.validateInput(data);
 
-    await this.animalRepository.addWeight(
-      {
-        date: new Date(data.date),
-        idAnimal: data.idAnimal,
-        weight: Number(data.weight),
-      }
-    );
+    console.log(data);
+
+    const animal = await this.animalRepository.find({
+      animalId: data.idAnimal,
+      userId: data.idUser,
+    });
+    if (!animal) throw new Error("Animal não encontrado");
+
+    console.log(animal);
+
+    await this.animalRepository.addWeight({
+      date: new Date(data.date),
+      idAnimal: animal.id,
+      weight: Number(data.weight),
+    });
   }
 }
