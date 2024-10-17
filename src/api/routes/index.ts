@@ -58,6 +58,7 @@ export const routes = (app: Express) => {
   });
 
   router.get("/animal/all/:idUser", auth, (req, res) => {
+   
     new FindAllAnimalsController(
       new FindAllAnimalsUseCase(new AnimalRepository())
     ).handle(req, res);

@@ -24,6 +24,7 @@ export interface AnimalRepositoryInterface extends RepositoryInterface<Animal> {
     userId: string
   ): Promise<Animal[] | undefined>;
   find(data: InputFindParamsRepository): Promise<Animal | undefined>;
+  findByID(id: string, userId: string): Promise<Animal | undefined>;
   addWeight(data: addWeightParams): Promise<any>;
   addNote(data: Note, userId: string): Promise<Note>;
   deleteNote(

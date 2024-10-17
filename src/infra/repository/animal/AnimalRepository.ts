@@ -18,6 +18,23 @@ import { weightAnimal } from "@/domain/animal/entity/WeightAnimal";
 import { MilkProduction } from "@/domain/animal/valueObjects/MilkProduction";
 import { v4 } from "uuid";
 export class AnimalRepository implements AnimalRepositoryInterface {
+  async findByID(id: string, userId: string): Promise<Animal | undefined> {
+    const animal = await DatabaseInitializer.db()
+      .getRepository(AnimalEntity)
+      .findOne({
+        where: {
+          id: id,
+          userId: userId,
+        },
+      });
+
+    if (!animal) return;
+
+    return AnimalFactory.createNewAnimal({
+      dateOfBirth: animal.dateOfBirth,
+      gender: animal.gender,
+    });
+  }
   async findByIds(ids: string[], userId: string): Promise<Animal[]> {
     const animals = await DatabaseInitializer.db()
       .getRepository(AnimalEntity)

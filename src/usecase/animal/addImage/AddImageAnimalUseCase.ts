@@ -8,7 +8,7 @@ export class AddImageAnimalUseCase implements AddImageAnimalUseCaseProtocol {
   async execute(data: InputAddImageAnimalDTO): Promise<any> {
     const animal = await this.animalRepository.findWithParams(
       {
-        id: data.animalId,
+        surname: data.animalId,
       },
       data.ownerId
     );

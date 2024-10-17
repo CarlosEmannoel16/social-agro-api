@@ -23,7 +23,6 @@ export class CreateAnimalController implements ControllerProtocol {
 
       const image = `${file?.filename}`;
 
-
       yup
         .object()
         .shape({
