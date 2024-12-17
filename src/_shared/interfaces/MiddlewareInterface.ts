@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
 
-export interface MiddlewareProtocol {
+export interface MiddlewareInterface {
   execute(request: Request, response: Response, next: NextFunction): Promise<any>;
 }

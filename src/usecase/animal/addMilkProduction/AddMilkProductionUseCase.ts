@@ -1,5 +1,5 @@
 import { AnimalRepositoryInterface } from "@/domain/animal/repository/AnimaProtocolRepository";
-import { InputAddMilkProductionDTO } from "./AddMilkProductionDTO";
+import { InputAddMilkProductionDTO } from "./DTOs";
 import { MilkRepositoryInterface } from "@/domain/animal/repository/MilkProductionRepository";
 import { ValidationError } from "@/_shared/errors/Errors";
 import { AddMilkProductionUseCaseValidation } from "./Validation";

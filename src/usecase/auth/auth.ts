@@ -1,11 +1,9 @@
-import { Request, Response } from "express";
-import { AuthenticationUseCaseProtocol } from "../../protocols/usecases/auth/AutheticationUseCase";
 import { InputAuthUseCase, OutputAuthUseCase } from "./authDTO";
 import { UserRepositoryInterface } from "../../domain/user/repository/UserRepositoryInterface";
 import jwt from "jsonwebtoken";
 import { ValidationError } from "@/_shared/errors/Errors";
 
-export class AuthUseCase implements AuthenticationUseCaseProtocol {
+export class AuthUseCase {
   constructor(private readonly userRepository: UserRepositoryInterface) {}
   async execute(input: InputAuthUseCase): Promise<OutputAuthUseCase> {
     const privateKey = "eee88@09955%$#/";

@@ -1,8 +1,8 @@
 import { NextFunction, Request, Response } from "express";
-import jwt, { JwtPayload } from "jsonwebtoken";
+import jwt from "jsonwebtoken";
 import { UserRepositoryInterface } from "../../domain/user/repository/UserRepositoryInterface";
-import { MiddlewareProtocol } from "../../presetation/controllers/@shared/MiddlewareProtocol";
-export class UserAuthMiddleware implements MiddlewareProtocol {
+import { MiddlewareInterface } from "@/_shared/interfaces/MiddlewareInterface";
+export class UserAuthMiddleware implements MiddlewareInterface {
   constructor(private readonly userRepository: UserRepositoryInterface) {}
 
   async execute(req: Request, res: Response, next: NextFunction) {

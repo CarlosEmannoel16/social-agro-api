@@ -1,9 +1,7 @@
 import { AnimalRepositoryInterface } from "../../../domain/animal/repository/AnimaProtocolRepository";
-import { UserRepositoryInterface } from "../../../domain/user/repository/UserRepositoryInterface";
-import { AddImageAnimalUseCaseProtocol } from "./AddImageAnimalUseCaseProtocol";
-import { InputAddImageAnimalDTO } from "./AddImageAnimalDTO";
+import { InputAddImageAnimalDTO } from "./DTOs";
 
-export class AddImageAnimalUseCase implements AddImageAnimalUseCaseProtocol {
+export class AddImageAnimalUseCase {
   constructor(private readonly animalRepository: AnimalRepositoryInterface) {}
   async execute(data: InputAddImageAnimalDTO): Promise<any> {
     const animal = await this.animalRepository.findWithParams(

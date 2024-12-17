@@ -1,7 +1,7 @@
 import UserRepository from "@/infra/repository/user/UserRepository";
 import { UserAuthMiddleware } from "../../api/middlewares/UserMiddleware";
-import { MiddlewareProtocol } from "../controllers/@shared/MiddlewareProtocol";
+import { MiddlewareInterface } from "@/_shared/interfaces/MiddlewareInterface";
 
-export const makeMiddlewareAuth = (): MiddlewareProtocol => {
+export const makeMiddlewareAuth = (): MiddlewareInterface => {
   return new UserAuthMiddleware(new UserRepository());
 };

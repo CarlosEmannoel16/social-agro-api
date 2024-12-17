@@ -1,14 +1,14 @@
 import { AnimalRepositoryInterface } from "@/domain/animal/repository/AnimaProtocolRepository";
 import {
-  CreateSonUseCaseInterface,
+  
   InputCreateSonDTO,
   OutputCreateSonDTO,
-} from "./CreateSonUseCaseInterface";
+} from "./DTOs";
 import { AnimalFactory } from "@/domain/animal/factory/AnimalFactory";
 import { weightAnimal } from "@/domain/animal/valueObjects/WeightAnimal";
 import { GenderAnimal } from "@/infra/ORM/AnimalEntity";
 
-export class CreateSonUseCase implements CreateSonUseCaseInterface {
+export class CreateSonUseCase  {
   constructor(private readonly animalRepository: AnimalRepositoryInterface) {}
   async execute(data: InputCreateSonDTO): Promise<OutputCreateSonDTO> {
     let father;

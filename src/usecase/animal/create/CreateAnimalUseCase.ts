@@ -1,10 +1,9 @@
 import { AnimalFactory } from "../../../domain/animal/factory/AnimalFactory";
 import { AnimalRepositoryInterface } from "../../../domain/animal/repository/AnimaProtocolRepository";
 import { UserRepositoryInterface } from "../../../domain/user/repository/UserRepositoryInterface";
-import { InputCreateAnimalDTO, OutputCreateAnimalDTO } from "./CreateAnimalDTO";
-import { CreateAnimalUseCaseProtocol } from "./CreateAnimalUseCaseProtocol";
+import { InputCreateAnimalDTO, OutputCreateAnimalDTO } from "./DTOs";
 
-export class CreateAnimalUseCase implements CreateAnimalUseCaseProtocol {
+export class CreateAnimalUseCase {
   constructor(
     private readonly animalRepository: AnimalRepositoryInterface,
     private readonly userRepository: UserRepositoryInterface

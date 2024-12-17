@@ -1,11 +1,11 @@
 import { Request, Response } from "express";
 import { ParamsDictionary } from "express-serve-static-core";
 import { ParsedQs } from "qs";
-import { ControllerProtocol } from "../@shared/ControllerProtocol";
 import { AddWeightAnimalUseCase } from "../../../usecase/animal/addWeight/AddWeigthUseCase";
 import { handlerErrorsController } from "@/presetation/helpers/handlerErrosController";
+import { ControllerInterface } from "@/_shared/interfaces/ControllerInterface";
 
-export class AddWeightAnimalController implements ControllerProtocol {
+export class AddWeightAnimalController implements ControllerInterface {
   constructor(
     private readonly addWeightAnimalUseCase: AddWeightAnimalUseCase
   ) {}

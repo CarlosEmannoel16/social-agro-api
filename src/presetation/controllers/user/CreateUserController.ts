@@ -1,10 +1,10 @@
 import { Request, Response } from "express";
-import { ControllerProtocol } from "../@shared/ControllerProtocol";
 import * as yup from "yup";
 import { handlerErrorsController } from "@/presetation/helpers/handlerErrosController";
 import { ValidationError } from "@/_shared/errors/Errors";
 import { CreateUserUseCaseProtocol } from "@/usecase/user/create/CreateUserUseCaseProtocol";
-export class CreateUserController implements ControllerProtocol {
+import { ControllerInterface } from "@/_shared/interfaces/ControllerInterface";
+export class CreateUserController implements ControllerInterface {
   constructor(private readonly createUserUseCase: CreateUserUseCaseProtocol) {}
 
   async handle(request: Request, response: Response): Promise<Response> {

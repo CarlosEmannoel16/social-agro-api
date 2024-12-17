@@ -1,12 +1,9 @@
-import { AddNotationAnimalUseCaseProtocol } from "@/usecase/animal/addNotation/AddNotationAnimalUseCaseProtocol";
-import { InputAddNotationAnimalDTO } from "./AddNotationAnimalDTO";
+import { InputAddNotationAnimalDTO } from "./DTOs";
 import { AnimalRepositoryInterface } from "@/domain/animal/repository/AnimaProtocolRepository";
 import { Note } from "@/domain/expenses/entity/Note";
 import { v4 } from "uuid";
 
-export class AddNotationAnimalUseCase
-  implements AddNotationAnimalUseCaseProtocol
-{
+export class AddNotationAnimalUseCase {
   constructor(private readonly animalRepository: AnimalRepositoryInterface) {}
 
   async execute(data: InputAddNotationAnimalDTO): Promise<any> {

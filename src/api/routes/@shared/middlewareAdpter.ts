@@ -1,7 +1,7 @@
+import { MiddlewareInterface } from "@/_shared/interfaces/MiddlewareInterface";
 import { NextFunction, Request, Response } from "express";
-import { MiddlewareProtocol } from "../../../presetation/controllers/@shared/MiddlewareProtocol";
 
-export const middlewareAdapter = (middleware: MiddlewareProtocol) => {
+export const middlewareAdapter = (middleware: MiddlewareInterface) => {
   return async (req: Request, res: Response, next: NextFunction) =>
     middleware.execute(req, res, next);
 };

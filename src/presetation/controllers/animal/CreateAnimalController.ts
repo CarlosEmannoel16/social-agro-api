@@ -1,14 +1,14 @@
 import { Request, Response } from "express";
 import { ParamsDictionary } from "express-serve-static-core";
 import { ParsedQs } from "qs";
-import { ControllerProtocol } from "../@shared/ControllerProtocol";
 import * as yup from "yup";
 import { ValidationError } from "@/_shared/errors/Errors";
 import { handlerErrorsController } from "@/presetation/helpers/handlerErrosController";
-import { CreateAnimalUseCaseProtocol } from "@/usecase/animal/create/CreateAnimalUseCaseProtocol";
-export class CreateAnimalController implements ControllerProtocol {
+import { ControllerInterface } from "@/_shared/interfaces/ControllerInterface";
+import { CreateAnimalUseCase } from "@/usecase/animal/create/CreateAnimalUseCase";
+export class CreateAnimalController implements ControllerInterface {
   constructor(
-    private readonly createAnimalUseCase: CreateAnimalUseCaseProtocol
+    private readonly createAnimalUseCase: CreateAnimalUseCase
   ) {}
 
   async handle(

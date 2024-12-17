@@ -1,14 +1,14 @@
 import { Request, Response } from "express";
 import { ParamsDictionary } from "express-serve-static-core";
 import { ParsedQs } from "qs";
-import { ControllerProtocol } from "../@shared/ControllerProtocol";
-import { AuthenticationUseCaseProtocol } from "../../../protocols/usecases/auth/AutheticationUseCase";
 import * as yup from "yup";
 import { handlerErrorsController } from "@/presetation/helpers/handlerErrosController";
 import { ValidationError } from "@/_shared/errors/Errors";
-export class AuthenticationController implements ControllerProtocol {
+import { ControllerInterface } from "@/_shared/interfaces/ControllerInterface";
+import { AuthUseCase } from "@/usecase/auth/auth";
+export class AuthenticationController implements ControllerInterface {
   constructor(
-    private readonly authenticationUseCase: AuthenticationUseCaseProtocol
+    private readonly authenticationUseCase: AuthUseCase
   ) {}
   async handle(
     request: Request<ParamsDictionary, any, any, ParsedQs, Record<string, any>>,

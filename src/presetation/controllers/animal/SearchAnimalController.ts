@@ -1,8 +1,8 @@
+import { ControllerInterface } from "@/_shared/interfaces/ControllerInterface";
+import { SearchAnimalUseCase } from "@/usecase/animal/search/SearchAnimalUseCase";
 import { Request, Response } from "express";
-import { ControllerProtocol } from "../@shared/ControllerProtocol";
-import { SearchAnimalUseCaseProtocol } from "@/usecase/animal/search/SearchAnimelUseCaseProtocol";
-export class SearchAnimalController implements ControllerProtocol {
-  constructor(private searchAnimalUseCase: SearchAnimalUseCaseProtocol) {}
+export class SearchAnimalController implements ControllerInterface {
+  constructor(private searchAnimalUseCase: SearchAnimalUseCase) {}
   async handle(
     request: Request,
     response: Response

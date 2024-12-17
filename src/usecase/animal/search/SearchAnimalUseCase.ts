@@ -2,10 +2,9 @@ import { AnimalRepositoryInterface } from "../../../domain/animal/repository/Ani
 import {
   InputSearchAnimalUseCase,
   OutputSearchAnimalUseCase,
-} from "./SearchAnimalDTO";
-import { SearchAnimalUseCaseProtocol } from "./SearchAnimelUseCaseProtocol";
+} from "./DTOs";
 
-export class SearchAnimalUseCase implements SearchAnimalUseCaseProtocol {
+export class SearchAnimalUseCase {
   constructor(private readonly animalRepository: AnimalRepositoryInterface) {}
   async execute(
     params: InputSearchAnimalUseCase

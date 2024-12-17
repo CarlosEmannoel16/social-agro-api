@@ -1,8 +1,7 @@
 import { Animal } from "../../../domain/animal/entity/Animal";
 import { AnimalRepositoryInterface } from "../../../domain/animal/repository/AnimaProtocolRepository";
-import { FindAllAnimalsUseCaseProtocol } from "./FindAllAnimalsUseCaseProtocol";
 import { MapperProtocol } from "../../@shared/MapperProtocol";
-import { OutputFindAllAnimalDTO } from "./FindAllAnimalsDTO";
+import { OutputFindAllAnimalDTO } from "./DTOs";
 
 class AnimalMapper implements MapperProtocol<Animal, OutputFindAllAnimalDTO> {
   map(data: Animal[]): OutputFindAllAnimalDTO[] {
@@ -21,7 +20,7 @@ class AnimalMapper implements MapperProtocol<Animal, OutputFindAllAnimalDTO> {
   }
 }
 
-export class FindAllAnimalsUseCase implements FindAllAnimalsUseCaseProtocol {
+export class FindAllAnimalsUseCase {
   constructor(private readonly animalRepository: AnimalRepositoryInterface) {}
 
   async execute(idUser: string): Promise<OutputFindAllAnimalDTO[]> {

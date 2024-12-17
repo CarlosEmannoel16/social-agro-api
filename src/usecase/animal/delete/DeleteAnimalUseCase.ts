@@ -1,5 +1,5 @@
 import { AnimalRepositoryInterface } from "@/domain/animal/repository/AnimaProtocolRepository";
-import { InputDeleteAnimalUseCaseProtocol } from "./DeleteAnimalDTO";
+import { InputDeleteAnimalUseCaseProtocol } from "./DTOs";
 
 export class DeleteAnimalUseCase {
   constructor(private readonly animalRepository: AnimalRepositoryInterface) {}

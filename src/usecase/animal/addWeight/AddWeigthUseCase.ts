@@ -1,5 +1,5 @@
 import { AnimalRepositoryInterface } from "../../../domain/animal/repository/AnimaProtocolRepository";
-import { InputAddWeightAnimalDTO } from "./AddWeightDTO";
+import { InputAddWeightAnimalDTO } from "./DTOs";
 import { validationAddWeightUseCase } from "./Validation";
 
 export class AddWeightAnimalUseCase {

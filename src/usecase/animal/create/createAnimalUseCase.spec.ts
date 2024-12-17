@@ -1,7 +1,7 @@
 import { AnimalRepositoryInterface } from "@/domain/animal/repository/AnimaProtocolRepository";
 import { CreateAnimalUseCase } from "./CreateAnimalUseCase";
 import { UserRepositoryInterface } from "@/domain/user/repository/UserRepositoryInterface";
-import { InputCreateAnimalDTO } from "./CreateAnimalDTO";
+import { InputCreateAnimalDTO } from "./DTOs";
 import { GenderAnimal } from "@/infra/ORM/AnimalEntity";
 
 describe("Unit Create Animal Use Case", () => {

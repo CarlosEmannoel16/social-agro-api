@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
-import { ControllerProtocol } from "../@shared/ControllerProtocol";
 import { AddMilkProductionUseCase } from "@/usecase/animal/addMilkProduction/AddMilkProductionUseCase";
 import { handlerErrorsController } from "@/presetation/helpers/handlerErrosController";
+import { ControllerInterface } from "@/_shared/interfaces/ControllerInterface";
 
-export class AddMilkProductionAnimalController implements ControllerProtocol {
+export class AddMilkProductionAnimalController implements ControllerInterface {
   constructor(
     private readonly addMilkProductionUseCase: AddMilkProductionUseCase
   ) {}

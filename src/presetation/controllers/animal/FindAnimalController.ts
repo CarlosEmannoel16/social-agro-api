@@ -1,12 +1,13 @@
+import { ControllerInterface } from "@/_shared/interfaces/ControllerInterface";
+import { FindAnimalUseCase } from "@/usecase/animal/find/FindAnimalUseCase";
 import { Request, Response } from "express";
 import { ParamsDictionary } from "express-serve-static-core";
 import { ParsedQs } from "qs";
-import { ControllerProtocol } from "../@shared/ControllerProtocol";
-import { FindAnimalUseCaseProtocol } from "@/usecase/animal/find/FindAnimalUseCaseProtocol";
 
-export class FindAnimalController implements ControllerProtocol {
+
+export class FindAnimalController implements ControllerInterface {
   constructor(
-    private readonly findAnimalUseCaseCase: FindAnimalUseCaseProtocol
+    private readonly findAnimalUseCaseCase: FindAnimalUseCase
   ) {}
   async handle(
     request: Request<ParamsDictionary, any, any, ParsedQs, Record<string, any>>,

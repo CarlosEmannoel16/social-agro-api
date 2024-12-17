@@ -1,8 +1,7 @@
 import { AnimalRepositoryInterface } from "../../../domain/animal/repository/AnimaProtocolRepository";
-import { InputFindAnimalDTO, OutputFindAnimalDTO } from "./FindAnimalDTO";
-import { FindAnimalUseCaseProtocol } from "./FindAnimalUseCaseProtocol";
+import { InputFindAnimalDTO, OutputFindAnimalDTO } from "./DTOs";
 
-export class FindAnimalUseCase implements FindAnimalUseCaseProtocol {
+export class FindAnimalUseCase  {
   constructor(private readonly animalRepository: AnimalRepositoryInterface) {}
 
   async execute(input: InputFindAnimalDTO): Promise<OutputFindAnimalDTO> {
