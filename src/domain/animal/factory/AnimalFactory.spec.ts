@@ -1,4 +1,4 @@
-import { GenderAnimal } from "../entity/Animal";
+import { GenderAnimal } from "@/infra/ORM/AnimalEntity";
 import { AnimalFactory } from "./AnimalFactory";
 
 describe("User Factory  Test Unit", () => {
@@ -8,7 +8,7 @@ describe("User Factory  Test Unit", () => {
         dateOfBirth: new Date(),
         fatherId: "123",
         surname: "surname",
-        type: GenderAnimal.COW,
+        gender: GenderAnimal.COW,
       })
     ).toBeDefined();
   });
@@ -17,7 +17,7 @@ describe("User Factory  Test Unit", () => {
     const animal = AnimalFactory.createNewAnimal({
       dateOfBirth: new Date(),
       fatherId: "123",
-      type: GenderAnimal.COW,
+      gender: GenderAnimal.COW,
     });
     expect(animal.surname).toBeUndefined();
   });
@@ -27,7 +27,7 @@ describe("User Factory  Test Unit", () => {
       dateOfBirth: new Date(),
       fatherId: "123",
       surname: "surname",
-      type: GenderAnimal.COW,
+      gender: GenderAnimal.COW,
     });
     expect(animal.surname).toBe("surname");
   });

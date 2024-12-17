@@ -1,6 +1,6 @@
 import { v4 } from "uuid";
 import { Animal } from "../entity/Animal";
-import { weightAnimal } from "../entity/WeightAnimal";
+import { weightAnimal } from "../valueObjects/WeightAnimal";
 import { GenderAnimal } from "@/infra/ORM/AnimalEntity";
 import { MilkProduction } from "../valueObjects/MilkProduction";
 

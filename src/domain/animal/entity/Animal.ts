@@ -1,5 +1,5 @@
 import { GenderAnimal } from "@/infra/ORM/AnimalEntity";
-import { weightAnimal } from "./WeightAnimal";
+import { weightAnimal } from "../valueObjects/WeightAnimal";
 import { MilkProduction } from "../valueObjects/MilkProduction";
 
 const KEY_LOGGER = "CLASS ANIMAL";

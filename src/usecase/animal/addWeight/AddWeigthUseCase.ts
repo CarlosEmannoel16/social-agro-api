@@ -1,4 +1,3 @@
-import { Logger } from "@/infra/shared/logger/Logger";
 import { AnimalRepositoryInterface } from "../../../domain/animal/repository/AnimaProtocolRepository";
 import { InputAddWeightAnimalDTO } from "./AddWeightDTO";
 import { validationAddWeightUseCase } from "./Validation";

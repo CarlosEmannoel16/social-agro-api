@@ -1,10 +1,9 @@
-import { Animal } from "../../../_shared/decorators/Test";
 import { AnimalRepositoryInterface } from "../../../domain/animal/repository/AnimaProtocolRepository";
-import { SearchAnimalUseCaseProtocol } from "../../../protocols/usecases/animal/SearchAnimelUseCaseProtocol";
 import {
   InputSearchAnimalUseCase,
   OutputSearchAnimalUseCase,
 } from "./SearchAnimalDTO";
+import { SearchAnimalUseCaseProtocol } from "./SearchAnimelUseCaseProtocol";
 
 export class SearchAnimalUseCase implements SearchAnimalUseCaseProtocol {
   constructor(private readonly animalRepository: AnimalRepositoryInterface) {}

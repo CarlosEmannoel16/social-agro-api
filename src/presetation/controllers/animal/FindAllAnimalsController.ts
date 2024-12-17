@@ -2,8 +2,7 @@ import { Request, Response } from "express";
 import { ParamsDictionary } from "express-serve-static-core";
 import { ParsedQs } from "qs";
 import { ControllerProtocol } from "../@shared/ControllerProtocol";
-import { FindAllAnimalsUseCaseProtocol } from "../../../protocols/usecases/animal/FindAllAnimalsUseCaseProtocol";
-import { Logger } from "@/infra/shared/logger/Logger";
+import { FindAllAnimalsUseCaseProtocol } from "../../../usecase/animal/findAll/FindAllAnimalsUseCaseProtocol";
 
 export class FindAllAnimalsController implements ControllerProtocol {
   constructor(
@@ -18,7 +17,6 @@ export class FindAllAnimalsController implements ControllerProtocol {
       const result = await this.findAllAnimalsUseCase.execute(request.params.idUser);
       return response.status(200).json(result);
     } catch (error) {
-      Logger.error(error);
       return response
         .status(500)
         .json({ error: "Erro ao tentar buscar todos os animal" });

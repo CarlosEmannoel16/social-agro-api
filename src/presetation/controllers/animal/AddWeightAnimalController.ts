@@ -3,7 +3,6 @@ import { ParamsDictionary } from "express-serve-static-core";
 import { ParsedQs } from "qs";
 import { ControllerProtocol } from "../@shared/ControllerProtocol";
 import { AddWeightAnimalUseCase } from "../../../usecase/animal/addWeight/AddWeigthUseCase";
-import { Logger } from "@Logger";
 import { handlerErrorsController } from "@/presetation/helpers/handlerErrosController";
 
 export class AddWeightAnimalController implements ControllerProtocol {
@@ -20,7 +19,7 @@ export class AddWeightAnimalController implements ControllerProtocol {
         message: "Peso adicionado com sucesso",
       });
     } catch (error) {
-      Logger.error(error);
+     
       return res.status(500).json(handlerErrorsController(error as Error));
     }
   }

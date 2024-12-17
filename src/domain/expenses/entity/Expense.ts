@@ -1,4 +1,4 @@
-import { CategoryExpense } from "../valueObjects/CategoryExpense";
+import { CategoryExpense } from "./CategoryExpense";
 
 export class Expense {
   private _id: string;

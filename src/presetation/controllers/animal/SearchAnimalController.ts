@@ -1,8 +1,6 @@
 import { Request, Response } from "express";
-import { ParamsDictionary } from "express-serve-static-core";
-import { ParsedQs } from "qs";
 import { ControllerProtocol } from "../@shared/ControllerProtocol";
-import { SearchAnimalUseCaseProtocol } from "../../../protocols/usecases/animal/SearchAnimelUseCaseProtocol";
+import { SearchAnimalUseCaseProtocol } from "@/usecase/animal/search/SearchAnimelUseCaseProtocol";
 export class SearchAnimalController implements ControllerProtocol {
   constructor(private searchAnimalUseCase: SearchAnimalUseCaseProtocol) {}
   async handle(

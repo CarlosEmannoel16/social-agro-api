@@ -1,4 +1,4 @@
-import UserRepository from "@/infra/repository/user/repository/UserRepository";
+import UserRepository from "@/infra/repository/user/UserRepository";
 import { UserAuthMiddleware } from "../../api/middlewares/UserMiddleware";
 import { MiddlewareProtocol } from "../controllers/@shared/MiddlewareProtocol";
 

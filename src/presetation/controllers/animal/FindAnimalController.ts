@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { ParamsDictionary } from "express-serve-static-core";
 import { ParsedQs } from "qs";
 import { ControllerProtocol } from "../@shared/ControllerProtocol";
-import { FindAnimalUseCaseProtocol } from "../../../protocols/usecases/animal/FindAnimalUseCaseProtocol";
+import { FindAnimalUseCaseProtocol } from "@/usecase/animal/find/FindAnimalUseCaseProtocol";
 
 export class FindAnimalController implements ControllerProtocol {
   constructor(

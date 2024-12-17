@@ -1,7 +1,6 @@
 import { Request, Response } from "express";
 import { ControllerProtocol } from "../@shared/ControllerProtocol";
 import { AddMilkProductionUseCase } from "@/usecase/animal/addMilkProduction/AddMilkProductionUseCase";
-import { Logger } from "@Logger";
 import { handlerErrorsController } from "@/presetation/helpers/handlerErrosController";
 
 export class AddMilkProductionAnimalController implements ControllerProtocol {
@@ -21,7 +20,6 @@ export class AddMilkProductionAnimalController implements ControllerProtocol {
   
       return response.status(201).send();
     } catch (error) {
-      Logger.error(error);
       return response.status(500).json(handlerErrorsController(error as Error));
     }
     

@@ -1,5 +1,5 @@
 import { Phone } from "./Phone";
-import { User } from "./User";
+import { User } from "../entity/User";
 
 describe("Phone unit tests", () => {
   it("should throw error when number is empty", () => {

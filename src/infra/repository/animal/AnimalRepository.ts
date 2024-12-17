@@ -1,4 +1,4 @@
-import { Note } from "@/domain/expenses/valueObjects/Note";
+import { Note } from "@/domain/expenses/entity/Note";
 import { Animal } from "../../../domain/animal/entity/Animal";
 import { AnimalFactory } from "../../../domain/animal/factory/AnimalFactory";
 import {
@@ -14,7 +14,7 @@ import { ImagesAnimalEntity } from "@/infra/ORM/ImagesAnimalEntity";
 import { WeightHistoryEntity } from "@/infra/ORM/WeightHistoryEntity";
 import { VaccinationEntity } from "@/infra/ORM/VaccinationEntity";
 import { AnimalNotesEntity } from "@entities/AnimalNotesEntity";
-import { weightAnimal } from "@/domain/animal/entity/WeightAnimal";
+import { weightAnimal } from "@/domain/animal/valueObjects/WeightAnimal";
 import { MilkProduction } from "@/domain/animal/valueObjects/MilkProduction";
 import { v4 } from "uuid";
 export class AnimalRepository implements AnimalRepositoryInterface {
@@ -26,6 +26,9 @@ export class AnimalRepository implements AnimalRepositoryInterface {
           id: id,
           userId: userId,
         },
+        relations: {
+          breed: true,
+        },
       });
 
     if (!animal) return;
@@ -33,6 +36,8 @@ export class AnimalRepository implements AnimalRepositoryInterface {
     return AnimalFactory.createNewAnimal({
       dateOfBirth: animal.dateOfBirth,
       gender: animal.gender,
+      breed: animal.breed ? animal.breed.name : undefined,
+      surname: animal.surname,
     });
   }
   async findByIds(ids: string[], userId: string): Promise<Animal[]> {
@@ -160,6 +165,9 @@ export class AnimalRepository implements AnimalRepositoryInterface {
       userId: item.ownerId,
       createdAt: new Date(),
       updatedAt: new Date(),
+      breed: {
+        name: item.breed,
+      },
     });
 
     if (!result) throw new Error("Error to create animal");
@@ -202,6 +210,7 @@ export class AnimalRepository implements AnimalRepositoryInterface {
       relations: {
         weightHistory: true,
         milkProduction: true,
+        breed: true,
       },
     });
 

@@ -4,7 +4,7 @@ import upload from "../../config/upload";
 import { middlewareAdapter } from "./@shared/middlewareAdpter";
 import { makeMiddlewareAuth } from "@/presetation/middleware/MiddlewareAuthFactory";
 import CreateUserUseCase from "@/usecase/user/create/CreateUseUseCase";
-import UserRepository from "@/infra/repository/user/repository/UserRepository";
+import UserRepository from "@/infra/repository/user/UserRepository";
 import { CreateUserController } from "@/presetation/controllers/user/CreateUserController";
 import FindUserUseCase from "@/usecase/user/find/FindUserUsecase";
 import { FindUserController } from "@/presetation/controllers/user/FindUserController";
@@ -94,6 +94,11 @@ export const routes = (app: Express) => {
     );
   });
   //router.put("/:id/add-image", routeAdapter(makeCreateAnimalController()));
+
+  // Dashboard routes
+  router.get("/dashboard", auth, (req, res) => {
+    
+  });
 
   app.use(router);
 };

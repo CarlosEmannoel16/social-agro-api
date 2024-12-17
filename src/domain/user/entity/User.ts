@@ -1,5 +1,5 @@
 import { Address } from "../value-object/Address";
-import { Phone } from "./Phone";
+import { Phone } from "../value-object/Phone";
 
 export class User {
   private _id: string;

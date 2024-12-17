@@ -7,7 +7,8 @@
     "test": "npm run tsc -- --noEmit && jest",
     "test:watch": "npm run tsc -- --noEmit && jest --watch",
     "tsc": "tsc",
-    "dev": "ts-node-dev -r tsconfig-paths/register --respawn --transpile-only src/api/server.ts"
+    "dev": "ts-node-dev -r tsconfig-paths/register --respawn --transpile-only src/api/server.ts",
+    "prepare": "husky"
   },
   "author": "Carlos Emannoel dos Santos Carneiro",
   "license": "ISC",
@@ -54,6 +55,7 @@
     "@types/swagger-ui-express": "^4.1.6",
     "@types/uuid": "^9.0.7",
     "@types/worker-threads-pool": "^2.0.4",
+    "husky": "^9.1.6",
     "jest": "^29.7.0",
     "jest-mock-extended": "^3.0.5",
     "supertest": "^6.3.3",

@@ -1,8 +1,8 @@
 import { UserFactory } from "../../../domain/user/factory/UserFactory";
 import { UserRepositoryInterface } from "../../../domain/user/repository/UserRepositoryInterface";
-import { CreateUserUseCaseProtocol } from "../../../protocols/usecases/user/CreateUserUseCaseProtocol";
 import { InputCreateUserDTO, OutputCreateUserDTO } from "./CreateUserDTO";
 import jwt from "jsonwebtoken";
+import { CreateUserUseCaseProtocol } from "./CreateUserUseCaseProtocol";
 
 export default class CreateUserUseCase implements CreateUserUseCaseProtocol {
   constructor(private readonly userRepository: UserRepositoryInterface) {}

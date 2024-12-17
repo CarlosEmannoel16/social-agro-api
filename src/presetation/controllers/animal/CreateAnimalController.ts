@@ -2,11 +2,10 @@ import { Request, Response } from "express";
 import { ParamsDictionary } from "express-serve-static-core";
 import { ParsedQs } from "qs";
 import { ControllerProtocol } from "../@shared/ControllerProtocol";
-import { CreateAnimalUseCaseProtocol } from "../../../protocols/usecases/animal/CreateAnimalUseCaseProtocol";
 import * as yup from "yup";
 import { ValidationError } from "@/_shared/errors/Errors";
 import { handlerErrorsController } from "@/presetation/helpers/handlerErrosController";
-import { Logger } from "@/infra/shared/logger/Logger";
+import { CreateAnimalUseCaseProtocol } from "@/usecase/animal/create/CreateAnimalUseCaseProtocol";
 export class CreateAnimalController implements ControllerProtocol {
   constructor(
     private readonly createAnimalUseCase: CreateAnimalUseCaseProtocol
@@ -53,7 +52,6 @@ export class CreateAnimalController implements ControllerProtocol {
         json: () => response.json(result),
       });
     } catch (error) {
-      Logger.error(error);
       return response.status(500).json(handlerErrorsController(error as Error));
     }
   }

@@ -15,6 +15,7 @@ const makeAnimalRepository = (): AnimalRepositoryInterface => {
     findWithParams: jest.fn(),
     createSon: jest.fn(),
     findByIds: jest.fn(),
+    findByID: jest.fn(),
   };
 };
 describe("Find Animal Use Case Unit Test", () => {

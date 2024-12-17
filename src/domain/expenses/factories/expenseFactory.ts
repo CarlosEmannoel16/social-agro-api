@@ -1,5 +1,5 @@
 import { Expense } from "../entity/Expense";
-import { CategoryExpense } from "../valueObjects/CategoryExpense";
+import { CategoryExpense } from "../entity/CategoryExpense";
 
 interface factoryDto {
   id: string;

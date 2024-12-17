@@ -1,6 +1,6 @@
 import { AnimalRepositoryInterface } from "../../../domain/animal/repository/AnimaProtocolRepository";
 import { UserRepositoryInterface } from "../../../domain/user/repository/UserRepositoryInterface";
-import { AddImageAnimalUseCaseProtocol } from "../../../protocols/usecases/animal/AddImageAnimalUseCaseProtocol";
+import { AddImageAnimalUseCaseProtocol } from "./AddImageAnimalUseCaseProtocol";
 import { InputAddImageAnimalDTO } from "./AddImageAnimalDTO";
 
 export class AddImageAnimalUseCase implements AddImageAnimalUseCaseProtocol {

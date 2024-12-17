@@ -1,6 +1,6 @@
 import { Animal } from "../../../domain/animal/entity/Animal";
 import { AnimalRepositoryInterface } from "../../../domain/animal/repository/AnimaProtocolRepository";
-import { FindAllAnimalsUseCaseProtocol } from "../../../protocols/usecases/animal/FindAllAnimalsUseCaseProtocol";
+import { FindAllAnimalsUseCaseProtocol } from "./FindAllAnimalsUseCaseProtocol";
 import { MapperProtocol } from "../../@shared/MapperProtocol";
 import { OutputFindAllAnimalDTO } from "./FindAllAnimalsDTO";
 

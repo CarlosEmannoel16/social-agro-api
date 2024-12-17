@@ -1,4 +1,4 @@
-import { Note } from "@/domain/expenses/valueObjects/Note";
+import { Note } from "@/domain/expenses/entity/Note";
 import { RepositoryInterface } from "../../_shared/repository/RepositoryInsterface";
 import { Animal } from "../entity/Animal";
 

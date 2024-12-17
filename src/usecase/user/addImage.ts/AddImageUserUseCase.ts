@@ -1,5 +1,5 @@
 import { UserRepositoryInterface } from "@/domain/user/repository/UserRepositoryInterface";
-import { AddImageUserUseCaseProtocol } from "@/protocols/usecases/user/AddImageUserUseCaseProtocol";
+import { AddImageUserUseCaseProtocol } from "@/usecase/user/addImage.ts/AddImageUserUseCaseProtocol";
 
 export class AddImageUserUseCase implements AddImageUserUseCaseProtocol {
   constructor(private readonly userRepository: UserRepositoryInterface) {}

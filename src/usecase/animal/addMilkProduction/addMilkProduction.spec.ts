@@ -39,7 +39,7 @@ describe("Add Milk Production Unit Tes", () => {
 
     const promise = sut.handler({
       animalId: "1",
-      ownerId: "1",
+      userId: "1",
       dateOfProduction: new Date(),
       quantityOfMilk: 10,
     });
@@ -52,7 +52,7 @@ describe("Add Milk Production Unit Tes", () => {
 
     const promise = sut.handler({
       animalId: "1",
-      ownerId: "1",
+      userId: "1",
       dateOfProduction: new Date("2080-01-01"),
       quantityOfMilk: 10,
     });

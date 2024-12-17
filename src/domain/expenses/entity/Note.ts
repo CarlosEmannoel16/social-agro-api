@@ -13,7 +13,7 @@ export class Note {
     animalId: string
   ) {
     this._id = id;
-    this._color = color;
+    this._color = color; 
     this._text = text;
     this._title = title;
     this._animalId = animalId;

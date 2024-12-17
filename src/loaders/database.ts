@@ -1,4 +1,3 @@
-import { Logger } from "@/infra/shared/logger/Logger";
 import { entities } from "../infra/ORM/index";
 import { DataSource } from "typeorm";
 
@@ -6,16 +5,16 @@ export class DatabaseInitializer {
   private static _instance: DatabaseInitializer;
   private dataSource!: DataSource;
 
-  private PORT_POSTGRES = 5432;
+  private PORT_POSTGRES = 5432; 
   private DB_NAME_POSTGRES = "agro";
   private DB_USER_POSTGRES = "postgres";
-  private DB_PASSWORD_POSTGRES = "123456";
+  private DB_PASSWORD_POSTGRES = "12345";
 
   constructor() {
     this.init();
   }
 
-  private initPostgres() {
+  private async initPostgres() {
     try {
       this.dataSource = new DataSource({
         type: "postgres",
@@ -28,11 +27,11 @@ export class DatabaseInitializer {
         logging: true,
         entities,
       });
-      this.dataSource.connect();
-      Logger.info("Postgres initialized");
+      await this.dataSource.connect();
+      console.log("Database connected");
+     
     } catch (error) {
-      Logger.error("Error initializing Postgres", error);
-    }
+      console.error("Error to connect to database", error);}
   }
 
   init() {

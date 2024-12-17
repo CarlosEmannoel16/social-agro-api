@@ -2,7 +2,7 @@ import { AnimalRepositoryInterface } from "@/domain/animal/repository/AnimaProto
 import { CreateAnimalUseCase } from "./CreateAnimalUseCase";
 import { UserRepositoryInterface } from "@/domain/user/repository/UserRepositoryInterface";
 import { InputCreateAnimalDTO } from "./CreateAnimalDTO";
-import { GenderAnimal } from "@/domain/animal/entity/Animal";
+import { GenderAnimal } from "@/infra/ORM/AnimalEntity";
 
 describe("Unit Create Animal Use Case", () => {
   const makeAnimalRepository = (): AnimalRepositoryInterface => {
@@ -19,6 +19,7 @@ describe("Unit Create Animal Use Case", () => {
       update: jest.fn(),
       createSon: jest.fn(),
       findByIds: jest.fn(),
+      findByID: jest.fn(),
     };
   };
 
