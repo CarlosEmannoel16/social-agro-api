@@ -1,8 +1,7 @@
 import { UserRepositoryInterface } from "../../../domain/user/repository/UserRepositoryInterface";
-import { InputFindUserDTO, OutputFindUserDTO } from "./FindUseDTO";
-import { FindUserUseCaseProtocol } from "./FindUserUseCaseProtocol";
+import { InputFindUserDTO, OutputFindUserDTO } from "./DTOs";
 
-export default class FindUserUseCase implements FindUserUseCaseProtocol {
+export default class FindUserUseCase  {
   private userRepository: UserRepositoryInterface;
 
   constructor(userRepository: UserRepositoryInterface) {

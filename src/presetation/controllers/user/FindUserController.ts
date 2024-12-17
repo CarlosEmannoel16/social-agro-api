@@ -1,11 +1,11 @@
 import { Request, Response } from "express";
 import { ParamsDictionary } from "express-serve-static-core";
 import { ParsedQs } from "qs";
-import { FindUserUseCaseProtocol } from "@/usecase/user/find/FindUserUseCaseProtocol";
 import { ControllerInterface } from "@/_shared/interfaces/ControllerInterface";
+import FindUserUseCase from "@/usecase/user/find/FindUserUsecase";
 
 export class FindUserController implements ControllerInterface {
-  constructor(private readonly findUserUseCase: FindUserUseCaseProtocol) {}
+  constructor(private readonly findUserUseCase: FindUserUseCase) {}
   async handle(
     request: Request<ParamsDictionary, any, any, ParsedQs, Record<string, any>>,
     response: Response<any, Record<string, any>>

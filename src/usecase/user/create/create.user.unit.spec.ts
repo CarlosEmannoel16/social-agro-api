@@ -1,7 +1,7 @@
 import { User } from "../../../domain/user/entity/User";
 import { UserRepositoryInterface } from "../../../domain/user/repository/UserRepositoryInterface";
 import CreateUserUseCase from "./CreateUseUseCase";
-import { InputCreateUserDTO } from "./CreateUserDTO";
+import { InputCreateUserDTO } from "./DTOs";
 
 const makeSut = () => {
   const makeUserRepository = (): UserRepositoryInterface => ({

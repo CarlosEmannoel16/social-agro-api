@@ -2,10 +2,10 @@ import { Request, Response } from "express";
 import * as yup from "yup";
 import { handlerErrorsController } from "@/presetation/helpers/handlerErrosController";
 import { ValidationError } from "@/_shared/errors/Errors";
-import { CreateUserUseCaseProtocol } from "@/usecase/user/create/CreateUserUseCaseProtocol";
 import { ControllerInterface } from "@/_shared/interfaces/ControllerInterface";
+import CreateUserUseCase from "@/usecase/user/create/CreateUseUseCase";
 export class CreateUserController implements ControllerInterface {
-  constructor(private readonly createUserUseCase: CreateUserUseCaseProtocol) {}
+  constructor(private readonly createUserUseCase: CreateUserUseCase) {}
 
   async handle(request: Request, response: Response): Promise<Response> {
     try {

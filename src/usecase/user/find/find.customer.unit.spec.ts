@@ -1,6 +1,6 @@
 import { User } from "../../../domain/user/entity/User";
 import { UserRepositoryInterface } from "../../../domain/user/repository/UserRepositoryInterface";
-import { InputFindUserDTO, OutputFindUserDTO } from "./FindUseDTO";
+import { InputFindUserDTO, OutputFindUserDTO } from "./DTOs";
 import FindUserUseCase from "./FindUserUsecase";
 
 const MockRepository = (): UserRepositoryInterface => {

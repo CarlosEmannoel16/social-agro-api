@@ -1,6 +1,6 @@
 import { Animal } from "../../../domain/animal/entity/Animal";
 import { AnimalRepositoryInterface } from "../../../domain/animal/repository/AnimaProtocolRepository";
-import { MapperProtocol } from "../../@shared/MapperProtocol";
+import { MapperProtocol } from "../../_shared/MapperProtocol";
 import { OutputFindAllAnimalDTO } from "./DTOs";
 
 class AnimalMapper implements MapperProtocol<Animal, OutputFindAllAnimalDTO> {

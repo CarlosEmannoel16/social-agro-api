@@ -1,9 +1,8 @@
 import { UserFactory } from "../../../domain/user/factory/UserFactory";
 import { UserRepositoryInterface } from "../../../domain/user/repository/UserRepositoryInterface";
-import { InputUpdateUserDTO, OutputUpdateUserDTO } from "./UpdateUserDTO";
-import { UpdateUserProtocolUseCase } from "./UpdateUserProtocolUseCase";
+import { InputUpdateUserDTO, OutputUpdateUserDTO } from "./DTOs";
 
-export class UpdateUserUseCase implements UpdateUserProtocolUseCase {
+export class UpdateUserUseCase  {
   constructor(private userRepository: UserRepositoryInterface) {}
   async execute(data: InputUpdateUserDTO): Promise<OutputUpdateUserDTO> {
     const user = await this.userRepository.find(data.id);

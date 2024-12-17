@@ -1,7 +1,7 @@
 import { User } from "../../../domain/user/entity/User";
 import { UserRepositoryInterface } from "../../../domain/user/repository/UserRepositoryInterface";
 import { UpdateUserUseCase } from "./UpdateUseCase";
-import { InputUpdateUserDTO, OutputUpdateUserDTO } from "./UpdateUserDTO";
+import { InputUpdateUserDTO, OutputUpdateUserDTO } from "./DTOs";
 
 const user = new User(
   "any_id",
