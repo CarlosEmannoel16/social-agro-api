@@ -1,12 +1,12 @@
 export interface InputUpdateUserDTO {
-    id: string;
-    name: string;
-    email: string;
-    password: string;
+  id: string;
+  name?: string;
+  email?: string;
+  profileImage?: string;
 }
 
 export interface OutputUpdateUserDTO {
-    id: string;
-    name: string;
-    email: string;
+  id: string;
+  name: string;
+  email: string;
 }

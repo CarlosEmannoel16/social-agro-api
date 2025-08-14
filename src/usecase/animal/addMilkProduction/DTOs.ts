@@ -3,4 +3,5 @@ export interface InputAddMilkProductionDTO {
   userId: string
   dateOfProduction: Date
   quantityOfMilk: number
+  priceMilkId: number
 }

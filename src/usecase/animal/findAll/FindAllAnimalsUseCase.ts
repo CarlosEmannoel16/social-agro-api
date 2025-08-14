@@ -15,7 +15,9 @@ class AnimalMapper implements MapperProtocol<Animal, OutputFindAllAnimalDTO> {
       ownerId: animal.ownerId,
       updatedAt: animal.updatedAt,
       weightHistory: animal.getWeight(),
+      lasProductionDate: animal.lastProductionDate,
       milkProduction: animal.getMilkProductions(),
+      images: animal.image,
     }));
   }
 }
@@ -26,10 +28,9 @@ export class FindAllAnimalsUseCase {
   async execute(idUser: string): Promise<OutputFindAllAnimalDTO[]> {
     const animals = await this.animalRepository.findAll(idUser);
 
-    console.log(animals);
-
     const animalMapper = new AnimalMapper();
 
-    return animalMapper.map(animals || []);
+    const result = animalMapper.map(animals || []);
+    return result
   }
 }

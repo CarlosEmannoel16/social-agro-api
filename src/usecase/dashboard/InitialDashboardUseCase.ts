@@ -1,10 +1,26 @@
 import { AnimalRepositoryInterface } from "@/domain/animal/repository/AnimaProtocolRepository";
 
 export class InitialDashboardUseCase {
-  constructor(animalRepository: AnimalRepositoryInterface) {}
-  async execute() {
+  constructor(private readonly animalRepository: AnimalRepositoryInterface) {}
+  async execute(userId: string) {
+    const [
+      initialData,
+      lastSevenDays,
+      milkProductionRanking,
+      milkProductionRankingByBreed,
+    ] = await Promise.all([
+      this.animalRepository.getInitialDashboardValues(userId),
+      this.animalRepository.getLastWeekMilkProductionByDay(userId),
+      this.animalRepository.getMilkProductionRanking(userId),
+      this.animalRepository.getMilkProductionRankingByBreed(userId),
+    ]);
+
+
     return {
-        totalAnimals: 2,
+      lastSevenDays,
+      initialData,
+      milkProductionRanking,
+      milkProductionRankingByBreed,
     };
   }
 }

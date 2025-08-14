@@ -1,4 +1,4 @@
-import { GenderAnimal } from "@/infra/ORM/AnimalEntity";
+import { GenderAnimal } from "@/infra/types/Animal";
 
 export interface InputCreateAnimalDTO {
   surname: string;

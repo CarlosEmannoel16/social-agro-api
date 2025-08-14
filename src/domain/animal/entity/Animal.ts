@@ -1,6 +1,6 @@
-import { GenderAnimal } from "@/infra/ORM/AnimalEntity";
 import { weightAnimal } from "../valueObjects/WeightAnimal";
 import { MilkProduction } from "../valueObjects/MilkProduction";
+import { GenderAnimal } from "@/infra/types/Animal";
 
 const KEY_LOGGER = "CLASS ANIMAL";
 
@@ -18,17 +18,20 @@ export class Animal {
   private _dateOfUpdate!: Date;
   private _weight!: weightAnimal[];
   private _milkProduction!: MilkProduction[];
+  private readonly _last_production_date?: Date;
 
   constructor(
     id: string,
-    dateOfBirth: Date,
     gender: GenderAnimal,
-    breed: string
+    breed: string,
+    dateOfBirth?: Date,
+    lasProductionDate?: Date
   ) {
     this._id = id;
-    this._dateOfBirth = dateOfBirth;
+    if (dateOfBirth) this._dateOfBirth = dateOfBirth;
     this._gender = gender;
     this._breed = breed;
+    this._last_production_date = lasProductionDate;
     this.validate();
   }
 
@@ -86,8 +89,23 @@ export class Animal {
     return this._dateOfBirth;
   }
 
+  get averageProductionBtMonth() {
+    let allPProduction = 0;
+    const monthMap = new Set();
+    for (let i = 0; i <= this._milkProduction.length; i += 1) {
+      allPProduction += this._milkProduction[i]?.quantity ?? 0;
+      if (this._milkProduction[i]?.month)
+        monthMap.add(this._milkProduction[i]?.month);
+    }
+
+    return allPProduction / monthMap.size;
+  }
+
   get id(): string {
     return this._id;
+  }
+  get lastProductionDate() {
+    return this._last_production_date;
   }
 
   get breed(): string {
@@ -149,12 +167,17 @@ export class Animal {
     this._weight.push(weight);
   }
 
-  getWeight(): any {
+  getWeight(): {
+    weight: number;
+    dateOfRegister: string;
+    createdAt: Date;
+  }[] {
     return (
       this._weight?.map((weight) => {
         return {
           weight: weight.weight,
           dateOfRegister: weight.getDateOfRegisterPTBR(),
+          createdAt: weight.dateOfRegister,
         };
       }) || []
     );
@@ -164,8 +187,9 @@ export class Animal {
     return (
       this._milkProduction?.map((milk) => {
         return {
-          dateOfRegister: milk.date,
+          dateOfRegister: milk.date.toLocaleDateString(),
           quantity: milk.quantity,
+          amount: "R$ " + milk.amount.toFixed(2),
         };
       }) || []
     );

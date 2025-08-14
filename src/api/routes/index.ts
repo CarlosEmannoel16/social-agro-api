@@ -1,11 +1,7 @@
 import { Express } from "express";
 import express from "express";
 import upload from "../../config/upload";
-import { middlewareAdapter } from "./@shared/middlewareAdpter";
-import { makeMiddlewareAuth } from "@/presetation/middleware/MiddlewareAuthFactory";
-import CreateUserUseCase from "@/usecase/user/create/CreateUseUseCase";
 import UserRepository from "@/infra/repository/user/UserRepository";
-import { CreateUserController } from "@/presetation/controllers/user/CreateUserController";
 import FindUserUseCase from "@/usecase/user/find/FindUserUsecase";
 import { FindUserController } from "@/presetation/controllers/user/FindUserController";
 import { AuthUseCase } from "@/usecase/auth/auth";
@@ -21,18 +17,41 @@ import { SearchAnimalUseCase } from "@/usecase/animal/search/SearchAnimalUseCase
 import { SearchAnimalController } from "@/presetation/controllers/animal/SearchAnimalController";
 import { AddWeightAnimalController } from "@/presetation/controllers/animal/AddWeightAnimalController";
 import { AddWeightAnimalUseCase } from "@/usecase/animal/addWeight/AddWeigthUseCase";
-import { MilkProductionRepository } from "@/infra/repository/milkProduction/MilkProductionRepository";
 import { AddMilkProductionUseCase } from "@/usecase/animal/addMilkProduction/AddMilkProductionUseCase";
 import { AddMilkProductionAnimalController } from "@/presetation/controllers/animal/AddMilkProductionAnimalController";
+import { FindAllMilkPriceController } from "@/presetation/controllers/milkPrice/FindAllMilkPriceController";
+import { FindMilkPriceUseCase } from "@/usecase/milkPrice/FindMilkPriceUseCase";
+import { MilkPriceRepository } from "@/infra/repository/milkPrice/MilkPriceRepository";
+import { CreateMilkPriceController } from "@/presetation/controllers/milkPrice/CreateMilPriceController";
+import { CreateMilkPriceUseCase } from "@/usecase/milkPrice/CreateMilkPriceUseCase";
+import { FindLastMilkPriceController } from "@/presetation/controllers/milkPrice/FindLastMilkPriceController";
+import { FindLastMilkPriceUseCase } from "@/usecase/milkPrice/FindCurrentMilkPriceUseCase";
+import { AddImageAnimalUseCase } from "@/usecase/animal/addImage/AddImageAnimalUseCase";
+import { MilkProductionRepository } from "@/infra/repository/milkProduction/MilkProductionRepository";
+import { UpdateAnimalController } from "@/presetation/controllers/animal/UpdateAnimalController";
+import { UpdateAnimalUseCase } from "@/usecase/animal/updateAnimal/UpdateAnimalUseCase";
+import { DeleteAnimalController } from "@/presetation/controllers/animal/DeleteAnimalController";
+import { DeleteAnimalUseCase } from "@/usecase/animal/delete/DeleteAnimalUseCase";
+import { InitialDashboardController } from "@/presetation/controllers/dashboard/initialDashboardController";
+import { InitialDashboardUseCase } from "@/usecase/dashboard/InitialDashboardUseCase";
+import { UserAuthMiddleware } from "../middlewares/UserMiddleware";
+import { UpdateUserUseCase } from "@/usecase/user/update/UpdateUseCase";
+import { UpdateUserController } from "@/presetation/controllers/user/UpdateUserController";
 
-const auth = middlewareAdapter(makeMiddlewareAuth());
+// const auth = middlewareAdapter(makeMiddlewareAuth());
+
+// Repositories
+const animalRepository = new AnimalRepository();
+const userRepository = new UserRepository();
 
 export const routes = (app: Express) => {
+  const auth = new UserAuthMiddleware(userRepository).execute;
+
   const router = express.Router();
   app.get("/", (_, res) => res.send("."));
 
   router.post("/auth", (req, res) => {
-    const createUserUseCase = new AuthUseCase(new UserRepository());
+    const createUserUseCase = new AuthUseCase(userRepository);
     new AuthenticationController(createUserUseCase).handle(req, res);
   });
 
@@ -43,61 +62,92 @@ export const routes = (app: Express) => {
     new FindUserController(findUserUseCase).handle(req, res);
   });
 
-  router.post("/user/register", (req, res) => {
-    const createUserUseCase = new CreateUserUseCase(new UserRepository());
-    return new CreateUserController(createUserUseCase);
+  router.put("/user", auth, upload.single("file"), (req, res) => {
+    const updateUserUseCase = new UpdateUserUseCase(new UserRepository());
+    new UpdateUserController(updateUserUseCase).handle(req, res);
   });
 
   //Animal routes
   router.post("/animal", auth, upload.single("file"), (req, res) => {
     const createAnimalUseCase = new CreateAnimalUseCase(
-      new AnimalRepository(),
+      animalRepository,
       new UserRepository()
     );
     new CreateAnimalController(createAnimalUseCase).handle(req, res);
   });
 
-  router.get("/animal/all/:idUser", auth, (req, res) => {
-   
+  router.get("/animal/all", auth, (req, res) => {
     new FindAllAnimalsController(
-      new FindAllAnimalsUseCase(new AnimalRepository())
+      new FindAllAnimalsUseCase(animalRepository)
     ).handle(req, res);
   });
 
   router.get("/animal/:id", auth, (req, res) => {
-    new FindAnimalController(
-      new FindAnimalUseCase(new AnimalRepository())
-    ).handle(req, res);
+    new FindAnimalController(new FindAnimalUseCase(animalRepository)).handle(
+      req,
+      res
+    );
   });
 
-  router.get("/animal/search/:params/:idUser", auth, (req, res) => {
+  router.get("/animal/search/:params", auth, (req, res) => {
     new SearchAnimalController(
-      new SearchAnimalUseCase(new AnimalRepository())
+      new SearchAnimalUseCase(animalRepository)
     ).handle(req, res);
   });
 
   router.post("/animal/add-weight", auth, (req, res) => {
     new AddWeightAnimalController(
-      new AddWeightAnimalUseCase(new AnimalRepository())
+      new AddWeightAnimalUseCase(animalRepository)
     ).handle(req, res);
   });
 
-  router.post("/animal/add-milk-production", auth, (req, res) => {
-    const addMilkProductionUseCase = new AddMilkProductionUseCase(
-      new AnimalRepository(),
-      new MilkProductionRepository()
-    );
-
-    new AddMilkProductionAnimalController(addMilkProductionUseCase).handle(
-      req,
-      res
-    );
+  router.put("/animal", auth, upload.single("file"), (req, res, next) => {
+    return new UpdateAnimalController(
+      new UpdateAnimalUseCase(animalRepository)
+    ).handle(req, res, next);
   });
+
+  router.delete("/animal/:id", auth, (req, res, next) => {
+    return new DeleteAnimalController(
+      new DeleteAnimalUseCase(animalRepository)
+    ).handle(req, res, next);
+  });
+
+  router.post("/animal/milk/add", auth, (req, res) => {
+    return new AddMilkProductionAnimalController(
+      new AddMilkProductionUseCase(
+        animalRepository,
+        new MilkProductionRepository()
+      )
+    ).handle(req, res);
+  });
+
   //router.put("/:id/add-image", routeAdapter(makeCreateAnimalController()));
 
   // Dashboard routes
-  router.get("/dashboard", auth, (req, res) => {
-    
+  router.get("/dashboard", auth, (req, res, next) => {
+    return new InitialDashboardController(
+      new InitialDashboardUseCase(new AnimalRepository())
+    ).handle(req, res, next);
+  });
+
+  // Milk Price
+  router.get("/milk/price", auth, (req, res) => {
+    return new FindAllMilkPriceController(
+      new FindMilkPriceUseCase(new MilkPriceRepository())
+    ).handle(req, res);
+  });
+
+  router.get("/milk/price/last", auth, (req, res) => {
+    return new FindLastMilkPriceController(
+      new FindLastMilkPriceUseCase(new MilkPriceRepository())
+    ).handle(req, res);
+  });
+
+  router.post("/milk/price", auth, (req, res) => {
+    return new CreateMilkPriceController(
+      new CreateMilkPriceUseCase(new MilkPriceRepository())
+    ).handle(req, res);
   });
 
   app.use(router);

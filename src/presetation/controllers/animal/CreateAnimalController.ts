@@ -7,9 +7,7 @@ import { handlerErrorsController } from "@/presetation/helpers/handlerErrosContr
 import { ControllerInterface } from "@/_shared/interfaces/ControllerInterface";
 import { CreateAnimalUseCase } from "@/usecase/animal/create/CreateAnimalUseCase";
 export class CreateAnimalController implements ControllerInterface {
-  constructor(
-    private readonly createAnimalUseCase: CreateAnimalUseCase
-  ) {}
+  constructor(private readonly createAnimalUseCase: CreateAnimalUseCase) {}
 
   async handle(
     request: Request<ParamsDictionary, any, any, ParsedQs, Record<string, any>>,
@@ -22,19 +20,23 @@ export class CreateAnimalController implements ControllerInterface {
 
       const image = `${file?.filename}`;
 
+
       yup
         .object()
         .shape({
           surname: yup.string().required(),
-          dateOfBirth: yup.date().required(),
-          breed: yup?.string().required(),
+          dateOfBirth: yup.date(),
+          breed: yup?.string(),
           fatherId: yup.string(),
           motherId: yup.string(),
           ownerId: yup.string().required(),
           gender: yup.string().required(),
-          weight: yup.number().required(),
+          weight: yup.string(),
         })
-        .validateSync(request.body);
+        .validateSync({
+          ...request.body,
+          ownerId: request.headers["userId"] as string,
+        });
 
       const result = await this.createAnimalUseCase.execute({
         breed: request.body.breed,
@@ -42,7 +44,7 @@ export class CreateAnimalController implements ControllerInterface {
         fatherId: request.body.fatherId,
         images: [image],
         motherId: request.body.motherId,
-        ownerId: request.body.ownerId,
+        ownerId: request.headers["userId"] as string,
         surname: request.body.surname,
         gender: request.body.gender,
         weight: request.body.weight,
@@ -52,6 +54,7 @@ export class CreateAnimalController implements ControllerInterface {
         json: () => response.json(result),
       });
     } catch (error) {
+      console.log(error);
       return response.status(500).json(handlerErrorsController(error as Error));
     }
   }

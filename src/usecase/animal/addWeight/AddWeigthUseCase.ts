@@ -7,15 +7,11 @@ export class AddWeightAnimalUseCase {
   async execute(data: InputAddWeightAnimalDTO) {
     validationAddWeightUseCase.validateInput(data);
 
-    console.log(data);
-
     const animal = await this.animalRepository.find({
       animalId: data.idAnimal,
       userId: data.idUser,
     });
     if (!animal) throw new Error("Animal não encontrado");
-
-    console.log(animal);
 
     await this.animalRepository.addWeight({
       date: new Date(data.date),

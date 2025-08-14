@@ -10,5 +10,6 @@ export class DeleteAnimalUseCase {
     });
 
     if (!animal) throw new Error("Animal não encontrado");
+    await this.animalRepository.delete(data.id)
   }
 }

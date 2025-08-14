@@ -24,7 +24,6 @@ export class AddMilkProductionUseCase extends AddMilkProductionUseCaseValidation
       userId: data.userId,
     });
 
-    console.log(animal);
 
     if (!animal) throw new Error("Animal não encontrado");
 
@@ -33,6 +32,7 @@ export class AddMilkProductionUseCase extends AddMilkProductionUseCaseValidation
       date: data.dateOfProduction,
       idAnimal: animal.id,
       idUser: data.userId,
+      price_milk_id: data.priceMilkId
     });
   }
 }

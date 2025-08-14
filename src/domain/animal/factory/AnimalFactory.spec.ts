@@ -1,4 +1,4 @@
-import { GenderAnimal } from "@/infra/ORM/AnimalEntity";
+import { GenderAnimal } from "@/infra/types/User";
 import { AnimalFactory } from "./AnimalFactory";
 
 describe("User Factory  Test Unit", () => {
@@ -8,7 +8,7 @@ describe("User Factory  Test Unit", () => {
         dateOfBirth: new Date(),
         fatherId: "123",
         surname: "surname",
-        gender: GenderAnimal.COW,
+        gender: GenderAnimal.MALE,
       })
     ).toBeDefined();
   });

@@ -21,6 +21,7 @@ export class User {
     dateOfBirth: Date,
     createdAt: Date,
     updatedAt: Date
+    
   ) {
     this._id = id;
     this._name = name;
@@ -66,6 +67,10 @@ export class User {
 
   get profileUrl(): string {
     return this._profileUrl || "";
+  }
+
+  set profileUrl(profileUrl: string) {
+     this._profileUrl =profileUrl
   }
 
   validate() {

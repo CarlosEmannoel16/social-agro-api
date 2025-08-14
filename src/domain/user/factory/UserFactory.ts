@@ -7,8 +7,9 @@ export class UserFactory {
     name,
     password,
     id = v4(),
+    profileUrl,
   }: InputCreateUserFactory) {
-    return new User(
+    const user = new User(
       id,
       name,
       email,
@@ -17,5 +18,9 @@ export class UserFactory {
       new Date(),
       new Date()
     );
+    if (profileUrl) {
+      user.profileUrl = profileUrl;
+    }
+    return user;
   }
 }

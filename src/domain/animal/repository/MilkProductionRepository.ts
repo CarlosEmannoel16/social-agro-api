@@ -6,10 +6,10 @@ export type addDailyMilkProductionParams = {
   idAnimal: string;
   dailyMilkProduction: number;
   date: Date;
+  price_milk_id: number
 };
 
-export interface MilkRepositoryInterface
-  extends RepositoryInterface<MilkProduction> {
+export interface MilkRepositoryInterface {
   addDailyMilkProduction(data: addDailyMilkProductionParams): Promise<any>;
   findDailyMilkProduction(
     idAnimal: string

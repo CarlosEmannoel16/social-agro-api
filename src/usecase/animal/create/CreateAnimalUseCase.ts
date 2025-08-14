@@ -1,4 +1,3 @@
-import { AnimalFactory } from "../../../domain/animal/factory/AnimalFactory";
 import { AnimalRepositoryInterface } from "../../../domain/animal/repository/AnimaProtocolRepository";
 import { UserRepositoryInterface } from "../../../domain/user/repository/UserRepositoryInterface";
 import { InputCreateAnimalDTO, OutputCreateAnimalDTO } from "./DTOs";
@@ -8,26 +7,25 @@ export class CreateAnimalUseCase {
     private readonly animalRepository: AnimalRepositoryInterface,
     private readonly userRepository: UserRepositoryInterface
   ) {}
-  async execute(data: InputCreateAnimalDTO): Promise<OutputCreateAnimalDTO> {
+  async execute(data: InputCreateAnimalDTO): Promise<void> {
     const user = await this.userRepository.find(data.ownerId);
     if (!user) throw new Error("Usuário não encontrado");
 
-    const animal = AnimalFactory.createNewAnimal({
-      dateOfBirth: new Date(data.dateOfBirth),
+    await this.animalRepository.create({
       gender: data.gender,
       surname: data.surname,
+      userId: data.ownerId,
+      images: data.images ?? [],
+      weightHistory: data.weight
+        ? [
+            {
+              date: new Date(),
+              weight: data.weight,
+            },
+          ]
+        : [],
       breed: data.breed,
-      images: data.images,
-      ownerId: data.ownerId,
+      dateOfBirth: data.dateOfBirth,
     });
-
-    const result = await this.animalRepository.create(animal);
-
-    if (!result) throw new Error("Erro ao criar animal");
-    return {
-      id: result.id,
-      surname: result.surname,
-      images: result.image,
-    };
   }
 }

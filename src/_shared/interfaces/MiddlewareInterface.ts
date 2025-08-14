@@ -1,5 +1,10 @@
-import { NextFunction, Request, Response } from "express";
+import { ErrorRequestHandler, NextFunction, Request, Response } from "express";
 
 export interface MiddlewareInterface {
-  execute(request: Request, response: Response, next: NextFunction): Promise<any>;
+  execute(
+    request: Request,
+    response: Response,
+    error: ErrorRequestHandler,
+    next: NextFunction
+  ): Promise<any>;
 }

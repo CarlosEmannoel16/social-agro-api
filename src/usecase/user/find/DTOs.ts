@@ -8,9 +8,6 @@ export interface OutputFindUserDTO {
   email: string;
   createdAt: Date;
   updatedAt: Date;
-  phones?: {
-    number: string;
-    dateOfCreation: Date;
-    dateOfLastUpdated: Date;
-  }[];
+  profileUrl: string
+
 }
