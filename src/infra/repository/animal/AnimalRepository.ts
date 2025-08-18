@@ -12,6 +12,7 @@ import { MilkProduction } from "@/domain/animal/valueObjects/MilkProduction";
 import { Note } from "@/domain/expenses/entity/Note";
 import { db } from "@/infra/kysely";
 import { GenderAnimal } from "@/infra/types/Animal";
+import { GenerateFastId } from "@/usecase/utils/GeneratedFastId";
 import { sql } from "kysely";
 import { v4 } from "uuid";
 
@@ -27,7 +28,6 @@ const dayOfWeekMap: { [key: number]: string } = {
 
 export class AnimalRepository implements AnimalRepositoryInterface {
   async getInitialDashboardValues(userId: string): Promise<any> {
-    console.log("userId ----->", userId);
     const now = new Date();
     const year = now.getFullYear();
     const month = now.getMonth();
@@ -40,6 +40,7 @@ export class AnimalRepository implements AnimalRepositoryInterface {
         .selectFrom("milk_production as mph")
         .innerJoin("milk_price as mp", "mp.id", "mph.price_milk_id")
         .innerJoin("animal", "animal.id", "mph.animal_id")
+        .where("animal.gender", "=", GenderAnimal.FEMALE)
         .where("mph.date", ">=", firstDayOfMonth)
         .where("mph.date", "<", firstDayOfNextMonth)
         .where("animal.user_id", "=", userId)
@@ -72,6 +73,7 @@ export class AnimalRepository implements AnimalRepositoryInterface {
         eb.fn.sum<number>("milk_production.quantity").as("totalProduction"),
       ])
       .where("user_id", "=", userId)
+      .where("animal.gender", "=", GenderAnimal.FEMALE)
       .groupBy(["animal.surname", "animal.id"])
       .orderBy("totalProduction", "desc")
       .execute();
@@ -86,6 +88,7 @@ export class AnimalRepository implements AnimalRepositoryInterface {
         eb.fn.sum<number>("milk_production.quantity").as("totalProduction"),
       ])
       .where("user_id", "=", userId)
+      .where("animal.gender", "=", GenderAnimal.FEMALE)
       .groupBy(["animal.breed"])
       .orderBy("totalProduction", "desc")
       .execute();
@@ -116,6 +119,7 @@ export class AnimalRepository implements AnimalRepositoryInterface {
         .where("mph.date", ">=", sevenDaysAgo)
         .where("mph.date", "<=", endOfToday)
         .where("animal.user_id", "=", userId)
+        .where("animal.gender", "=", GenderAnimal.FEMALE)
         .select((eb) => [
           sql<number>`EXTRACT(DOW FROM mph.date)`.as("dayNumber"),
           sql<string>`TO_CHAR(mph.date, 'YYYY-MM-DD')`.as("date"),
@@ -199,6 +203,8 @@ export class AnimalRepository implements AnimalRepositoryInterface {
     throw new Error("Method not implemented.");
   }
   async create(input: CreateAnimalRepositoryDTO): Promise<void> {
+
+    console.log("Creating animal with input:", input);
     const animalId = v4();
     await db
       .insertInto("animal")
@@ -209,6 +215,14 @@ export class AnimalRepository implements AnimalRepositoryInterface {
         date_of_birth: input.dateOfBirth,
         breed: input.breed,
         id: animalId,
+        fast_id: GenerateFastId.create(new Date(), input.surname),
+        acquisition_amount: input.acquisitionAmount,
+        acquisition_date: input.dateOfAcquisition,
+        financially_acquired: input.financiallyAcquired,
+        mother_id: input.motherId,
+        father_id: input.fatherId,
+        created_at: new Date(),
+        updated_at: new Date(),
       })
       .execute();
 
@@ -498,6 +512,7 @@ export class AnimalRepository implements AnimalRepositoryInterface {
         ownerId: animal.user_id,
         weightHistory: [],
         lastProduction: animal.last_production_date,
+        fastId: animal.fast_id,
       }))
     );
   }

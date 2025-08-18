@@ -45,7 +45,7 @@ export class UserAuthMiddleware implements MiddlewareInterface {
       req.headers["userId"] = user.id;
       next();
     } catch (err) {
-      console.log(err);
+      console.log('------',err);
       return res.status(401).json({ message: "Not authorized. Invalid token" });
     }
   };

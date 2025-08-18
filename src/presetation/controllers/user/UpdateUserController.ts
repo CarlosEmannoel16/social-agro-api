@@ -12,9 +12,7 @@ export class UpdateUserController implements ControllerInterface {
       if (!Object.keys(request?.body).length)
         throw new ValidationError("Body is required");
 
-      console.log(request?.body)
-
-      console.log(request?.file)
+     
 
       const result = await this.updateUserUseCase.execute({
         email: request.body.email,

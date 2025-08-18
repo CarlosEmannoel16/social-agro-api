@@ -17,6 +17,7 @@ export class Animal {
   private _dateOfCreation!: Date;
   private _dateOfUpdate!: Date;
   private _weight!: weightAnimal[];
+  private _fastId?: string;
   private _milkProduction!: MilkProduction[];
   private readonly _last_production_date?: Date;
 
@@ -129,6 +130,13 @@ export class Animal {
 
   get image(): string[] {
     return this._images;
+  }
+  set fastId(fastId: string) {
+    this._fastId = fastId;
+  }
+
+  get fastId() {
+    return this._fastId ?? ''
   }
 
   set ownerId(id: string) {

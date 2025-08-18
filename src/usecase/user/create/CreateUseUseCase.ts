@@ -11,22 +11,25 @@ export default class CreateUserUseCase {
     private readonly validateUserEmail: IValidadeUserEmail
   ) {}
   async execute(data: InputCreateUserDTO): Promise<OutputCreateUserDTO> {
-    const user = UserFactory.createNewUser({
+    await this.validateUserEmail.execute(data.email);
+
+    if(data.passwordConfirmation !== data.password){
+      throw new Error('As senhas não conferem')
+    }
+    const response = await this.userRepository.create({
+      password: data.password,
+      confirmPassword: data.passwordConfirmation,
       email: data.email,
       name: data.name,
-      password: data.password,
     });
-
-    await this.validateUserEmail.execute(user.email);
-    await this.userRepository.create(user);
     const token = this.generateTokenService.execute({
-      id: user.id,
+      id: response?.id,
     });
 
     return {
-      id: user.id,
-      name: user.name,
-      email: user.email,
+      id: response.id,
+      name: response.name,
+      email: response.email,
       token,
     };
   }

@@ -1,7 +1,11 @@
 import { User } from "@/domain/user/entity/User";
 import { UserFactory } from "@/domain/user/factory/UserFactory";
-import { UserRepositoryInterface } from "@/domain/user/repository/UserRepositoryInterface";
+import {
+  InputCreateUserRepository,
+  UserRepositoryInterface,
+} from "@/domain/user/repository/UserRepositoryInterface";
 import { db } from "@/infra/kysely";
+import { v4 } from "uuid";
 
 export default class UserRepository implements UserRepositoryInterface {
   checkIfExistsByPhone(phone: string): Promise<boolean> {
@@ -46,45 +50,33 @@ export default class UserRepository implements UserRepositoryInterface {
     return user;
   }
 
-  async create(item: User): Promise<User> {
+  async create(item: InputCreateUserRepository): Promise<any> {
+    const currentDate = new Date();
+    const id = v4();
     const data = await db
       .insertInto("user")
       .values({
-        id: item.id,
+        id,
         email: item.email,
         name: item.name,
         password: item.password,
-        date_of_birth: item.dateOfBirth,
-        created_at: item.createdAt,
-        updated_at: item.updatedAt,
-        profile_url: item.profileUrl,
+        created_at: currentDate,
+        updated_at: currentDate,
       })
       .returningAll()
-      .executeTakeFirstOrThrow();
-
-    const user = new User(
-      data.id,
-      data.name,
-      data.email,
-      data.password,
-      data.date_of_birth,
-      data.created_at,
-      data.updated_at
-    );
-
-    return user;
+      .execute();
+    return data[0]
   }
 
   async update(item: {
-    email?: string
-    name?: string
-    profileImage?:string
-    id: string
+    email?: string;
+    name?: string;
+    profileImage?: string;
+    id: string;
   }): Promise<void> {
     await db
       .updateTable("user")
       .set({
-
         email: item.email,
         profile_url: item.profileImage,
         name: item.name,
@@ -110,8 +102,8 @@ export default class UserRepository implements UserRepositoryInterface {
       email: data.email,
       name: data.name,
       password: data.password,
-      dateOfBirth: data.date_of_birth,
-      profileUrl: data.profile_url
+      dateOfBirth: data?.date_of_birth,
+      profileUrl: data?.profile_url,
     });
 
     return user;

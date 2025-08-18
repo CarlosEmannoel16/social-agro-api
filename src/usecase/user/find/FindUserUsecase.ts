@@ -18,7 +18,7 @@ export default class FindUserUseCase  {
       email: user.email,
       createdAt: user.createdAt,
       name: user.name,
-      profileUrl: user.profileUrl,
+      profileUrl: user?.profileUrl,
       updatedAt: user.updatedAt,
     };
   }

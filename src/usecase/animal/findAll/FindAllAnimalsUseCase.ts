@@ -18,6 +18,8 @@ class AnimalMapper implements MapperProtocol<Animal, OutputFindAllAnimalDTO> {
       lasProductionDate: animal.lastProductionDate,
       milkProduction: animal.getMilkProductions(),
       images: animal.image,
+      gender: animal.gender,
+      fastId: animal.fastId
     }));
   }
 }
@@ -31,6 +33,6 @@ export class FindAllAnimalsUseCase {
     const animalMapper = new AnimalMapper();
 
     const result = animalMapper.map(animals || []);
-    return result
+    return result;
   }
 }

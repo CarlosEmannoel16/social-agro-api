@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import { ParamsDictionary } from "express-serve-static-core";
 import { ParsedQs } from "qs";
 import * as yup from "yup";
@@ -7,13 +7,12 @@ import { ValidationError } from "@/_shared/errors/Errors";
 import { ControllerInterface } from "@/_shared/interfaces/ControllerInterface";
 import { AuthUseCase } from "@/usecase/auth/auth";
 export class AuthenticationController implements ControllerInterface {
-  constructor(
-    private readonly authenticationUseCase: AuthUseCase
-  ) {}
+  constructor(private readonly authenticationUseCase: AuthUseCase) {}
   async handle(
     request: Request<ParamsDictionary, any, any, ParsedQs, Record<string, any>>,
-    response: Response<any, Record<string, any>>
-  ): Promise<Response<any, Record<string, any>>> {
+    response: Response<any, Record<string, any>>,
+    next: NextFunction
+  ) {
     try {
       if (!Object.keys(request?.body).length)
         throw new ValidationError("Body is required");
@@ -33,7 +32,7 @@ export class AuthenticationController implements ControllerInterface {
       });
       return response.status(200).json(result);
     } catch (error: any) {
-      return response.status(400).json(handlerErrorsController(error));
+      next(error);
     }
   }
 }

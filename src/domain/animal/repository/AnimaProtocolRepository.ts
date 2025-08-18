@@ -11,6 +11,7 @@ export type addWeightParams = {
 
 export type InputFindWithParamsRepository = {
   surname: string;
+  fastId?: string;
 };
 
 export type InputFindParamsRepository = {
@@ -28,8 +29,12 @@ export type CreateAnimalRepositoryDTO = {
   }[];
   breed?: string;
   dateOfBirth?: Date;
-  acquisitionDate?: Date;
-  images: string[]
+  dateOfAcquisition?: Date;
+  images: string[];
+  financiallyAcquired: boolean;
+  fatherId?: string;
+  motherId?: string;
+  acquisitionAmount?: number;
 };
 
 export type UpdateAnimalRepositoryDTO = {
@@ -39,8 +44,8 @@ export type UpdateAnimalRepositoryDTO = {
   breed?: string;
   dateOfBirth?: Date;
   acquisitionDate?: Date;
-  id: string
-  image?:string
+  id: string;
+  image?: string;
 };
 
 export interface AnimalRepositoryInterface {
@@ -63,10 +68,10 @@ export interface AnimalRepositoryInterface {
   createSon(data: Animal, userId: string): Promise<Animal>;
   findAll(userId: string): Promise<Animal[]>;
   create(input: CreateAnimalRepositoryDTO): Promise<void>;
-  update(input: UpdateAnimalRepositoryDTO): Promise<void>
-  delete(animalId: string): Promise<void>
-  getInitialDashboardValues(userId: string): Promise<any>
-  getLastWeekMilkProductionByDay(userId: string):Promise<any>
-  getMilkProductionRanking(userId: string):Promise<any>
-  getMilkProductionRankingByBreed(userId: string):Promise<any>
+  update(input: UpdateAnimalRepositoryDTO): Promise<void>;
+  delete(animalId: string): Promise<void>;
+  getInitialDashboardValues(userId: string): Promise<any>;
+  getLastWeekMilkProductionByDay(userId: string): Promise<any>;
+  getMilkProductionRanking(userId: string): Promise<any>;
+  getMilkProductionRankingByBreed(userId: string): Promise<any>;
 }

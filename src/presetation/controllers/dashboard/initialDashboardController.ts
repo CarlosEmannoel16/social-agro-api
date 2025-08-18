@@ -15,6 +15,7 @@ export class InitialDashboardController implements ControllerInterface {
       const data = await this.initialDashboardUseCase.execute(
         request.headers["userId"] as string
       );
+
       return response.status(200).json(data);
     } catch (error) {
       next(error);

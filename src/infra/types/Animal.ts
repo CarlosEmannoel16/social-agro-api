@@ -8,11 +8,14 @@ export enum GenderAnimal {
 
 export type AnimalTable = {
   id: string;
+  fast_id?: string
   surname: string;
   gender: GenderAnimal;
   breed?: string
   date_of_birth?: Date;
   acquisition_date?: Date | null;
+  financially_acquired?: Boolean
+  acquisition_amount?: number
   created_at?: Date;
   updated_at?: Date;
   father_id?: string | null;

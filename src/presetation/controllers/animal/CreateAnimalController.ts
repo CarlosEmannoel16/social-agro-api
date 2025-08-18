@@ -20,7 +20,6 @@ export class CreateAnimalController implements ControllerInterface {
 
       const image = `${file?.filename}`;
 
-
       yup
         .object()
         .shape({
@@ -42,12 +41,15 @@ export class CreateAnimalController implements ControllerInterface {
         breed: request.body.breed,
         dateOfBirth: request.body.dateOfBirth,
         fatherId: request.body.fatherId,
-        images: [image],
         motherId: request.body.motherId,
+        images: [image],
         ownerId: request.headers["userId"] as string,
         surname: request.body.surname,
         gender: request.body.gender,
         weight: request.body.weight,
+        financiallyAcquired: request.body?.financiallyAcquired,
+        acquisitionAmount: request.body?.acquisitionAmount,
+        dateOfAcquisition: request.body?.dateOfAcquisition,
       });
 
       return response.status(201).format({

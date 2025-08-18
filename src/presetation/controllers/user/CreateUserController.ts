@@ -17,7 +17,6 @@ export class CreateUserController implements ControllerInterface {
           email: yup.string().email().required(),
           password: yup.string().min(6).required(),
           passwordConfirmation: yup.string().min(6).required(),
-          dateOfBirth: yup.date().required(),
           name: yup.string().required(),
         })
         .validateSync(request.body, { abortEarly: false });
@@ -27,7 +26,7 @@ export class CreateUserController implements ControllerInterface {
         password: request.body.password,
         passwordConfirmation: request.body.passwordConfirmation,
         name: request.body.name,
-        imageUrl: request?.file?.path || "",
+ 
       });
       return response.status(201).json(result);
     } catch (error: any) {

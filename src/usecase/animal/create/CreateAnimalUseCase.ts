@@ -12,8 +12,7 @@ export class CreateAnimalUseCase {
     if (!user) throw new Error("Usuário não encontrado");
 
     await this.animalRepository.create({
-      gender: data.gender,
-      surname: data.surname,
+      ...data,
       userId: data.ownerId,
       images: data.images ?? [],
       weightHistory: data.weight
@@ -24,8 +23,6 @@ export class CreateAnimalUseCase {
             },
           ]
         : [],
-      breed: data.breed,
-      dateOfBirth: data.dateOfBirth,
     });
   }
 }
