@@ -1,5 +1,5 @@
-import { AnimalRepositoryInterface } from "../../../domain/animal/repository/AnimaProtocolRepository";
-import { UserRepositoryInterface } from "../../../domain/user/repository/UserRepositoryInterface";
+import { AnimalRepositoryInterface } from "../../../domain/animal/interfaces/AnimaProtocolRepository";
+import { UserRepositoryInterface } from "../../../domain/user/interfaces/UserRepositoryInterface";
 import { InputCreateAnimalDTO, OutputCreateAnimalDTO } from "./DTOs";
 
 export class CreateAnimalUseCase {

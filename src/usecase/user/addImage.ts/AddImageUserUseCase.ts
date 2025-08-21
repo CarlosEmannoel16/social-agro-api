@@ -1,4 +1,4 @@
-import { UserRepositoryInterface } from "@/domain/user/repository/UserRepositoryInterface";
+import { UserRepositoryInterface } from "@/domain/user/interfaces/UserRepositoryInterface";
 
 export class AddImageUserUseCase {
   constructor(private readonly userRepository: UserRepositoryInterface) {}

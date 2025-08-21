@@ -1,6 +1,5 @@
 import { IGenerateTokenService } from "@/domain/user/services/GenerateTokenService";
-import { UserFactory } from "../../../domain/user/factory/UserFactory";
-import { UserRepositoryInterface } from "../../../domain/user/repository/UserRepositoryInterface";
+import { UserRepositoryInterface } from "../../../domain/user/interfaces/UserRepositoryInterface";
 import { InputCreateUserDTO, OutputCreateUserDTO } from "./DTOs";
 import { IValidadeUserEmail } from "@/domain/user/services/ValidateUserEmail";
 

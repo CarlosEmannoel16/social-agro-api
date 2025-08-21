@@ -1,5 +1,4 @@
-import { UserFactory } from "../../../domain/user/factory/UserFactory";
-import { UserRepositoryInterface } from "../../../domain/user/repository/UserRepositoryInterface";
+import { UserRepositoryInterface } from "../../../domain/user/interfaces/UserRepositoryInterface";
 import { InputUpdateUserDTO, OutputUpdateUserDTO } from "./DTOs";
 
 export class UpdateUserUseCase {

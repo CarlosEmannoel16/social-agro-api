@@ -1,5 +1,5 @@
 import { InputAuthUseCase, OutputAuthUseCase } from "./authDTO";
-import { UserRepositoryInterface } from "../../domain/user/repository/UserRepositoryInterface";
+import { UserRepositoryInterface } from "../../domain/user/interfaces/UserRepositoryInterface";
 import jwt from "jsonwebtoken";
 import { ValidationError } from "@/_shared/errors/Errors";
 

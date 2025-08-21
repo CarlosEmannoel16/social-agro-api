@@ -1,4 +1,4 @@
-import { UserRepositoryInterface } from "../../../domain/user/repository/UserRepositoryInterface";
+import { UserRepositoryInterface } from "../../../domain/user/interfaces/UserRepositoryInterface";
 import { InputFindUserDTO, OutputFindUserDTO } from "./DTOs";
 
 export default class FindUserUseCase  {

@@ -1,4 +1,4 @@
-import { UserRepositoryInterface } from "../repository/UserRepositoryInterface";
+import { UserRepositoryInterface } from "../interfaces/UserRepositoryInterface";
 
 export interface IValidadeUserEmail {
   execute(email: string): Promise<void>;

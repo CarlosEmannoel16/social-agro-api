@@ -1,4 +1,4 @@
-import { AnimalRepositoryInterface } from "../../../domain/animal/repository/AnimaProtocolRepository";
+import { AnimalRepositoryInterface } from "../../../domain/animal/interfaces/AnimaProtocolRepository";
 import { InputAddImageAnimalDTO } from "./DTOs";
 
 export class AddImageAnimalUseCase {

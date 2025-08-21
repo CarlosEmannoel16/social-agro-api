@@ -1,28 +1,31 @@
 export class Address {
-  
-  private street: string;
-  private number: string;
-  private complement: string;
-  private district: string;
-  private city: string;
-  private state: string;
-  private zipCode: string;
-
   constructor(
-    street: string,
-    number: string,
-    complement: string,
-    district: string,
-    city: string,
-    state: string,
-    zipCode: string
-  ) {
-    this.street = street;
-    this.number = number;
-    this.complement = complement;
-    this.district = district;
-    this.city = city;
-    this.state = state;
-    this.zipCode = zipCode;
+    public street: string,
+    public number: string,
+    public complement: string,
+    public district: string,
+    public city: string,
+    public state: string,
+    public zipCode: string
+  ) {}
+
+  create(data: {
+    street: string;
+    number: string;
+    complement: string;
+    district: string;
+    city: string;
+    state: string;
+    zipCode: string;
+  }) {
+    return new Address(
+      data.street,
+      data.number,
+      data.complement,
+      data.district,
+      data.city,
+      data.state,
+      data.zipCode
+    );
   }
 }

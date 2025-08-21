@@ -1,7 +1,7 @@
 import {
   addDailyMilkProductionParams,
   MilkRepositoryInterface,
-} from "@/domain/animal/repository/MilkProductionRepository";
+} from "@/domain/animal/interfaces/MilkProductionRepository";
 import { MilkProduction } from "@/domain/animal/valueObjects/MilkProduction";
 import { db } from "@/infra/kysely";
 

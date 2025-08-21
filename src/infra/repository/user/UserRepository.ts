@@ -1,16 +1,12 @@
-import { User } from "@/domain/user/entity/User";
-import { UserFactory } from "@/domain/user/factory/UserFactory";
 import {
   InputCreateUserRepository,
   UserRepositoryInterface,
-} from "@/domain/user/repository/UserRepositoryInterface";
+} from "@/domain/user/interfaces/UserRepositoryInterface";
+import { User } from "@/domain/user/UserEntity";
 import { db } from "@/infra/kysely";
 import { v4 } from "uuid";
 
 export default class UserRepository implements UserRepositoryInterface {
-  checkIfExistsByPhone(phone: string): Promise<boolean> {
-    throw new Error("Method not implemented.");
-  }
   async checkIfExistsByEmail(email: string): Promise<boolean> {
     const result = await db
       .selectFrom("user")
@@ -40,7 +36,7 @@ export default class UserRepository implements UserRepositoryInterface {
 
     if (!result) return undefined;
 
-    const user = UserFactory.createNewUser({
+    const user = User.create({
       id: result.id,
       email: result.email,
       name: result.name,
@@ -65,7 +61,7 @@ export default class UserRepository implements UserRepositoryInterface {
       })
       .returningAll()
       .execute();
-    return data[0]
+    return data[0];
   }
 
   async update(item: {
@@ -97,7 +93,7 @@ export default class UserRepository implements UserRepositoryInterface {
       throw new Error("User not found");
     }
 
-    const user = UserFactory.createNewUser({
+    const user = User.create({
       id: data.id,
       email: data.email,
       name: data.name,
@@ -109,20 +105,6 @@ export default class UserRepository implements UserRepositoryInterface {
     return user;
   }
 
-  async findAll(): Promise<User[]> {
-    const result = await db.selectFrom("user").selectAll().execute();
-
-    return result.map((data) =>
-      UserFactory.createNewUser({
-        id: data.id,
-        email: data.email,
-        name: data.name,
-        password: data.password,
-        dateOfBirth: data.date_of_birth,
-      })
-    );
-  }
-
   async findByName(name: string): Promise<User[]> {
     const result = await db
       .selectFrom("user")
@@ -131,7 +113,7 @@ export default class UserRepository implements UserRepositoryInterface {
       .execute();
 
     return result.map((data) =>
-      UserFactory.createNewUser({
+      User.create({
         id: data.id,
         email: data.email,
         name: data.name,

@@ -1,8 +1,5 @@
-import { AnimalRepositoryInterface } from "../../../domain/animal/repository/AnimaProtocolRepository";
-import {
-  InputSearchAnimalUseCase,
-  OutputSearchAnimalUseCase,
-} from "./DTOs";
+import { AnimalRepositoryInterface } from "../../../domain/animal/interfaces/AnimaProtocolRepository";
+import { InputSearchAnimalUseCase, OutputSearchAnimalUseCase } from "./DTOs";
 
 export class SearchAnimalUseCase {
   constructor(private readonly animalRepository: AnimalRepositoryInterface) {}
@@ -18,12 +15,12 @@ export class SearchAnimalUseCase {
     if (!data?.length) return [];
     return data.map((animal) => ({
       id: animal.id,
-      age: animal.getAgeAnimal(),
+      age: animal.ageAnimal,
       breed: animal.breed,
-      createdAt: animal.createdAt,
-      image: animal.image,
-      name: animal.surname,
-      updatedAt: animal.updatedAt,
+      createdAt: animal.dateOfCreation,
+      image: animal.images ?? [],
+      name: animal.name,
+      updatedAt: animal.dateOfUpdate,
     }));
   }
 }

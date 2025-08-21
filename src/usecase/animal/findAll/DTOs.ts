@@ -3,7 +3,7 @@ export interface OutputFindAllAnimalDTO {
   name: string;
   age: string;
   breed: string;
-  image: string[];
+  images: string[];
   ownerId: string;
   createdAt: Date;
   updatedAt: Date;
@@ -16,5 +16,6 @@ export interface OutputFindAllAnimalDTO {
     dateOfRegister: string;
     quantity: number;
   }[];
+  lasProductionDate?: Date
 }
 [];

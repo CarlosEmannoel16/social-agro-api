@@ -1,4 +1,4 @@
-import { AnimalRepositoryInterface } from "@/domain/animal/repository/AnimaProtocolRepository";
+import { AnimalRepositoryInterface } from "@/domain/animal/interfaces/AnimaProtocolRepository";
 import { InputDeleteAnimalUseCaseProtocol } from "./DTOs";
 
 export class DeleteAnimalUseCase {

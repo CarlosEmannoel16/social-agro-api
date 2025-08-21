@@ -1,5 +1,4 @@
-import { User } from "../entity/User";
-import { RepositoryInterface } from "../../_shared/repository/RepositoryInsterface";
+import { User } from "../UserEntity";
 
 export type InputCreateUserRepository = {
   name: string;
@@ -13,7 +12,6 @@ export interface UserRepositoryInterface {
   findByName(name: string): Promise<User[] | undefined>;
   addImage(imageUrl: string, userId: string): Promise<void>;
   checkIfExistsByEmail(email: string): Promise<boolean>;
-  checkIfExistsByPhone(phone: string): Promise<boolean>;
   update(data: {
     email?: string;
     name?: string;
@@ -29,5 +27,5 @@ export interface UserRepositoryInterface {
     profile_url: string | undefined;
     updated_at: Date;
     created_at: Date;
-}>;
+  }>;
 }

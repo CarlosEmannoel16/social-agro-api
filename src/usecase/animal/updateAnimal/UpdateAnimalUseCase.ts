@@ -1,6 +1,6 @@
 import { AnimalRepository } from "@/infra/repository/animal/AnimalRepository";
 import { inputUpdateAnimalDto } from "./DTOs";
-import { UpdateAnimalRepositoryDTO } from "@/domain/animal/repository/AnimaProtocolRepository";
+import { UpdateAnimalRepositoryDTO } from "@/domain/animal/interfaces/AnimaProtocolRepository";
 
 export class UpdateAnimalUseCase {
   constructor(private readonly animalRepository: AnimalRepository) {}

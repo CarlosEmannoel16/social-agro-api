@@ -1,4 +1,4 @@
-import { AnimalRepositoryInterface } from "@/domain/animal/repository/AnimaProtocolRepository";
+import { AnimalRepositoryInterface } from "@/domain/animal/interfaces/AnimaProtocolRepository";
 
 export class InitialDashboardUseCase {
   constructor(private readonly animalRepository: AnimalRepositoryInterface) {}

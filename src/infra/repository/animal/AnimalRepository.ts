@@ -1,5 +1,4 @@
-import { Animal } from "@/domain/animal/entity/Animal";
-import { AnimalFactory } from "@/domain/animal/factory/AnimalFactory";
+import { Animal } from "@/domain/animal/AnimalEntity";
 import {
   addWeightParams,
   AnimalRepositoryInterface,
@@ -7,8 +6,9 @@ import {
   InputFindParamsRepository,
   InputFindWithParamsRepository,
   UpdateAnimalRepositoryDTO,
-} from "@/domain/animal/repository/AnimaProtocolRepository";
+} from "@/domain/animal/interfaces/AnimaProtocolRepository";
 import { MilkProduction } from "@/domain/animal/valueObjects/MilkProduction";
+import { weightAnimal } from "@/domain/animal/valueObjects/WeightAnimal";
 import { Note } from "@/domain/expenses/entity/Note";
 import { db } from "@/infra/kysely";
 import { GenderAnimal } from "@/infra/types/Animal";
@@ -17,13 +17,13 @@ import { sql } from "kysely";
 import { v4 } from "uuid";
 
 const dayOfWeekMap: { [key: number]: string } = {
-  1: "Segunda", // Monday
-  2: "Terça", // Tuesday
-  3: "Quarta", // Wednesday
-  4: "Quinta", // Thursday
-  5: "Sexta", // Friday
-  6: "Sábado", // Saturday
-  0: "Domingo", // Sunday
+  1: "Segunda",
+  2: "Terça",
+  3: "Quarta",
+  4: "Quinta",
+  5: "Sexta",
+  6: "Sábado",
+  0: "Domingo",
 };
 
 export class AnimalRepository implements AnimalRepositoryInterface {
@@ -183,28 +183,8 @@ export class AnimalRepository implements AnimalRepositoryInterface {
       throw error;
     }
   }
-  addWeight(data: addWeightParams): Promise<any> {
-    throw new Error("Method not implemented.");
-  }
-  addNote(data: Note, userId: string): Promise<Note> {
-    throw new Error("Method not implemented.");
-  }
-  deleteNote(
-    animalId: string,
-    noteId: string,
-    userId: string
-  ): Promise<any | undefined> {
-    throw new Error("Method not implemented.");
-  }
-  editNote(data: Note, userId: string): Promise<Note | undefined> {
-    throw new Error("Method not implemented.");
-  }
-  createSon(data: Animal, userId: string): Promise<Animal> {
-    throw new Error("Method not implemented.");
-  }
-  async create(input: CreateAnimalRepositoryDTO): Promise<void> {
 
-    console.log("Creating animal with input:", input);
+  async create(input: CreateAnimalRepositoryDTO): Promise<void> {
     const animalId = v4();
     await db
       .insertInto("animal")
@@ -276,17 +256,11 @@ export class AnimalRepository implements AnimalRepositoryInterface {
       .orderBy("date", "asc")
       .execute();
 
-    return AnimalFactory.createNewAnimal({
-      dateOfBirth: animal.date_of_birth,
-      gender: animal.gender,
-      breed: animal.breed ?? undefined,
-      surname: animal.surname,
-      id: animal.id,
-      ownerId: animal.user_id,
-      weightHistory: weightHistory.map((data) => ({
-        weight: data.weight,
-        dateOfRegister: data.date,
-      })),
+    return Animal.createByDb({
+      ...animal,
+      weight:
+        weightHistory.map((data) => new weightAnimal(data.weight, data.date)) ??
+        [],
       milkProduction:
         milkHistory?.map(
           (mh) =>
@@ -297,8 +271,7 @@ export class AnimalRepository implements AnimalRepositoryInterface {
               mh.price || 0
             )
         ) ?? [],
-      fatherId: undefined,
-      motherId: undefined,
+
       images: animal.images ? [animal.images] : [],
     });
   }
@@ -313,82 +286,8 @@ export class AnimalRepository implements AnimalRepositoryInterface {
 
     if (!animals.length) return [];
 
-    return animals.map((animal) => {
-      return AnimalFactory.createNewAnimal({
-        dateOfBirth: animal.date_of_birth,
-        gender: animal.gender,
-        breed: animal.breed ?? undefined,
-        fatherId: animal.father_id ?? undefined,
-        id: animal.id,
-        images: [],
-        motherId: animal.mother_id ?? undefined,
-        surname: animal.surname,
-        ownerId: animal.user_id,
-        weightHistory: [],
-      });
-    });
+    return animals.map((animal) => Animal.createByDb(animal));
   }
-
-  // async createSon(data: Animal, userId: string): Promise<Animal> {
-  //   const newAnimalId = v4();
-  //   await db
-  //     .insertInto("animal")
-  //     .values({
-  //       id: newAnimalId,
-  //       dateOfBirth: data.dateOfBirth,
-  //       fatherId: data.fatherId,
-  //       motherId: data.motherId,
-  //       surname: data.surname,
-  //       gender: data.gender,
-  //       userId: userId,
-  //       breed: data.breed,
-  //     })
-  //     .execute();
-
-  //   return { ...data, id: newAnimalId };
-  // }
-
-  // async editNote(data: Note): Promise<Note | undefined> {
-  //   const result = await db
-  //     .updateTable("animal_notes")
-  //     .set({
-  //       color: data.color,
-  //       description: data.text,
-  //       title: data.title,
-  //     })
-  //     .where("id", "=", data.id)
-  //     .where("animalId", "=", data.animalId)
-  //     .executeTakeFirst();
-
-  //   if (result.numUpdatedRows > 0) {
-  //     return data;
-  //   }
-  //   return undefined;
-  // }
-
-  // async deleteNote(animalId: string, noteId: string): Promise<void> {
-  //   await db
-  //     .deleteFrom("animal_notes")
-  //     .where("id", "=", noteId)
-  //     .where("animalId", "=", animalId)
-  //     .execute();
-  // }
-
-  // async addNote(data: Note): Promise<Note> {
-  //   const newNoteId = v4();
-  //   await db
-  //     .insertInto("animal_notes")
-  //     .values({
-  //       id: newNoteId,
-  //       animalId: data.animalId,
-  //       color: data.color,
-  //       description: data.text,
-  //       title: data.title,
-  //     })
-  //     .execute();
-
-  //   return { ...data, id: newNoteId };
-  // }
 
   async findWithParams(
     params: InputFindWithParamsRepository,
@@ -404,26 +303,11 @@ export class AnimalRepository implements AnimalRepositoryInterface {
     if (!animals.length) return;
 
     return animals.map((animal) => {
-      return AnimalFactory.createNewAnimal({
-        dateOfBirth: animal.date_of_birth,
-        gender: animal.gender as GenderAnimal,
-        breed: animal.breed ?? undefined,
-        images: [],
-        fatherId: animal.father_id ?? undefined,
-        motherId: animal.mother_id ?? undefined,
-        surname: animal.surname,
-        id: animal.id,
-        ownerId: animal.user_id,
-        weightHistory: [],
-      });
+      return Animal.createByDb(animal);
     });
   }
 
-  async addImage(
-    animalId: string,
-    imageUrl: string,
-    userId: string
-  ): Promise<void> {
+  async addImage(animalId: string, imageUrl: string): Promise<void> {
     await db
       .insertInto("animal_images")
       .values({
@@ -440,6 +324,14 @@ export class AnimalRepository implements AnimalRepositoryInterface {
     if (input.breed) qb = qb.set("breed", input.breed);
     if (input.dateOfBirth) qb = qb.set("date_of_birth", input.dateOfBirth);
     if (input.gender) qb = qb.set("gender", input.gender);
+    if (input.acquisitionDate)
+      qb = qb.set("acquisition_date", input.acquisitionDate);
+    if (input.acquisitionAmount)
+      qb = qb.set("acquisition_amount", input.acquisitionAmount);
+    if (input.financiallyAcquired)
+      qb = qb.set("financially_acquired", input.financiallyAcquired);
+    if (input.fatherId) qb = qb.set("father_id", input.fatherId);
+    if (input.motherId) qb = qb.set("mother_id", input.motherId);
 
     await qb.where("animal.id", "=", input.id).execute();
 
@@ -473,17 +365,25 @@ export class AnimalRepository implements AnimalRepositoryInterface {
       breedName = animal.breed;
     }
 
-    return AnimalFactory.createNewAnimal({
+    return Animal.create({
       dateOfBirth: animal.date_of_birth,
       gender: animal.gender as GenderAnimal,
-      breed: breedName,
+      breed: breedName || "Generic",
       images: images.map((img) => img.url),
       fatherId: animal.father_id ?? undefined,
       motherId: animal.mother_id ?? undefined,
-      surname: animal.surname,
+      name: animal.surname,
       ownerId: animal.user_id,
       id: animal.id,
-      weightHistory: [],
+      weight: [],
+      acquisitionAmount: animal.acquisition_amount,
+      dateOfAcquisition: animal.acquisition_date ?? undefined,
+      financiallyAcquired: animal.financially_acquired,
+      dateOfCreation: animal.created_at ?? new Date(),
+      dateOfUpdate: animal.updated_at ?? new Date(),
+      fastId: animal.fast_id ?? "",
+      lastProductionDate: animal.last_production_date ?? undefined,
+      milkProduction: [],
     });
   }
 
@@ -498,23 +398,12 @@ export class AnimalRepository implements AnimalRepositoryInterface {
       .execute();
 
     if (!response.length) return [];
-
-    return AnimalFactory.createMap(
-      response.map((animal) => ({
-        dateOfBirth: animal.date_of_birth,
-        gender: animal.gender,
-        breed: animal.breed ?? undefined,
-        images: animal?.images ? [animal.images] : [],
-        fatherId: animal.father_id ?? undefined,
-        motherId: animal.mother_id ?? undefined,
-        surname: animal.surname,
-        id: animal.id,
-        ownerId: animal.user_id,
-        weightHistory: [],
-        lastProduction: animal.last_production_date,
-        fastId: animal.fast_id,
-      }))
-    );
+    return response.map((animal) => {
+      return Animal.createByDb({
+        ...animal,
+        images: animal.images ? [animal.images] : [],
+      });
+    });
   }
 
   async findWeightHistory(idAnimal: string) {

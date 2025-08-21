@@ -1,5 +1,4 @@
-import { UserFactory } from "@/domain/user/factory/UserFactory";
-import { UserRepositoryInterface } from "@/domain/user/repository/UserRepositoryInterface";
+import { UserRepositoryInterface } from "@/domain/user/interfaces/UserRepositoryInterface";
 
 export type InputRegisterNewUserUseCase = {
   email: string;
@@ -19,18 +18,11 @@ export class RegisterNewUserUseCase {
 
     if (existsEmail) throw new Error("Email already exists");
 
-    const existsPhone = await this.userRepository.checkIfExistsByPhone(
-      params.phone
-    );
-
-    if (existsPhone) throw new Error("Phone already exists");
-
-    const user = UserFactory.createNewUser({
-      email: params.email,
+    await this.userRepository.create({
       name: params.name,
+      email: params.email,
       password: params.password,
+      confirmPassword: params.passwordConfirmation,
     });
-
-    await this.userRepository.create(user);
   }
 }

@@ -1,4 +1,3 @@
-import { RepositoryInterface } from "@/domain/_shared/repository/RepositoryInsterface";
 import { MilkProduction } from "../valueObjects/MilkProduction";
 
 export type addDailyMilkProductionParams = {

@@ -1,7 +1,6 @@
 import { Note } from "@/domain/expenses/entity/Note";
-import { RepositoryInterface } from "../../_shared/repository/RepositoryInsterface";
-import { Animal } from "../entity/Animal";
 import { GenderAnimal } from "@/infra/types/Animal";
+import { Animal } from "../AnimalEntity";
 
 export type addWeightParams = {
   idAnimal: string;
@@ -46,6 +45,12 @@ export type UpdateAnimalRepositoryDTO = {
   acquisitionDate?: Date;
   id: string;
   image?: string;
+  dateOfAcquisition?: Date;
+  images: string[];
+  financiallyAcquired: boolean;
+  fatherId?: string;
+  motherId?: string;
+  acquisitionAmount?: number;
 };
 
 export interface AnimalRepositoryInterface {
@@ -56,16 +61,7 @@ export interface AnimalRepositoryInterface {
   ): Promise<Animal[] | undefined>;
   find(data: InputFindParamsRepository): Promise<Animal | undefined>;
   findByID(id: string, userId: string): Promise<Animal | undefined>;
-  addWeight(data: addWeightParams): Promise<any>;
-  addNote(data: Note, userId: string): Promise<Note>;
-  deleteNote(
-    animalId: string,
-    noteId: string,
-    userId: string
-  ): Promise<any | undefined>;
-  editNote(data: Note, userId: string): Promise<Note | undefined>;
   findByIds(ids: string[], userId: string): Promise<Animal[]>;
-  createSon(data: Animal, userId: string): Promise<Animal>;
   findAll(userId: string): Promise<Animal[]>;
   create(input: CreateAnimalRepositoryDTO): Promise<void>;
   update(input: UpdateAnimalRepositoryDTO): Promise<void>;
