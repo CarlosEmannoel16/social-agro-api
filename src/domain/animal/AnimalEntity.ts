@@ -1,6 +1,7 @@
 import { AnimalTable, GenderAnimal } from "@/infra/types/Animal";
 import { MilkProduction } from "./valueObjects/MilkProduction";
 import { weightAnimal } from "./valueObjects/WeightAnimal";
+import { AnimalDTO } from "./types/AnimalDTO";
 
 export class Animal {
   constructor(
@@ -96,7 +97,7 @@ export class Animal {
     );
   }
 
-  formatToReturn() {
+  formatToReturn(): AnimalDTO {
     return {
       id: this.id,
       fastId: this.fastId,
@@ -112,8 +113,8 @@ export class Animal {
       dateOfAcquisition: this.dateOfAcquisition,
       acquisitionAmount: this.acquisitionAmount,
       financiallyAcquired: this.financiallyAcquired,
-      milkProduction: this.milkProductionsFormatted,
-      weight: this.weightFormatted,
+      historyMilkProduction: this.milkProductionsFormatted,
+      weightHistory: this.weightFormatted,
       dateOfUpdate: this.dateOfUpdate,
       dateOfCreation: this.dateOfCreation,
       averageProductionByMonth: this.averageProductionByMonth,

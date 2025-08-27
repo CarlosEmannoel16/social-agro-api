@@ -1,6 +1,5 @@
 import { Animal } from "@/domain/animal/AnimalEntity";
 import {
-  addWeightParams,
   AnimalRepositoryInterface,
   CreateAnimalRepositoryDTO,
   InputFindParamsRepository,
@@ -9,7 +8,6 @@ import {
 } from "@/domain/animal/interfaces/AnimaProtocolRepository";
 import { MilkProduction } from "@/domain/animal/valueObjects/MilkProduction";
 import { weightAnimal } from "@/domain/animal/valueObjects/WeightAnimal";
-import { Note } from "@/domain/expenses/entity/Note";
 import { db } from "@/infra/kysely";
 import { GenderAnimal } from "@/infra/types/Animal";
 import { GenerateFastId } from "@/usecase/utils/GeneratedFastId";
@@ -293,17 +291,31 @@ export class AnimalRepository implements AnimalRepositoryInterface {
     params: InputFindWithParamsRepository,
     userId: string
   ): Promise<Animal[] | undefined> {
+    console.log("Searching animals with params:", params, userId);
     const animals = await db
       .selectFrom("animal")
       .selectAll()
-      .where("user_id", "=", userId)
-      .where("surname", "like", `%${params.surname}%`)
+      .where("animal.user_id", "=", userId)
+      .where("animal.surname", "ilike", `%${params.surname}%`)
       .execute();
 
     if (!animals.length) return;
 
+    const animalIds = animals.map((animal) => animal.id);
+
+    const images = await db
+      .selectFrom("animal_images")
+      .select(["url", "animal_id"])
+      .where("animal_id", "in", animalIds)
+      .execute();
+
     return animals.map((animal) => {
-      return Animal.createByDb(animal);
+      return Animal.createByDb({
+        ...animal,
+        images: images
+          .filter((img) => img.animal_id === animal.id)
+          .map((img) => img.url),
+      });
     });
   }
 

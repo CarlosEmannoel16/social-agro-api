@@ -1,26 +1,18 @@
+import { AnimalDTO } from "@/domain/animal/types/AnimalDTO";
 import { AnimalRepositoryInterface } from "../../../domain/animal/interfaces/AnimaProtocolRepository";
-import { InputSearchAnimalUseCase, OutputSearchAnimalUseCase } from "./DTOs";
+import { InputSearchAnimalUseCase } from "./DTOs";
 
 export class SearchAnimalUseCase {
   constructor(private readonly animalRepository: AnimalRepositoryInterface) {}
-  async execute(
-    params: InputSearchAnimalUseCase
-  ): Promise<OutputSearchAnimalUseCase[] | []> {
+  async execute(params: InputSearchAnimalUseCase): Promise<AnimalDTO[] | []> {
     const data = await this.animalRepository.findWithParams(
       {
         surname: params.params,
+        fastId: params.params,
       },
       params.idUser
     );
     if (!data?.length) return [];
-    return data.map((animal) => ({
-      id: animal.id,
-      age: animal.ageAnimal,
-      breed: animal.breed,
-      createdAt: animal.dateOfCreation,
-      image: animal.images ?? [],
-      name: animal.name,
-      updatedAt: animal.dateOfUpdate,
-    }));
+    return data.map((animal) => animal.formatToReturn());
   }
 }

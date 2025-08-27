@@ -9,7 +9,7 @@ export class SearchAnimalController implements ControllerInterface {
   ): Promise<Response> {
     try {
       const result = await this.searchAnimalUseCase.execute({
-        idUser: request.params.idUser,
+        idUser: request.headers["userId"] as string,
         params: request.params.params,
       });
 
