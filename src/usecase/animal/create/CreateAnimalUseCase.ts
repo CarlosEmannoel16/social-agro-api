@@ -11,6 +11,16 @@ export class CreateAnimalUseCase {
     const user = await this.userRepository.find(data.ownerId);
     if (!user) throw new Error("Usuário não encontrado");
 
+    if (data.motherId) {
+      const mother = await this.animalRepository.find(data.motherId);
+      if (!mother) throw new Error("Mãe não encontrada");
+    }
+
+    if (data.fatherId) {
+      const father = await this.animalRepository.find(data.fatherId);
+      if (!father) throw new Error("Pai não encontrado");
+    }
+
     await this.animalRepository.create({
       ...data,
       userId: data.ownerId,

@@ -14,7 +14,6 @@ export type InputFindWithParamsRepository = {
 };
 
 export type InputFindParamsRepository = {
-  userId: string;
   animalId: string;
 };
 
@@ -59,7 +58,7 @@ export interface AnimalRepositoryInterface {
     params: InputFindWithParamsRepository,
     userId: string
   ): Promise<Animal[] | undefined>;
-  find(data: InputFindParamsRepository): Promise<Animal | undefined>;
+  find(animalId: string): Promise<Animal | undefined>;
   findByID(id: string, userId: string): Promise<Animal | undefined>;
   findByIds(ids: string[], userId: string): Promise<Animal[]>;
   findAll(userId: string): Promise<Animal[]>;

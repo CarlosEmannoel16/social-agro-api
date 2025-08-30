@@ -110,6 +110,7 @@ export class Animal {
       motherId: this.motherId,
       images: this.images,
       lastProductionDate: this.lastProductionDate,
+      yearOfLife: this.ageAnimal,
       dateOfAcquisition: this.dateOfAcquisition,
       acquisitionAmount: this.acquisitionAmount,
       financiallyAcquired: this.financiallyAcquired,

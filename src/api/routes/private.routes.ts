@@ -1,8 +1,9 @@
 import express from "express";
-import { AnimalRepository } from "@/infra/repository/animal/AnimalRepository";
 import { InitialDashboardController } from "@/presetation/controllers/dashboard/initialDashboardController";
 import { InitialDashboardUseCase } from "@/usecase/dashboard/InitialDashboardUseCase";
+import { AnimalRepository } from "@/infra/repository/animal/AnimalRepository";
 import { animalRoutes } from "./animal.routes";
+import { weightRoutes } from "./weight.routes";
 import { userRoutes } from "./user.routes";
 import { milkRoutes } from "./milk.routes";
 
@@ -11,6 +12,7 @@ const router = express.Router();
 animalRoutes(router);
 userRoutes(router);
 milkRoutes(router);
+weightRoutes(router);
 
 router.get("/dashboard", (req, res, next) => {
   return new InitialDashboardController(

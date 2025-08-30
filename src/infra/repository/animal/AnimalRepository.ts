@@ -330,16 +330,18 @@ export class AnimalRepository implements AnimalRepositoryInterface {
   }
 
   async update(input: UpdateAnimalRepositoryDTO): Promise<void> {
+
+    console.log("Updating animal:", input);
     let qb = db.updateTable("animal");
 
     if (input.surname) qb = qb.set("surname", input.surname);
     if (input.breed) qb = qb.set("breed", input.breed);
     if (input.dateOfBirth) qb = qb.set("date_of_birth", input.dateOfBirth);
     if (input.gender) qb = qb.set("gender", input.gender);
-    if (input.acquisitionDate)
-      qb = qb.set("acquisition_date", input.acquisitionDate);
+    if (input.dateOfAcquisition)
+      qb = qb.set("acquisition_date", input.dateOfAcquisition);
     if (input.acquisitionAmount)
-      qb = qb.set("acquisition_amount", input.acquisitionAmount);
+      qb = qb.set("acquisition_amount", Number(input.acquisitionAmount));
     if (input.financiallyAcquired)
       qb = qb.set("financially_acquired", input.financiallyAcquired);
     if (input.fatherId) qb = qb.set("father_id", input.fatherId);
@@ -347,7 +349,7 @@ export class AnimalRepository implements AnimalRepositoryInterface {
 
     await qb.where("animal.id", "=", input.id).execute();
 
-    if (input.image) {
+    if (input.image && input.image !== "undefined") {
       await db
         .updateTable("animal_images")
         .set("url", input.image)
@@ -356,12 +358,11 @@ export class AnimalRepository implements AnimalRepositoryInterface {
     }
   }
 
-  async find(data: InputFindParamsRepository): Promise<Animal | undefined> {
+  async find(animalId: string): Promise<Animal | undefined> {
     const animal = await db
       .selectFrom("animal")
       .selectAll()
-      .where("id", "=", data.animalId)
-      .where("user_id", "=", data.userId)
+      .where("id", "=", animalId)
       .executeTakeFirst();
 
     if (!animal) return;

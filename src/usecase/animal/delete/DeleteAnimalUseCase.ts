@@ -4,10 +4,7 @@ import { InputDeleteAnimalUseCaseProtocol } from "./DTOs";
 export class DeleteAnimalUseCase {
   constructor(private readonly animalRepository: AnimalRepositoryInterface) {}
   async handle(data: InputDeleteAnimalUseCaseProtocol) {
-    const animal = await this.animalRepository.find({
-      animalId: data.id,
-      userId: data.userId,
-    });
+    const animal = await this.animalRepository.find(data.id);
 
     if (!animal) throw new Error("Animal não encontrado");
     await this.animalRepository.delete(data.id)

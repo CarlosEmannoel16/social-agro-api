@@ -11,7 +11,7 @@ export type AnimalTable = {
   fast_id?: string
   surname: string;
   gender: GenderAnimal;
-  breed?: string
+  breed?: string | 'merge'
   date_of_birth?: Date;
   acquisition_date?: Date | null;
   financially_acquired?: Boolean

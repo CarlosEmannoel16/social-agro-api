@@ -4,7 +4,6 @@ import { HistoryWeighRepository } from "@/infra/repository/historyWeigh/HistoryW
 import { MilkProductionRepository } from "@/infra/repository/milkProduction/MilkProductionRepository";
 import UserRepository from "@/infra/repository/user/UserRepository";
 import { AddMilkProductionAnimalController } from "@/presetation/controllers/animal/AddMilkProductionAnimalController";
-import { AddWeighAnimalController } from "@/presetation/controllers/animal/AddWeighAnimalController";
 import { CreateAnimalController } from "@/presetation/controllers/animal/CreateAnimalController";
 import { DeleteAnimalController } from "@/presetation/controllers/animal/DeleteAnimalController";
 import { FindAllAnimalsController } from "@/presetation/controllers/animal/FindAllAnimalsController";
@@ -12,7 +11,6 @@ import { FindAnimalController } from "@/presetation/controllers/animal/FindAnima
 import { SearchAnimalController } from "@/presetation/controllers/animal/SearchAnimalController";
 import { UpdateAnimalController } from "@/presetation/controllers/animal/UpdateAnimalController";
 import { AddMilkProductionUseCase } from "@/usecase/animal/addMilkProduction/AddMilkProductionUseCase";
-import { AddWeighAnimalUseCase } from "@/usecase/animal/addWeigh/AddWeighUseCase";
 import { CreateAnimalUseCase } from "@/usecase/animal/create/CreateAnimalUseCase";
 import { DeleteAnimalUseCase } from "@/usecase/animal/delete/DeleteAnimalUseCase";
 import { FindAnimalUseCase } from "@/usecase/animal/find/FindAnimalUseCase";
@@ -53,11 +51,7 @@ export const animalRoutes = (router: Router) => {
     ).handle(req, res);
   });
 
-  router.post("/animal/weight/add", (req, res, next) => {
-    return new AddWeighAnimalController(
-      new AddWeighAnimalUseCase(historyWeighRepository)
-    ).handle(req, res, next);
-  });
+  
 
   router.put("/animal", upload.single("file"), (req, res, next) => {
     return new UpdateAnimalController(

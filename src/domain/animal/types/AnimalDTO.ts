@@ -5,6 +5,7 @@ export interface AnimalDTO {
   fastId: string;
   ownerId: string;
   name: string;
+  yearOfLife: string;
   dateOfBirth: Date | undefined;
   gender: GenderAnimal;
   breed: string;

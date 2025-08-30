@@ -1,5 +1,6 @@
 import { AnimalTable } from "./Animal";
 import { AnimalImagesTable } from "./AnimalImages";
+import { BreedAnimal } from "./BreedAnimal";
 import { MilkProductionHistoryTable } from "./MilkHistory";
 import { MilkPriceTable } from "./MilkPrice";
 import { UserTable } from "./User";
@@ -12,4 +13,5 @@ export interface Database {
   milk_price: MilkPriceTable;
   user: UserTable;
   milk_production: MilkProductionHistoryTable;
+  breed_animal: BreedAnimal
 }

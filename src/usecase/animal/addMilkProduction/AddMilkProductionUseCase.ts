@@ -19,10 +19,7 @@ export class AddMilkProductionUseCase extends AddMilkProductionUseCaseValidation
         "Data da produção deve ser igual ou anterior a data atual"
       );
 
-    const animal = await this.animalRepository.find({
-      animalId: data.animalId,
-      userId: data.userId,
-    });
+    const animal = await this.animalRepository.find( data.animalId);
 
 
     if (!animal) throw new Error("Animal não encontrado");
