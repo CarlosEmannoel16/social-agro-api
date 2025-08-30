@@ -1,9 +1,9 @@
 import { ControllerInterface } from "@/_shared/interfaces/ControllerInterface";
-import { FindWeighByIdUseCase } from "@/usecase/weigh/findById/FindWeightAnimalByIdUseCase";
+import { FindWeightByIdUseCase } from "@/usecase/weight/findById/FindWeightAnimalByIdUseCase";
 import { Request, Response, NextFunction } from "express";
 
 export class FindWeighByIdController implements ControllerInterface {
-  constructor(private findWeighByIdUseCase: FindWeighByIdUseCase) {}
+  constructor(private findWeightByIdUseCase: FindWeightByIdUseCase) {}
   async handle(
     request: Request,
     response: Response,
@@ -12,7 +12,7 @@ export class FindWeighByIdController implements ControllerInterface {
     try {
       const { id } = request.params;
 
-      const result = await this.findWeighByIdUseCase.execute(Number(id));
+      const result = await this.findWeightByIdUseCase.execute(Number(id));
 
       if (!result) {
         return response.status(404).json({ message: "Weight not found" });

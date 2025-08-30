@@ -1,9 +1,9 @@
 import { ControllerInterface } from "@/_shared/interfaces/ControllerInterface";
-import { AddWeighAnimalUseCase } from "@/usecase/animal/addWeigh/AddWeighUseCase";
+import { AddWeightAnimalUseCase } from "@/usecase/weight/addWeight/AddWeightUseCase";
 import { Request, Response, NextFunction } from "express";
 
 export class AddWeighAnimalController implements ControllerInterface {
-  constructor(private addWeighAnimalUseCase: AddWeighAnimalUseCase) {}
+  constructor(private addWeighAnimalUseCase: AddWeightAnimalUseCase) {}
   async handle(
     request: Request,
     response: Response,

@@ -1,7 +1,7 @@
-import { HistoryWeighRepository } from "@/infra/repository/historyWeigh/HistoryWeighRepository";
+import { HistoryWeightRepository } from "@/infra/repository/historyWeight/HistoryWeightRepository";
 
-export class FindWeighByAnimalUseCase {
-  constructor(private weighRepository: HistoryWeighRepository) {}
+export class FindWeightByAnimalUseCase {
+  constructor(private weighRepository: HistoryWeightRepository) {}
 
   async execute(animalId: string): Promise<
     | {

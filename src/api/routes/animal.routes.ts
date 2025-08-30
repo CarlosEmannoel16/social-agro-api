@@ -1,6 +1,6 @@
 import upload from "@/config/upload";
 import { AnimalRepository } from "@/infra/repository/animal/AnimalRepository";
-import { HistoryWeighRepository } from "@/infra/repository/historyWeigh/HistoryWeighRepository";
+import { HistoryWeightRepository } from "@/infra/repository/historyWeight/HistoryWeightRepository";
 import { MilkProductionRepository } from "@/infra/repository/milkProduction/MilkProductionRepository";
 import UserRepository from "@/infra/repository/user/UserRepository";
 import { AddMilkProductionAnimalController } from "@/presetation/controllers/animal/AddMilkProductionAnimalController";
@@ -21,7 +21,7 @@ import { Router } from "express";
 
 const userRepository = new UserRepository();
 const animalRepository = new AnimalRepository();
-const historyWeighRepository = new HistoryWeighRepository();
+const historyWeighRepository = new HistoryWeightRepository();
 
 export const animalRoutes = (router: Router) => {
   router.post("/animal", upload.single("file"), (req, res) => {

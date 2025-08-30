@@ -1,9 +1,9 @@
 import { ControllerInterface } from "@/_shared/interfaces/ControllerInterface";
-import { DeleteAnimalWeighUseCase } from "@/usecase/weigh/delete/DeleteAnimalWeighUseCase";
+import { DeleteAnimalWeightUseCase } from "@/usecase/weight/delete/DeleteAnimalWeightUseCase";
 import { Request, Response, NextFunction } from "express";
 
 export class DeleteAnimalWeighController implements ControllerInterface {
-  constructor(private deleteAnimalWeighUseCase: DeleteAnimalWeighUseCase) {}
+  constructor(private deleteAnimalWeighUseCase: DeleteAnimalWeightUseCase) {}
 
   async handle(
     request: Request,

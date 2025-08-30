@@ -1,6 +1,6 @@
 import { db } from "@/infra/kysely";
 
-export class HistoryWeighRepository {
+export class HistoryWeightRepository {
   async findByAnimalId(animalId: string): Promise<
     {
       id: number | undefined;

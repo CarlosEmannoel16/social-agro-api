@@ -1,9 +1,9 @@
 import { ControllerInterface } from "@/_shared/interfaces/ControllerInterface";
-import { EditAnimalWeighUseCase } from "@/usecase/weigh/edit/EditAnimalWeighUseCase";
+import { EditAnimalWeightUseCase } from "@/usecase/weight/edit/EditAnimalWeightUseCase";
 import { Request, Response, NextFunction } from "express";
 
-export class UpdateAnimalWeighController implements ControllerInterface {
-  constructor(private editAnimalWeighUseCase: EditAnimalWeighUseCase) {}
+export class UpdateAnimalWeightController implements ControllerInterface {
+  constructor(private editAnimalWeightUseCase: EditAnimalWeightUseCase) {}
 
   async handle(
     request: Request,
@@ -14,7 +14,7 @@ export class UpdateAnimalWeighController implements ControllerInterface {
       const { animalId } = request.params;
       const data = request.body;
 
-      await this.editAnimalWeighUseCase.execute(Number(animalId), data);
+      await this.editAnimalWeightUseCase.execute(Number(animalId), data);
       return response.status(204).send();
     } catch (error) {
       next(error);
