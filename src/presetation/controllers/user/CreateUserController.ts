@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import * as yup from "yup";
 import { handlerErrorsController } from "@/presetation/helpers/handlerErrosController";
 import { ValidationError } from "@/_shared/errors/Errors";
@@ -7,7 +7,11 @@ import CreateUserUseCase from "@/usecase/user/create/CreateUseUseCase";
 export class CreateUserController implements ControllerInterface {
   constructor(private readonly createUserUseCase: CreateUserUseCase) {}
 
-  async handle(request: Request, response: Response): Promise<Response> {
+   async handle(
+      request: Request,
+      response: Response,
+      next: NextFunction
+    ): Promise<Response | undefined> {
     try {
       if (!Object.keys(request?.body).length)
         throw new ValidationError("Body is required");
@@ -30,7 +34,7 @@ export class CreateUserController implements ControllerInterface {
       });
       return response.status(201).json(result);
     } catch (error: any) {
-      return response.status(500).json(handlerErrorsController(error));
+      next(error);
     }
   }
 }

@@ -15,13 +15,13 @@ router.post("/auth", (req, res, next) => {
   new AuthenticationController(createUserUseCase).handle(req, res, next);
 });
 
-router.post("/user/register", (req, res) => {
+router.post("/user/register", (req, res, next) => {
   const createUserUseCase = new CreateUserUseCase(
     userRepository,
     new GenerateTokenService(),
     new ValidateUserEmail(userRepository)
   );
-  new CreateUserController(createUserUseCase).handle(req, res);
+  new CreateUserController(createUserUseCase).handle(req, res, next);
 });
 
 export default router;

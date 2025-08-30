@@ -13,15 +13,15 @@ const userRepository = new UserRepository();
 export const userRoutes = (router: Router) => {
   const auth = new UserAuthMiddleware(userRepository).execute;
 
-  router.get("/user/:id", auth, (req, res) => {
+  router.get("/user/:id", auth, (req, res, next) => {
     const findUserUseCase = new FindUserUseCase(userRepository);
-    new FindUserController(findUserUseCase).handle(req, res);
+    new FindUserController(findUserUseCase).handle(req, res, next);
   });
 
 
 
-  router.put("/user", auth, upload.single("file"), (req, res) => {
+  router.put("/user", auth, upload.single("file"), (req, res, next) => {
     const updateUserUseCase = new UpdateUserUseCase(userRepository);
-    new UpdateUserController(updateUserUseCase).handle(req, res);
+    new UpdateUserController(updateUserUseCase).handle(req, res, next);
   });
 };
