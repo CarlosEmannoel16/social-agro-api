@@ -1,4 +1,4 @@
-import { AnimalRepository } from "@/infra/repository/animal/AnimalRepository";
+import { AnimalRepository } from "@/infra/repository/AnimalRepository";
 import { inputUpdateAnimalDto } from "./DTOs";
 import { UpdateAnimalRepositoryDTO } from "@/domain/animal/interfaces/AnimaProtocolRepository";
 

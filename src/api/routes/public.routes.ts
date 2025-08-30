@@ -3,7 +3,7 @@ import { CreateUserController } from "@/presetation/controllers/user/CreateUserC
 import { GenerateTokenService } from "@/domain/user/services/GenerateTokenService";
 import { ValidateUserEmail } from "@/domain/user/services/ValidateUserEmail";
 import CreateUserUseCase from "@/usecase/user/create/CreateUseUseCase";
-import UserRepository from "@/infra/repository/user/UserRepository";
+import UserRepository from "@/infra/repository/UserRepository";
 import { AuthUseCase } from "@/usecase/auth/auth";
 import express from "express";
 const userRepository = new UserRepository();

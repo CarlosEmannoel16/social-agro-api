@@ -6,6 +6,20 @@ export class MilkProduction {
     public price: number
   ) {}
 
+  create(data: {
+    dateOfProduction: Date;
+    quantityOfMilk: number;
+    animalId: string;
+    price: number;
+  }) {
+    return new MilkProduction(
+      data.dateOfProduction,
+      data.quantityOfMilk,
+      data.animalId,
+      data.price
+    );
+  }
+
   get amount() {
     return (this.price / 100) * this.quantityOfMilk;
   }

@@ -1,4 +1,4 @@
-import { HistoryWeightRepository } from "@/infra/repository/historyWeight/HistoryWeightRepository";
+import { HistoryWeightRepository } from "@/infra/repository/HistoryWeightRepository";
 import { InputAddWeigh } from "./Dto";
 
 export class AddWeightAnimalUseCase {

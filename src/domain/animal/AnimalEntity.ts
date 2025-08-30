@@ -1,6 +1,6 @@
 import { AnimalTable, GenderAnimal } from "@/infra/types/Animal";
 import { MilkProduction } from "./valueObjects/MilkProduction";
-import { weightAnimal } from "./valueObjects/WeightAnimal";
+import { WeightAnimal } from "./valueObjects/WeightAnimal";
 import { AnimalDTO } from "./types/AnimalDTO";
 
 export class Animal {
@@ -22,7 +22,7 @@ export class Animal {
     public acquisitionAmount?: number,
     public financiallyAcquired?: Boolean,
     public milkProduction?: MilkProduction[],
-    public weight?: weightAnimal[]
+    public weight?: WeightAnimal[]
   ) {}
 
   static create(data: {
@@ -41,7 +41,7 @@ export class Animal {
     acquisitionAmount?: number;
     financiallyAcquired?: Boolean;
     milkProduction?: MilkProduction[];
-    weight?: weightAnimal[];
+    weight?: WeightAnimal[];
     dateOfUpdate: Date;
     dateOfCreation: Date;
   }) {
@@ -72,7 +72,7 @@ export class Animal {
     data: AnimalTable & {
       images?: string[];
       milkProduction?: MilkProduction[];
-      weight?: weightAnimal[];
+      weight?: WeightAnimal[];
     }
   ) {
     return new Animal(

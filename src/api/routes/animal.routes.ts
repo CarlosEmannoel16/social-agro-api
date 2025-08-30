@@ -1,7 +1,7 @@
 import upload from "@/config/upload";
-import { AnimalRepository } from "@/infra/repository/animal/AnimalRepository";
-import { MilkProductionRepository } from "@/infra/repository/milkProduction/MilkProductionRepository";
-import UserRepository from "@/infra/repository/user/UserRepository";
+import { AnimalRepository } from "@/infra/repository/AnimalRepository";
+import { MilkProductionRepository } from "@/infra/repository/MilkProductionRepository";
+import UserRepository from "@/infra/repository/UserRepository";
 import { AddMilkProductionAnimalController } from "@/presetation/controllers/animal/AddMilkProductionAnimalController";
 import { CreateAnimalController } from "@/presetation/controllers/animal/CreateAnimalController";
 import { DeleteAnimalController } from "@/presetation/controllers/animal/DeleteAnimalController";

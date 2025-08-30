@@ -7,7 +7,7 @@ import {
   UpdateAnimalRepositoryDTO,
 } from "@/domain/animal/interfaces/AnimaProtocolRepository";
 import { MilkProduction } from "@/domain/animal/valueObjects/MilkProduction";
-import { weightAnimal } from "@/domain/animal/valueObjects/WeightAnimal";
+import { WeightAnimal } from "@/domain/animal/valueObjects/WeightAnimal";
 import { db } from "@/infra/kysely";
 import { GenderAnimal } from "@/infra/types/Animal";
 import { GenerateFastId } from "@/usecase/utils/GeneratedFastId";
@@ -257,7 +257,7 @@ export class AnimalRepository implements AnimalRepositoryInterface {
     return Animal.createByDb({
       ...animal,
       weight:
-        weightHistory.map((data) => new weightAnimal(data.weight, data.date)) ??
+        weightHistory.map((data) => new WeightAnimal(data.weight, data.date)) ??
         [],
       milkProduction:
         milkHistory?.map(

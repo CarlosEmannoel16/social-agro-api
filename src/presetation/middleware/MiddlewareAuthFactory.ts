@@ -1,4 +1,4 @@
-import UserRepository from "@/infra/repository/user/UserRepository";
+import UserRepository from "@/infra/repository/UserRepository";
 import { UserAuthMiddleware } from "../../api/middlewares/UserMiddleware";
 
 export const makeMiddlewareAuth = () => {

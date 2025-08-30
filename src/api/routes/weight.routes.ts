@@ -3,7 +3,7 @@ import { DeleteAnimalWeighController } from "@/presetation/controllers/weight/De
 import { UpdateAnimalWeightController } from "@/presetation/controllers/weight/UpdateAnimalWeightController";
 import { AddWeighAnimalController } from "@/presetation/controllers/animal/AddWeighAnimalController";
 import { FindWeighByIdController } from "@/presetation/controllers/weight/FindWeightByIdController";
-import { HistoryWeightRepository } from "@/infra/repository/historyWeight/HistoryWeightRepository";
+import { HistoryWeightRepository } from "@/infra/repository/HistoryWeightRepository";
 import { FindWeightByIdUseCase } from "@/usecase/weight/findById/FindWeightAnimalByIdUseCase";
 import { DeleteAnimalWeightUseCase } from "@/usecase/weight/delete/DeleteAnimalWeightUseCase";
 import { EditAnimalWeightUseCase } from "@/usecase/weight/edit/EditAnimalWeightUseCase";

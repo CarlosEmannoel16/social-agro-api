@@ -1,4 +1,4 @@
-import { MilkPriceRepository } from "@/infra/repository/milkPrice/MilkPriceRepository";
+import { MilkPriceRepository } from "@/infra/repository/MilkPriceRepository";
 
 export class FindMilkPriceUseCase {
   constructor(private readonly milkPriceRepository: MilkPriceRepository) {}

@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import jwt from "jsonwebtoken";
 import { MiddlewareInterface } from "@/_shared/interfaces/MiddlewareInterface";
-import UserRepository from "@/infra/repository/user/UserRepository";
+import UserRepository from "@/infra/repository/UserRepository";
 
 interface JwtPayload {
   id: string;

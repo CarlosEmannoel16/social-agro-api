@@ -7,7 +7,7 @@ import privateRoutes from "./routes/private.routes";
 
 import { ErrorMiddleware } from "./middlewares/ErrorMiddleware";
 import { UserAuthMiddleware } from "./middlewares/UserMiddleware";
-import UserRepository from "@/infra/repository/user/UserRepository";
+import UserRepository from "@/infra/repository/UserRepository";
 
 const app: Express = express();
 app.use(cors());

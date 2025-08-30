@@ -1,7 +1,7 @@
 import express from "express";
 import { InitialDashboardController } from "@/presetation/controllers/dashboard/initialDashboardController";
 import { InitialDashboardUseCase } from "@/usecase/dashboard/InitialDashboardUseCase";
-import { AnimalRepository } from "@/infra/repository/animal/AnimalRepository";
+import { AnimalRepository } from "@/infra/repository/AnimalRepository";
 import { animalRoutes } from "./animal.routes";
 import { weightRoutes } from "./weight.routes";
 import { userRoutes } from "./user.routes";

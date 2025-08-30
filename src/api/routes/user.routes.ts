@@ -2,7 +2,7 @@ import { Router } from "express";
 import { UpdateUserController } from "@/presetation/controllers/user/UpdateUserController";
 import { FindUserController } from "@/presetation/controllers/user/FindUserController";
 import { UpdateUserUseCase } from "@/usecase/user/update/UpdateUseCase";
-import UserRepository from "@/infra/repository/user/UserRepository";
+import UserRepository from "@/infra/repository/UserRepository";
 import { UserAuthMiddleware } from "../middlewares/UserMiddleware";
 import FindUserUseCase from "@/usecase/user/find/FindUserUsecase";
 import upload from "../../config/upload";
