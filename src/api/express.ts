@@ -4,7 +4,7 @@ import swaggerJsDoc from "swagger-jsdoc";
 import cors from "cors";
 import publicRoutes from "./routes/public.routes";
 import privateRoutes from "./routes/private.routes";
-
+import morgan from "morgan";
 import { ErrorMiddleware } from "./middlewares/ErrorMiddleware";
 import { UserAuthMiddleware } from "./middlewares/UserMiddleware";
 import UserRepository from "@/infra/repository/UserRepository";
@@ -13,10 +13,8 @@ const app: Express = express();
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use((req, res, next) => {
-  console.log(req.method, req.path, req.body);
-  next();
-});
+
+app.use(morgan("dev"));
 app.use("/images", express.static(__dirname + "/../uploads"));
 
 const specs = swaggerJsDoc({

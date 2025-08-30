@@ -18,8 +18,6 @@ export class UserAuthMiddleware implements MiddlewareInterface {
 
     const bearer = req.headers.authorization;
     if (!bearer) {
-      console.log("Not authorized. Token not found");
-
       return res
         .status(401)
         .json({ message: "Not authorized. Token not found" });
@@ -45,8 +43,7 @@ export class UserAuthMiddleware implements MiddlewareInterface {
       req.headers["userId"] = user.id;
       next();
     } catch (err) {
-      console.log('------',err);
-      return res.status(401).json({ message: "Not authorized. Invalid token" });
+      next(err);
     }
   };
 }

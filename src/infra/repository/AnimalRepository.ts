@@ -291,7 +291,6 @@ export class AnimalRepository implements AnimalRepositoryInterface {
     params: InputFindWithParamsRepository,
     userId: string
   ): Promise<Animal[] | undefined> {
-    console.log("Searching animals with params:", params, userId);
     const animals = await db
       .selectFrom("animal")
       .selectAll()
@@ -331,7 +330,6 @@ export class AnimalRepository implements AnimalRepositoryInterface {
 
   async update(input: UpdateAnimalRepositoryDTO): Promise<void> {
 
-    console.log("Updating animal:", input);
     let qb = db.updateTable("animal");
 
     if (input.surname) qb = qb.set("surname", input.surname);

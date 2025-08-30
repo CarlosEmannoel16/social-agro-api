@@ -45,7 +45,6 @@ export class Animal {
     dateOfUpdate: Date;
     dateOfCreation: Date;
   }) {
-    console.log("Creating animal:", data.id);
     return new Animal(
       data.id,
       data.fastId,
