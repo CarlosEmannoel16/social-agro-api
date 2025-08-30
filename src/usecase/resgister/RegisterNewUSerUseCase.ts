@@ -1,6 +1,6 @@
 import { UserRepositoryInterface } from "@/domain/user/interfaces/UserRepositoryInterface";
 
-export type InputRegisterNewUserUseCase = {
+export interface InputRegisterNewUserUseCase {
   email: string;
   name: string;
   password: string;

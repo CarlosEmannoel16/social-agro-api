@@ -1,5 +1,4 @@
 import { ControllerInterface } from "@/_shared/interfaces/ControllerInterface";
-import { CreateMilkPriceUseCase } from "@/usecase/milkPrice/CreateMilkPriceUseCase";
 import { FindMilkPriceUseCase } from "@/usecase/milkPrice/FindMilkPriceUseCase";
 import { NextFunction, Request, Response } from "express";
 

@@ -1,14 +1,12 @@
 import { NextFunction, Request, Response } from "express";
 import jwt from "jsonwebtoken";
-import { MiddlewareInterface } from "@/_shared/interfaces/MiddlewareInterface";
 import UserRepository from "@/infra/repository/UserRepository";
 
 interface JwtPayload {
   id: string;
 }
 
-export class UserAuthMiddleware implements MiddlewareInterface {
-  constructor(private readonly userRepository: UserRepository) {}
+export class UserAuthMiddleware {
 
   public execute = async (req: Request, res: Response, next: NextFunction) => {
     const privateKey = "eee88@09955%$#/";

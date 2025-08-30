@@ -1,21 +1,18 @@
-import { NextFunction, Request, Response } from "express";
-import { ParamsDictionary } from "express-serve-static-core";
-import { ParsedQs } from "qs";
-import * as yup from "yup";
-import { handlerErrorsController } from "@/presetation/helpers/handlerErrosController";
-import { ValidationError } from "@/_shared/errors/Errors";
-import { ControllerInterface } from "@/_shared/interfaces/ControllerInterface";
-import { AuthUseCase } from "@/usecase/auth/auth";
+import { NextFunction, Request, Response } from 'express';
+import * as yup from 'yup';
+import { ValidationError } from '@/_shared/errors/Errors';
+import { ControllerInterface } from '@/_shared/interfaces/ControllerInterface';
+import { AuthUseCase } from '@/usecase/auth/auth';
 export class AuthenticationController implements ControllerInterface {
   constructor(private readonly authenticationUseCase: AuthUseCase) {}
   async handle(
-    request: Request<ParamsDictionary, any, any, ParsedQs, Record<string, any>>,
-    response: Response<any, Record<string, any>>,
-    next: NextFunction
-  ) {
+    request: Request,
+    response: Response,
+    next: NextFunction,
+  ): Promise<Response | undefined> {
     try {
       if (!Object.keys(request?.body).length)
-        throw new ValidationError("Body is required");
+        throw new ValidationError('Body is required');
       yup
         .object()
         .shape({
@@ -31,7 +28,7 @@ export class AuthenticationController implements ControllerInterface {
         password,
       });
       return response.status(200).json(result);
-    } catch (error: any) {
+    } catch (error) {
       next(error);
     }
   }

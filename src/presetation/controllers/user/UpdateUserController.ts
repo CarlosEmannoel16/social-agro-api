@@ -1,6 +1,4 @@
 import { NextFunction, Request, Response } from "express";
-import * as yup from "yup";
-import { handlerErrorsController } from "@/presetation/helpers/handlerErrosController";
 import { ValidationError } from "@/_shared/errors/Errors";
 import { ControllerInterface } from "@/_shared/interfaces/ControllerInterface";
 import { UpdateUserUseCase } from "@/usecase/user/update/UpdateUseCase";
@@ -23,7 +21,7 @@ export class UpdateUserController implements ControllerInterface {
         id: request.headers["userId"] as string,
       });
       return response.status(201).json(result);
-    } catch (error: any) {
+    } catch (error) {
       next(error);
     }
   }

@@ -1,17 +1,18 @@
 import {
   InputCreateUserRepository,
+  OutputCreateUserRepository,
   UserRepositoryInterface,
-} from "@/domain/user/interfaces/UserRepositoryInterface";
-import { User } from "@/domain/user/UserEntity";
-import { db } from "@/infra/kysely";
-import { v4 } from "uuid";
+} from '@/domain/user/interfaces/UserRepositoryInterface';
+import { User } from '@/domain/user/UserEntity';
+import { db } from '@/infra/kysely';
+import { v4 } from 'uuid';
 
 export default class UserRepository implements UserRepositoryInterface {
   async checkIfExistsByEmail(email: string): Promise<boolean> {
     const result = await db
-      .selectFrom("user")
-      .select("id")
-      .where("email", "=", email)
+      .selectFrom('user')
+      .select('id')
+      .where('email', '=', email)
       .executeTakeFirst();
 
     return !!result;
@@ -19,19 +20,19 @@ export default class UserRepository implements UserRepositoryInterface {
 
   async addImage(imageUrl: string, userId: string): Promise<void> {
     await db
-      .updateTable("user")
+      .updateTable('user')
       .set({
         profile_url: imageUrl,
       })
-      .where("id", "=", userId)
+      .where('id', '=', userId)
       .execute();
   }
 
   async findByEmail(email: string): Promise<User | undefined> {
     const result = await db
-      .selectFrom("user")
+      .selectFrom('user')
       .selectAll()
-      .where("email", "=", email)
+      .where('email', '=', email)
       .executeTakeFirst();
 
     if (!result) return undefined;
@@ -46,11 +47,13 @@ export default class UserRepository implements UserRepositoryInterface {
     return user;
   }
 
-  async create(item: InputCreateUserRepository): Promise<any> {
+  async create(
+    item: InputCreateUserRepository,
+  ): Promise<OutputCreateUserRepository> {
     const currentDate = new Date();
     const id = v4();
     const data = await db
-      .insertInto("user")
+      .insertInto('user')
       .values({
         id,
         email: item.email,
@@ -71,26 +74,26 @@ export default class UserRepository implements UserRepositoryInterface {
     id: string;
   }): Promise<void> {
     await db
-      .updateTable("user")
+      .updateTable('user')
       .set({
         email: item.email,
         profile_url: item.profileImage,
         name: item.name,
         updated_at: new Date(),
       })
-      .where("id", "=", item.id)
+      .where('id', '=', item.id)
       .execute();
   }
 
   async find(id: string): Promise<User> {
     const data = await db
-      .selectFrom("user")
+      .selectFrom('user')
       .selectAll()
-      .where("id", "=", id)
+      .where('id', '=', id)
       .executeTakeFirst();
 
     if (!data) {
-      throw new Error("User not found");
+      throw new Error('User not found');
     }
 
     const user = User.create({
@@ -107,9 +110,9 @@ export default class UserRepository implements UserRepositoryInterface {
 
   async findByName(name: string): Promise<User[]> {
     const result = await db
-      .selectFrom("user")
+      .selectFrom('user')
       .selectAll()
-      .where("name", "=", name)
+      .where('name', '=', name)
       .execute();
 
     return result.map((data) =>
@@ -119,7 +122,7 @@ export default class UserRepository implements UserRepositoryInterface {
         name: data.name,
         password: data.password,
         dateOfBirth: data.date_of_birth,
-      })
+      }),
     );
   }
 }

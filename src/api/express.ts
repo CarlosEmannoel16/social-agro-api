@@ -7,7 +7,6 @@ import privateRoutes from "./routes/private.routes";
 import morgan from "morgan";
 import { ErrorMiddleware } from "./middlewares/ErrorMiddleware";
 import { UserAuthMiddleware } from "./middlewares/UserMiddleware";
-import UserRepository from "@/infra/repository/UserRepository";
 
 const app: Express = express();
 app.use(cors());
@@ -29,7 +28,7 @@ const specs = swaggerJsDoc({
 });
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));
 
-const auth = new UserAuthMiddleware(new UserRepository()).execute;
+const auth = new UserAuthMiddleware().execute;
 
 app.use(publicRoutes);
 app.use(auth, privateRoutes);

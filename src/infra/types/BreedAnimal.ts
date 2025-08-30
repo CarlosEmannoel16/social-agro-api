@@ -1,4 +1,4 @@
-export type BreedAnimal = {
+export interface BreedAnimal {
   id: string;
   animal_id: string;
   mother_id: string;

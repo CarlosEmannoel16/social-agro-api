@@ -1,15 +1,17 @@
 import {
   addDailyMilkProductionParams,
   MilkRepositoryInterface,
-} from "@/domain/animal/interfaces/MilkProductionRepository";
-import { MilkProduction } from "@/domain/animal/valueObjects/MilkProduction";
-import { db } from "@/infra/kysely";
+} from '@/domain/animal/interfaces/MilkProductionRepository';
+import { MilkProduction } from '@/domain/animal/valueObjects/MilkProduction';
+import { db } from '@/infra/kysely';
 
 export class MilkProductionRepository implements MilkRepositoryInterface {
-  addDailyMilkProduction(data: addDailyMilkProductionParams): Promise<any> {
-    return Promise.all([
+  async addDailyMilkProduction(
+    data: addDailyMilkProductionParams,
+  ): Promise<void> {
+    await Promise.all([
       db
-        .insertInto("milk_production")
+        .insertInto('milk_production')
         .values({
           animal_id: data.idAnimal,
           date: data.date,
@@ -20,22 +22,20 @@ export class MilkProductionRepository implements MilkRepositoryInterface {
       db
         .updateTable(`animal`)
         .set(`last_production_date`, data.date)
-        .where(`id`, `=`, data.idAnimal).execute()
+        .where(`id`, `=`, data.idAnimal)
+        .execute(),
     ]);
   }
   async findDailyMilkProduction(
-    idAnimal: string
-  ): Promise<MilkProduction[] | undefined> {
-    const result = await db.selectFrom("milk_production").selectAll().execute();
-    return result.map(
-      (data) => new MilkProduction(data.date, data.quantity, data.animal_id, 1)
-    );
-  }
-  findDailyMilkProductionByDate(
     idAnimal: string,
-    startDate: Date,
-    endDate: Date
   ): Promise<MilkProduction[] | undefined> {
-    throw new Error("Method not implemented.");
+    const result = await db
+      .selectFrom('milk_production')
+      .selectAll()
+      .where('animal_id', '=', idAnimal)
+      .execute();
+    return result.map(
+      (data) => new MilkProduction(data.date, data.quantity, data.animal_id, 1),
+    );
   }
 }

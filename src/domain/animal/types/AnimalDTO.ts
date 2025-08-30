@@ -1,4 +1,4 @@
-import { GenderAnimal } from "@/infra/types/Animal";
+import { GenderAnimal } from '@/infra/types/Animal';
 
 export interface AnimalDTO {
   id: string;
@@ -15,8 +15,12 @@ export interface AnimalDTO {
   lastProductionDate: Date | undefined;
   dateOfAcquisition: Date | undefined;
   acquisitionAmount: number | undefined;
-  financiallyAcquired: Boolean | undefined;
-  historyMilkProduction: any[];
+  financiallyAcquired: boolean | undefined;
+  historyMilkProduction: {
+    dateOfRegister: string;
+    quantity: number;
+    amount: string;
+  }[];
   weightHistory: {
     weight: number;
     dateOfRegister: string;

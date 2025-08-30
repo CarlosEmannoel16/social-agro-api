@@ -1,23 +1,22 @@
-import { Note } from "@/domain/expenses/entity/Note";
-import { GenderAnimal } from "@/infra/types/Animal";
-import { Animal } from "../AnimalEntity";
+import { GenderAnimal } from '@/infra/types/Animal';
+import { Animal } from '../AnimalEntity';
 
-export type addWeightParams = {
+export interface addWeightParams {
   idAnimal: string;
   weight: number;
   date: Date;
-};
+}
 
-export type InputFindWithParamsRepository = {
+export interface InputFindWithParamsRepository {
   surname: string;
   fastId?: string;
-};
+}
 
-export type InputFindParamsRepository = {
+export interface InputFindParamsRepository {
   animalId: string;
-};
+}
 
-export type CreateAnimalRepositoryDTO = {
+export interface CreateAnimalRepositoryDTO {
   surname: string;
   gender: GenderAnimal;
   userId: string;
@@ -33,9 +32,9 @@ export type CreateAnimalRepositoryDTO = {
   fatherId?: string;
   motherId?: string;
   acquisitionAmount?: number;
-};
+}
 
-export type UpdateAnimalRepositoryDTO = {
+export interface UpdateAnimalRepositoryDTO {
   surname?: string;
   gender?: GenderAnimal;
   userId: string;
@@ -50,13 +49,37 @@ export type UpdateAnimalRepositoryDTO = {
   fatherId?: string;
   motherId?: string;
   acquisitionAmount?: number;
-};
+}
+
+export interface GetInitialDashboardValuesOutput {
+  totalLiters: number;
+  totalValueReais: number;
+}
+
+export interface GetMilkProductionRankingOutput {
+  id: string;
+  surname: string;
+  totalProduction: number;
+}
+
+export interface GetMilkProductionRankingByBreedOutput {
+  breed: string | undefined;
+  totalProduction: number;
+}
+
+export interface GetLastWeekMilkProductionByDayOutput {
+  dayName: string;
+  dayNumber: number;
+  date: string;
+  totalLiters: number;
+  totalValueReais: number;
+}
 
 export interface AnimalRepositoryInterface {
   addImage(animalId: string, imageUrl: string, userId: string): Promise<void>;
   findWithParams(
     params: InputFindWithParamsRepository,
-    userId: string
+    userId: string,
   ): Promise<Animal[] | undefined>;
   find(animalId: string): Promise<Animal | undefined>;
   findByID(id: string, userId: string): Promise<Animal | undefined>;
@@ -65,8 +88,14 @@ export interface AnimalRepositoryInterface {
   create(input: CreateAnimalRepositoryDTO): Promise<void>;
   update(input: UpdateAnimalRepositoryDTO): Promise<void>;
   delete(animalId: string): Promise<void>;
-  getInitialDashboardValues(userId: string): Promise<any>;
-  getLastWeekMilkProductionByDay(userId: string): Promise<any>;
-  getMilkProductionRanking(userId: string): Promise<any>;
-  getMilkProductionRankingByBreed(userId: string): Promise<any>;
+  getInitialDashboardValues(
+    userId: string,
+  ): Promise<GetInitialDashboardValuesOutput>;
+  getLastWeekMilkProductionByDay(userId: string): Promise<GetLastWeekMilkProductionByDayOutput[]>;
+  getMilkProductionRanking(
+    userId: string,
+  ): Promise<GetMilkProductionRankingOutput[]>;
+  getMilkProductionRankingByBreed(
+    userId: string,
+  ): Promise<GetMilkProductionRankingByBreedOutput[]>;
 }

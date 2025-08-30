@@ -1,9 +1,6 @@
 import { NextFunction, Request, Response } from "express";
-import { ParamsDictionary } from "express-serve-static-core";
-import { ParsedQs } from "qs";
 import * as yup from "yup";
 import { ValidationError } from "@/_shared/errors/Errors";
-import { handlerErrorsController } from "@/presetation/helpers/handlerErrosController";
 import { ControllerInterface } from "@/_shared/interfaces/ControllerInterface";
 import { CreateAnimalUseCase } from "@/usecase/animal/create/CreateAnimalUseCase";
 export class CreateAnimalController implements ControllerInterface {

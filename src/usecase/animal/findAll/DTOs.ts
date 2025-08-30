@@ -16,6 +16,6 @@ export interface OutputFindAllAnimalDTO {
     dateOfRegister: string;
     quantity: number;
   }[];
-  lasProductionDate?: Date
+  lastProductionDate?: Date
 }
-[];
+

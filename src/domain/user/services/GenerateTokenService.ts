@@ -4,7 +4,7 @@ export interface IGenerateTokenService {
   execute(data: GenerateTokenServiceDTO): string;
 }
 
-export type GenerateTokenServiceDTO = {
+export interface GenerateTokenServiceDTO  {
   id: string;
 };
 

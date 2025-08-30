@@ -1,4 +1,4 @@
-import { db } from "@/infra/kysely";
+import { db } from '@/infra/kysely';
 
 export class HistoryWeightRepository {
   async findByAnimalId(animalId: string): Promise<
@@ -12,10 +12,10 @@ export class HistoryWeightRepository {
     }[]
   > {
     return db
-      .selectFrom("weight_history")
+      .selectFrom('weight_history')
       .selectAll()
-      .where("animal_id", "=", animalId)
-      .orderBy("date", "asc")
+      .where('animal_id', '=', animalId)
+      .orderBy('date', 'asc')
       .execute();
   }
 
@@ -28,17 +28,21 @@ export class HistoryWeightRepository {
     updated_at: Date | undefined;
   } | null> {
     const result = await db
-      .selectFrom("weight_history")
+      .selectFrom('weight_history')
       .selectAll()
-      .where("id", "=", id)
+      .where('id', '=', id)
       .execute();
 
     return result[0] || null;
   }
 
-  async create(data: any): Promise<void> {
+  async create(data: {
+    animalId: string;
+    weight: number;
+    date: Date;
+  }): Promise<void> {
     await db
-      .insertInto("weight_history")
+      .insertInto('weight_history')
       .values({
         animal_id: data.animalId,
         date: data.date,
@@ -52,19 +56,19 @@ export class HistoryWeightRepository {
     data: {
       date: Date;
       weight: number;
-    }
+    },
   ): Promise<void> {
     await db
-      .updateTable("weight_history")
+      .updateTable('weight_history')
       .set({
         date: data.date,
         weight: data.weight,
       })
-      .where("id", "=", id)
+      .where('id', '=', id)
       .execute();
   }
 
   async delete(id: number): Promise<void> {
-    await db.deleteFrom("weight_history").where("id", "=", id).execute();
+    await db.deleteFrom('weight_history').where('id', '=', id).execute();
   }
 }

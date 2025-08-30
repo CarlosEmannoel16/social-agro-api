@@ -1,7 +1,7 @@
-import { AnimalTable, GenderAnimal } from "@/infra/types/Animal";
-import { MilkProduction } from "./valueObjects/MilkProduction";
-import { WeightAnimal } from "./valueObjects/WeightAnimal";
-import { AnimalDTO } from "./types/AnimalDTO";
+import { AnimalTable, GenderAnimal } from '@/infra/types/Animal';
+import { MilkProduction } from './valueObjects/MilkProduction';
+import { WeightAnimal } from './valueObjects/WeightAnimal';
+import { AnimalDTO } from './types/AnimalDTO';
 
 export class Animal {
   constructor(
@@ -20,9 +20,9 @@ export class Animal {
     public lastProductionDate?: Date,
     public dateOfAcquisition?: Date,
     public acquisitionAmount?: number,
-    public financiallyAcquired?: Boolean,
+    public financiallyAcquired?: boolean,
     public milkProduction?: MilkProduction[],
-    public weight?: WeightAnimal[]
+    public weight?: WeightAnimal[],
   ) {}
 
   static create(data: {
@@ -39,7 +39,7 @@ export class Animal {
     lastProductionDate?: Date;
     dateOfAcquisition?: Date;
     acquisitionAmount?: number;
-    financiallyAcquired?: Boolean;
+    financiallyAcquired?: boolean;
     milkProduction?: MilkProduction[];
     weight?: WeightAnimal[];
     dateOfUpdate: Date;
@@ -63,7 +63,7 @@ export class Animal {
       data.acquisitionAmount,
       data.financiallyAcquired,
       data.milkProduction,
-      data.weight
+      data.weight,
     );
   }
 
@@ -72,15 +72,15 @@ export class Animal {
       images?: string[];
       milkProduction?: MilkProduction[];
       weight?: WeightAnimal[];
-    }
+    },
   ) {
     return new Animal(
       data.id,
-      data.fast_id ?? "",
+      data.fast_id ?? '',
       data.user_id,
       data.surname,
       data.gender,
-      data.breed ?? "Generic",
+      data.breed ?? 'Generic',
       data.updated_at ?? new Date(),
       data.created_at ?? new Date(),
       data.date_of_birth,
@@ -92,7 +92,7 @@ export class Animal {
       data.acquisition_amount,
       data.financially_acquired,
       data.milkProduction,
-      data.weight
+      data.weight,
     );
   }
 
@@ -112,7 +112,7 @@ export class Animal {
       yearOfLife: this.ageAnimal,
       dateOfAcquisition: this.dateOfAcquisition,
       acquisitionAmount: this.acquisitionAmount,
-      financiallyAcquired: this.financiallyAcquired,
+      financiallyAcquired: Boolean(this.financiallyAcquired),
       historyMilkProduction: this.milkProductionsFormatted,
       weightHistory: this.weightFormatted,
       dateOfUpdate: this.dateOfUpdate,
@@ -133,7 +133,7 @@ export class Animal {
   }
 
   get ageAnimal(): string {
-    if (!this.dateOfBirth) return "";
+    if (!this.dateOfBirth) return '';
     const now = new Date();
     const birth = new Date(this.dateOfBirth);
     let months =
@@ -159,7 +159,11 @@ export class Animal {
     );
   }
 
-  get milkProductionsFormatted(): any[] {
+  get milkProductionsFormatted(): {
+    dateOfRegister: string;
+    quantity: number;
+    amount: string;
+  }[] {
     return (
       this.milkProduction?.map((milk) => ({
         dateOfRegister: milk.dateOfProduction.toLocaleDateString(),

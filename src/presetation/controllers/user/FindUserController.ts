@@ -1,15 +1,13 @@
-import { NextFunction, Request, Response } from "express";
-import { ParamsDictionary } from "express-serve-static-core";
-import { ParsedQs } from "qs";
-import { ControllerInterface } from "@/_shared/interfaces/ControllerInterface";
-import FindUserUseCase from "@/usecase/user/find/FindUserUsecase";
+import { NextFunction, Request, Response } from 'express';
+import { ControllerInterface } from '@/_shared/interfaces/ControllerInterface';
+import FindUserUseCase from '@/usecase/user/find/FindUserUsecase';
 
 export class FindUserController implements ControllerInterface {
   constructor(private readonly findUserUseCase: FindUserUseCase) {}
   async handle(
     request: Request,
     response: Response,
-    next: NextFunction
+    next: NextFunction,
   ): Promise<Response | undefined> {
     try {
       const result = await this.findUserUseCase.execute({

@@ -1,7 +1,12 @@
-import * as yup from "yup";
+import * as yup from 'yup';
 
 export class AddMilkProductionUseCaseValidation {
-  validate(input: any): void {
+  validate(input: {
+    animalId: string;
+    userId: string;
+    dateOfProduction: Date;
+    quantityOfMilk: number;
+  }): void {
     yup
       .object()
       .shape({

@@ -1,6 +1,6 @@
 import { MilkPriceTable } from "./MilkPrice";
 
-export type MilkProductionHistoryTable = {
+export interface MilkProductionHistoryTable {
   id?: number;
   quantity: number;
   animal_id: string;

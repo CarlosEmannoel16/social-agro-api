@@ -1,4 +1,4 @@
-export type WeighingHistoryTable = {
+export interface WeighingHistoryTable  {
   id?: number;
   animal_id: string;
   weight: number;

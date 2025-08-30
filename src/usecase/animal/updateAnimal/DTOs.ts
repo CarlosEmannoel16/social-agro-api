@@ -1,6 +1,6 @@
-import { GenderAnimal } from "@/infra/types/Animal";
+import { GenderAnimal } from '@/infra/types/Animal';
 
-export type inputUpdateAnimalDto = {
+export interface inputUpdateAnimalDto {
   surname?: string;
   gender?: GenderAnimal;
   userId?: string;
@@ -8,4 +8,4 @@ export type inputUpdateAnimalDto = {
   dateOfBirth?: Date;
   acquisitionDate?: Date;
   id: string;
-};
+}

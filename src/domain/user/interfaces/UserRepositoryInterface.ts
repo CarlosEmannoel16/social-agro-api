@@ -1,11 +1,21 @@
-import { User } from "../UserEntity";
+import { User } from '../UserEntity';
 
-export type InputCreateUserRepository = {
+export interface InputCreateUserRepository {
   name: string;
   email: string;
   password: string;
   confirmPassword: string;
-};
+}
+export interface OutputCreateUserRepository {
+    password: string;
+    id: string;
+    name: string;
+    date_of_birth: Date | undefined;
+    email: string;
+    profile_url: string | undefined;
+    updated_at: Date;
+    created_at: Date;
+  }
 export interface UserRepositoryInterface {
   findByEmail(email: string): Promise<User | undefined>;
   find(id: string): Promise<User | undefined>;
@@ -18,14 +28,5 @@ export interface UserRepositoryInterface {
     profileImage?: string;
     id: string;
   }): Promise<void>;
-  create(data: InputCreateUserRepository): Promise<{
-    password: string;
-    id: string;
-    name: string;
-    date_of_birth: Date | undefined;
-    email: string;
-    profile_url: string | undefined;
-    updated_at: Date;
-    created_at: Date;
-  }>;
+  create(data: InputCreateUserRepository): Promise<OutputCreateUserRepository>;
 }

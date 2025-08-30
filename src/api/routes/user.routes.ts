@@ -11,7 +11,7 @@ import upload from "../../config/upload";
 const userRepository = new UserRepository();
 
 export const userRoutes = (router: Router) => {
-  const auth = new UserAuthMiddleware(userRepository).execute;
+  const auth = new UserAuthMiddleware().execute;
 
   router.get("/user/:id", auth, (req, res, next) => {
     const findUserUseCase = new FindUserUseCase(userRepository);

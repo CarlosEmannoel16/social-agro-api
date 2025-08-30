@@ -1,6 +1,5 @@
 import { ControllerInterface } from "@/_shared/interfaces/ControllerInterface";
 import { DeleteAnimalUseCase } from "@/usecase/animal/delete/DeleteAnimalUseCase";
-import { UpdateAnimalUseCase } from "@/usecase/animal/updateAnimal/UpdateAnimalUseCase";
 import { NextFunction, Request, Response } from "express";
 
 export class DeleteAnimalController implements ControllerInterface {
