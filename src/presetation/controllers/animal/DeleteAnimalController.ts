@@ -12,12 +12,12 @@ export class DeleteAnimalController implements ControllerInterface {
     next: NextFunction
   ): Promise<Response | undefined> {
     try {
-      const userId = request.headers["userId"] as string
+      const userId = request.headers["userId"] as string;
       const id = request.params.id;
 
       await this.deleteAnimalUseCase.handle({
         id,
-        userId
+        userId,
       });
       return response.status(200).json();
     } catch (error) {

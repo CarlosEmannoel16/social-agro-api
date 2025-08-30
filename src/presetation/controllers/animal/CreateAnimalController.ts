@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import { ParamsDictionary } from "express-serve-static-core";
 import { ParsedQs } from "qs";
 import * as yup from "yup";
@@ -10,9 +10,10 @@ export class CreateAnimalController implements ControllerInterface {
   constructor(private readonly createAnimalUseCase: CreateAnimalUseCase) {}
 
   async handle(
-    request: Request<ParamsDictionary, any, any, ParsedQs, Record<string, any>>,
-    response: Response<any, Record<string, any>>
-  ): Promise<Response<any, Record<string, any>>> {
+    request: Request,
+    response: Response,
+    next: NextFunction
+  ): Promise<Response | undefined> {
     try {
       if (!Object.keys(request.body).length)
         throw new ValidationError("Body is empty");
@@ -56,8 +57,7 @@ export class CreateAnimalController implements ControllerInterface {
         json: () => response.json(result),
       });
     } catch (error) {
-      console.log(error);
-      return response.status(500).json(handlerErrorsController(error as Error));
+      next(error);
     }
   }
 }

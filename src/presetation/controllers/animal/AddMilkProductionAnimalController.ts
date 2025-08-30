@@ -1,6 +1,5 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import { AddMilkProductionUseCase } from "@/usecase/animal/addMilkProduction/AddMilkProductionUseCase";
-import { handlerErrorsController } from "@/presetation/helpers/handlerErrosController";
 import { ControllerInterface } from "@/_shared/interfaces/ControllerInterface";
 
 export class AddMilkProductionAnimalController implements ControllerInterface {
@@ -8,7 +7,11 @@ export class AddMilkProductionAnimalController implements ControllerInterface {
     private readonly addMilkProductionUseCase: AddMilkProductionUseCase
   ) {}
 
-  async handle(request: Request, response: Response): Promise<Response> {
+  async handle(
+    request: Request,
+    response: Response,
+    next: NextFunction
+  ): Promise<Response | undefined> {
     try {
       const userId = request.headers["userId"] as string;
 
@@ -22,8 +25,7 @@ export class AddMilkProductionAnimalController implements ControllerInterface {
 
       return response.status(201).send();
     } catch (error) {
-      console.log(error);
-      return response.status(500).json(handlerErrorsController(error as Error));
+      next(error);
     }
   }
 }

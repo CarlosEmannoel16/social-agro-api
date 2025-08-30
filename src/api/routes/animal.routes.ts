@@ -1,6 +1,5 @@
 import upload from "@/config/upload";
 import { AnimalRepository } from "@/infra/repository/animal/AnimalRepository";
-import { HistoryWeightRepository } from "@/infra/repository/historyWeight/HistoryWeightRepository";
 import { MilkProductionRepository } from "@/infra/repository/milkProduction/MilkProductionRepository";
 import UserRepository from "@/infra/repository/user/UserRepository";
 import { AddMilkProductionAnimalController } from "@/presetation/controllers/animal/AddMilkProductionAnimalController";
@@ -21,37 +20,35 @@ import { Router } from "express";
 
 const userRepository = new UserRepository();
 const animalRepository = new AnimalRepository();
-const historyWeighRepository = new HistoryWeightRepository();
 
 export const animalRoutes = (router: Router) => {
-  router.post("/animal", upload.single("file"), (req, res) => {
+  router.post("/animal", upload.single("file"), (req, res, next) => {
     const createAnimalUseCase = new CreateAnimalUseCase(
       animalRepository,
       userRepository
     );
-    new CreateAnimalController(createAnimalUseCase).handle(req, res);
+    new CreateAnimalController(createAnimalUseCase).handle(req, res, next);
   });
 
-  router.get("/animal/all", (req, res) => {
+  router.get("/animal/all", (req, res, next) => {
     new FindAllAnimalsController(
       new FindAllAnimalsUseCase(animalRepository)
-    ).handle(req, res);
+    ).handle(req, res, next);
   });
 
-  router.get("/animal/:id", (req, res) => {
+  router.get("/animal/:id", (req, res, next) => {
     new FindAnimalController(new FindAnimalUseCase(animalRepository)).handle(
       req,
-      res
+      res,
+      next
     );
   });
 
-  router.get("/animal/search/:params", (req, res) => {
+  router.get("/animal/search/:params", (req, res, next) => {
     new SearchAnimalController(
       new SearchAnimalUseCase(animalRepository)
-    ).handle(req, res);
+    ).handle(req, res, next);
   });
-
-  
 
   router.put("/animal", upload.single("file"), (req, res, next) => {
     return new UpdateAnimalController(
@@ -65,12 +62,12 @@ export const animalRoutes = (router: Router) => {
     ).handle(req, res, next);
   });
 
-  router.post("/animal/milk/add", (req, res) => {
+  router.post("/animal/milk/add", (req, res, next) => {
     return new AddMilkProductionAnimalController(
       new AddMilkProductionUseCase(
         animalRepository,
         new MilkProductionRepository()
       )
-    ).handle(req, res);
+    ).handle(req, res, next);
   });
 };

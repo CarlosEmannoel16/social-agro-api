@@ -15,7 +15,6 @@ export class UpdateAnimalController implements ControllerInterface {
 
       const image = `${file?.filename}`;
 
-
       await this.updateAnimalUseCase.execute({ ...request.body, image });
       return response.status(200).json();
     } catch (error) {

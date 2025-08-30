@@ -14,8 +14,7 @@ export class AddWeighAnimalController implements ControllerInterface {
       await this.addWeighAnimalUseCase.execute({ animalId, date, weight });
       return response.status(201).send();
     } catch (error) {
-      console.error("Error adding weight:", error);
-      return response.status(500).send();
+     next(error);
     }
   }
 }

@@ -1,10 +1,14 @@
 import { ControllerInterface } from "@/_shared/interfaces/ControllerInterface";
 import { FindAllAnimalsUseCase } from "@/usecase/animal/findAll/FindAllAnimalsUseCase";
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 
 export class FindAllAnimalsController implements ControllerInterface {
   constructor(private readonly findAllAnimalsUseCase: FindAllAnimalsUseCase) {}
-  async handle(request: Request, response: Response): Promise<Response> {
+  async handle(
+    request: Request,
+    response: Response,
+    next: NextFunction
+  ): Promise<Response | undefined> {
     try {
       if (!request.headers["userId"])
         throw new Error("Id do usuário não informado");
@@ -13,10 +17,7 @@ export class FindAllAnimalsController implements ControllerInterface {
       );
       return response.status(200).json(result);
     } catch (error) {
-      console.log(error);
-      return response
-        .status(500)
-        .json({ error: "Erro ao tentar buscar todos os animal" });
+      next(error);
     }
   }
 }
