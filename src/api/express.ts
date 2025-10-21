@@ -8,12 +8,12 @@ import morgan from "morgan";
 import { ErrorMiddleware } from "./middlewares/ErrorMiddleware";
 import { UserAuthMiddleware } from "./middlewares/UserMiddleware";
 
-const app: Express = express();
+const app: Express = express(); 
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use(morgan("dev"));
+app.use(morgan("short"));
 app.use("/images", express.static(__dirname + "/../uploads"));
 
 const specs = swaggerJsDoc({

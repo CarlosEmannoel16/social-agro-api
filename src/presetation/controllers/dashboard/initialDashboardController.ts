@@ -16,6 +16,8 @@ export class InitialDashboardController implements ControllerInterface {
         request.headers["userId"] as string
       );
 
+
+      console.log(data);
       return response.status(200).json(data);
     } catch (error) {
       next(error);
