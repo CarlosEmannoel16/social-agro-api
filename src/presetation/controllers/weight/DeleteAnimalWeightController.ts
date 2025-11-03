@@ -11,8 +11,8 @@ export class DeleteAnimalWeighController implements ControllerInterface {
     next: NextFunction
   ): Promise<Response | undefined> {
     try {
-      const { animalId } = request.params;
-      await this.deleteAnimalWeighUseCase.execute(Number(animalId));
+      const { id } = request.params;
+      await this.deleteAnimalWeighUseCase.execute(Number(id));
       return response.status(204).send();
     } catch (error) {
       next(error);

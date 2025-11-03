@@ -32,7 +32,6 @@ export class UserAuthMiddleware {
       const decoded = jwt.verify(token, privateKey) as JwtPayload;
       const userRepository = new UserRepository();
       const user = await userRepository.find(decoded.id);
-      console.log(user);
       if (!user) {
         return res
           .status(401)
@@ -42,7 +41,8 @@ export class UserAuthMiddleware {
       req.headers["userId"] = user.id;
       next();
     } catch (err) {
-      next(err);
+      console.error("JWT verification error:::::::::", err);
+      return res.status(401).json({ message: "Not authorized. Invalid token" });
     }
   };
 }

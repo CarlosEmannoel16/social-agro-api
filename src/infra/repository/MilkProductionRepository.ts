@@ -6,6 +6,41 @@ import { MilkProduction } from '@/domain/animal/valueObjects/MilkProduction';
 import { db } from '@/infra/kysely';
 
 export class MilkProductionRepository implements MilkRepositoryInterface {
+  async deleteMilkProduction(id: number): Promise<void> {
+    await db.deleteFrom('milk_production').where('id', '=', id).execute();
+  }
+  async findById(id: number): Promise<MilkProduction | null> {
+    const result = await db
+      .selectFrom('milk_production')
+      .selectAll()
+      .where('id', '=', id)
+      .executeTakeFirst();
+
+    if (!result || !result?.id) {
+      return null;
+    }
+
+    return new MilkProduction(
+      result.date,
+      result.quantity,
+      result.animal_id,
+      result.id,
+    );
+  }
+  async updateMilkProduction(data: {
+    id: number;
+    dailyMilkProduction: number;
+    date: Date;
+  }): Promise<void> {
+    await db
+      .updateTable('milk_production')
+      .set({
+        quantity: data.dailyMilkProduction,
+        date: data.date,
+      })
+      .where('id', '=', data.id)
+      .execute();
+  }
   async addDailyMilkProduction(
     data: addDailyMilkProductionParams,
   ): Promise<void> {

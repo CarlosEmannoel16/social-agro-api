@@ -1,8 +1,8 @@
 export class WeightAnimal {
-  constructor(public weight: number, public dateOfRegister: Date) {}
+  constructor(public weight: number, public dateOfRegister: Date, public id: number) {}
 
-  create(data: { weight: number; dateOfRegister: Date }) {
-    return new WeightAnimal(data.weight, data.dateOfRegister);
+  create(data: { weight: number; dateOfRegister: Date, id: number }): WeightAnimal {
+    return new WeightAnimal(data.weight, data.dateOfRegister, data.id);
   }
 
   get dateOfRegisterPTBR() {

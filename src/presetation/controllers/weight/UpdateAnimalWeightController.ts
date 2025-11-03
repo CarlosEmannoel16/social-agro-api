@@ -11,10 +11,10 @@ export class UpdateAnimalWeightController implements ControllerInterface {
     next: NextFunction
   ): Promise<Response | undefined> {
     try {
-      const { animalId } = request.params;
+      const { id } = request.params;
       const data = request.body;
 
-      await this.editAnimalWeightUseCase.execute(Number(animalId), data);
+      await this.editAnimalWeightUseCase.execute(Number(id), data);
       return response.status(204).send();
     } catch (error) {
       next(error);

@@ -3,7 +3,8 @@ export class MilkProduction {
     public dateOfProduction: Date,
     public quantityOfMilk: number,
     public animalId: string,
-    public price: number
+    public price: number,
+    public id?: number,
   ) {}
 
   create(data: {
@@ -11,12 +12,14 @@ export class MilkProduction {
     quantityOfMilk: number;
     animalId: string;
     price: number;
+    id?: number;
   }) {
     return new MilkProduction(
       data.dateOfProduction,
       data.quantityOfMilk,
       data.animalId,
-      data.price
+      data.price,
+      data.id
     );
   }
 

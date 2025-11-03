@@ -23,13 +23,13 @@ export const weightRoutes = (router: Router) => {
     ).handle(req, res, next);
   });
 
-  router.delete("/animal/weight/delete/:animalId", (req, res, next) => {
+  router.delete("/animal/weight/:id", (req, res, next) => {
     return new DeleteAnimalWeighController(
       new DeleteAnimalWeightUseCase(historyWeighRepository)
     ).handle(req, res, next);
   });
 
-  router.put("/animal/weight/:animalId", (req, res, next) => {
+  router.put("/animal/weight/:id", (req, res, next) => {
     return new UpdateAnimalWeightController(
       new EditAnimalWeightUseCase(historyWeighRepository)
     ).handle(req, res, next);

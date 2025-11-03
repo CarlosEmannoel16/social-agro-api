@@ -7,7 +7,7 @@ interface EditAnimalWeightData {
 export class EditAnimalWeightUseCase {
   constructor(private weighRepository: HistoryWeightRepository) {}
 
-  async execute(animalId: number, data: EditAnimalWeightData): Promise<void> {
-    await this.weighRepository.edit(animalId, data);
+  async execute(weightId: number, data: EditAnimalWeightData): Promise<void> {
+    await this.weighRepository.edit(weightId, data);
   }
 }

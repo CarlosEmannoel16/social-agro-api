@@ -246,15 +246,16 @@ export class AnimalRepository implements AnimalRepositoryInterface {
 
     const weightHistory = await db
       .selectFrom('weight_history')
-      .select(['weight', 'date'])
+      .select(['weight', 'date', 'id'])
       .where('animal_id', '=', animal.id)
       .orderBy('date', 'asc')
       .execute();
 
+
     const milkHistory = await db
       .selectFrom('milk_production')
       .leftJoin('milk_price as mp', 'mp.id', 'milk_production.price_milk_id')
-      .select(['animal_id', 'date', 'quantity', 'mp.price'])
+      .select(['animal_id', 'date', 'quantity', 'mp.price', 'mp.id as production_id'])
       .where('animal_id', '=', animal.id)
       .orderBy('date', 'asc')
       .execute();
@@ -262,7 +263,7 @@ export class AnimalRepository implements AnimalRepositoryInterface {
     return Animal.createByDb({
       ...animal,
       weight:
-        weightHistory.map((data) => new WeightAnimal(data.weight, data.date)) ??
+        weightHistory.filter(data => data.id).map((data) => new WeightAnimal(data.weight, data.date, data.id as number)) ??
         [],
       milkProduction:
         milkHistory?.map(
@@ -272,6 +273,7 @@ export class AnimalRepository implements AnimalRepositoryInterface {
               mh.quantity,
               mh.animal_id,
               mh.price || 0,
+              mh.production_id as number
             ),
         ) ?? [],
 
@@ -411,6 +413,7 @@ export class AnimalRepository implements AnimalRepositoryInterface {
       .where('user_id', '=', userId)
       .orderBy('animal.created_at', 'desc')
       .execute();
+
 
     if (!response.length) return [];
     return response.map((animal) => {

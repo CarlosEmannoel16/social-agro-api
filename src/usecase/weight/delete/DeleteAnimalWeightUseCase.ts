@@ -3,7 +3,7 @@ import { HistoryWeightRepository } from "@/infra/repository/HistoryWeightReposit
 export class DeleteAnimalWeightUseCase {
   constructor(private weighRepository: HistoryWeightRepository) {}
 
-  async execute(animalId: number): Promise<void> {
-    await this.weighRepository.delete(animalId);
+  async execute(id: number): Promise<void> {
+    await this.weighRepository.delete(id);
   }
 }

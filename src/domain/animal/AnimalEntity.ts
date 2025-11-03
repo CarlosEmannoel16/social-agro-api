@@ -149,12 +149,14 @@ export class Animal {
     weight: number;
     dateOfRegister: string;
     createdAt: Date;
+    id: number;
   }[] {
     return (
       this.weight?.map((weight) => ({
         weight: weight.weight,
         dateOfRegister: weight.dateOfRegisterPTBR,
         createdAt: weight.dateOfRegister,
+        id: weight.id,
       })) ?? []
     );
   }
@@ -163,12 +165,14 @@ export class Animal {
     dateOfRegister: string;
     quantity: number;
     amount: string;
+    id: number | undefined;
   }[] {
     return (
       this.milkProduction?.map((milk) => ({
         dateOfRegister: milk.dateOfProduction.toLocaleDateString(),
         quantity: milk.quantityOfMilk,
         amount: `R$ ${milk.amount.toFixed(2)}`,
+        id: milk.id,
       })) ?? []
     );
   }

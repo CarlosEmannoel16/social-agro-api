@@ -13,4 +13,11 @@ export interface MilkRepositoryInterface {
   findDailyMilkProduction(
     idAnimal: string,
   ): Promise<MilkProduction[] | undefined>;
+  findById(id: number): Promise<MilkProduction | null>;
+  updateMilkProduction(data: {
+    id: number;
+    dailyMilkProduction: number;
+    date: Date;
+  }): Promise<void>;
+  deleteMilkProduction(id: number): Promise<void>;
 }
